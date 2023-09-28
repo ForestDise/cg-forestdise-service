@@ -1,4 +1,4 @@
-package com.forestdise.dto.cartline;
+package com.forestdise.dto;
 
 
 import lombok.AllArgsConstructor;
@@ -8,16 +8,18 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CartLineRequestDto {
+public class CartLineDto {
     private Long id;
-
-    @NotNull
-    @Min(0)
+    private String title;
+    private String description;
+    private double price;
+    private String category;
+    private String image;
     private int quantity;
-    private Long cartId;
-    private Long variantId;
+    private String color;
 }

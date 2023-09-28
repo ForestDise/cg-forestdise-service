@@ -1,6 +1,6 @@
 package com.forestdise.service.impl;
 
-import com.forestdise.dto.cartline.CartLineRequestDto;
+import com.forestdise.dto.CartLineDto;
 import com.forestdise.entity.CartLine;
 import com.forestdise.repository.CartLineRepository;
 import com.forestdise.service.ICartLineService;
@@ -9,24 +9,31 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CartLineServiceImpl implements ICartLineService {
     @Autowired
     private CartLineRepository cartLineRepository;
+    private static List<CartLineDto>  cartLineDtoList = new ArrayList<>();
+    static {
+        cartLineDtoList.add(new CartLineDto(1L,"codegym","abc",50.99,"men's clothing","https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+                10,"red"));
+    }
+
     @Override
     public Page<CartLine> findAll(Pageable pageable) {
         return cartLineRepository.findAll(pageable);
     }
 
     @Override
-    public List<CartLine> findAll() {
-        return cartLineRepository.findAll();
+    public List<CartLineDto> findAll() {
+        return cartLineDtoList;
     }
 
     @Override
-    public void saveCartLine(CartLineRequestDto cartLineRequestDto) {
+    public void saveCartLine(CartLineDto cartLineDto) {
     }
 
     @Override
@@ -35,7 +42,7 @@ public class CartLineServiceImpl implements ICartLineService {
     }
 
     @Override
-    public void updateCartLine(CartLineRequestDto cartLineRequestDto, Long id) throws Exception {
+    public void updateCartLine(CartLineDto cartLineDto, Long id) throws Exception {
     }
 
     @Override

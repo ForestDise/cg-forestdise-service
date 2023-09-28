@@ -1,4 +1,4 @@
-package com.forestdise.dto.cart;
+package com.forestdise.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CartResponseDto {
+public class CartDto {
     private Long id;
     private Long userId;
 }
