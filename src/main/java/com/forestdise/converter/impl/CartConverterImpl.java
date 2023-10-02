@@ -21,6 +21,4 @@ public class CartConverterImpl implements CartConverter {
         BeanUtils.copyProperties(cart, cartDto);
         return cartDto;
     }
-
-
 }
