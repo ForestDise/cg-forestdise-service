@@ -1,26 +1,26 @@
 package com.forestdise.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
+@Table(name = "optionvalue")
 public class OptionValue {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
 
-   private String value;
-   private Long optionId;
+    private String value;
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name = "optionvalue_id")
+    private OptionTable optionTable;
+    @ManyToMany(mappedBy = "optionValues")
+    private Set<Variant> variants;
 }

@@ -10,14 +10,14 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Builder
-@Table(name = "video")
-public class Video {
+@Table(name="productattribute")
+public class ProductAttribute {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String videoPath;
-    @ManyToOne
-    @JoinColumn(name = "variant_id")
-    private Variant variant;
+    private String name;
+    private String value;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
 }

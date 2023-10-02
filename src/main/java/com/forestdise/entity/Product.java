@@ -1,9 +1,6 @@
 package com.forestdise.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,10 +11,11 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
+@Table(name = "product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
     private String title;
     private String description;
@@ -30,4 +28,7 @@ public class Product {
     private Category category;
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "product")
     private List<Variant> variants;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "product")
+    private List<ProductAttribute> productAttributes;
+
 }

@@ -1,9 +1,6 @@
 package com.forestdise.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,8 +9,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
+@Table(name = "image")
 public class Image {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String imgPath;

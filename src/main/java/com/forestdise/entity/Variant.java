@@ -1,18 +1,18 @@
 package com.forestdise.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
+@Table(name = "variant")
 public class Variant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +27,12 @@ public class Variant {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "variant")
-    private List<VariantOption> variantOptions;
     @OneToMany(mappedBy = "variant")
     private List<Image> images;
     @OneToMany(mappedBy = "variant")
     private List<Video> videos;
+    @ManyToMany
+    @JoinTable(name = "variant_option", joinColumns = @JoinColumn(name = "variant_id"),
+                inverseJoinColumns = @JoinColumn(name = "optionvalue_id"))
+    private Set<OptionValue>   optionValues;
 }

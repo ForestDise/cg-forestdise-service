@@ -1,26 +1,25 @@
 package com.forestdise.entity;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class VariantOption {
-
+@Table(name = "option_table")
+public class OptionTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
 
-    private Long variantId;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "variant_id")
-    private Variant variant;
+    private String name;
+    @OneToMany(mappedBy = "optionTable")
+    private List<OptionValue> optionValues;
 }

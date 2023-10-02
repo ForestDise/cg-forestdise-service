@@ -1,17 +1,15 @@
-package com.forestdise.service;
+package com.forestdise.service.impl;
 
 import com.forestdise.converter.ProductConverter;
 import com.forestdise.dto.ProductDto;
-import com.forestdise.dto.VariantDto;
 import com.forestdise.entity.Product;
 import com.forestdise.repository.ProductRepository;
+import com.forestdise.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class ProductService {
+public class ProductService implements IProductService {
     @Autowired
     private ProductConverter productConverter;
     @Autowired
