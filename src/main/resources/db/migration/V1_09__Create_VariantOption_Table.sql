@@ -1,4 +1,4 @@
-CREATE TABLE variant_option (
+CREATE TABLE IF NOT EXISTS variant_option (
                                 variant_id BIGINT,
                                 optionvalue_id BIGINT,
                                 PRIMARY KEY (variant_id, optionvalue_id),

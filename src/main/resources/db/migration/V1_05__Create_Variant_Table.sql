@@ -1,4 +1,4 @@
-CREATE TABLE variant (
+CREATE TABLE IF NOT EXISTS variant (
                          id BIGINT PRIMARY KEY AUTO_INCREMENT,
                          name VARCHAR(255),
                          sku_code VARCHAR(255),
