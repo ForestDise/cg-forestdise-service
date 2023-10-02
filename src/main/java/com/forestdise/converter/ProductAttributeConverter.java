@@ -2,9 +2,11 @@ package com.forestdise.converter;
 
 import com.forestdise.dto.ImageDto;
 import com.forestdise.dto.ProductAttributeDto;
+import com.forestdise.dto.ProductDto;
 import com.forestdise.entity.Image;
 import com.forestdise.entity.ProductAttribute;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
