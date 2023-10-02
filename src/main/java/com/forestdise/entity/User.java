@@ -16,6 +16,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "email")
+    private String email;
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Cart cart;
 }

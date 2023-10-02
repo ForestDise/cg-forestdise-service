@@ -4,19 +4,35 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
-@Builder
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity
-@Table(name = "VARIANT")
+@Builder
+@Table(name = "variant")
 public class Variant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "variant", cascade = CascadeType.ALL)
-    private List<CartLine> cartLines;
+    private String name;
+    private String skuCode;
+    private int stockQuantity;
+    private double weight;
+    private double price;
+    private String img;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
+    @OneToMany(mappedBy = "variant")
+    private List<Image> images;
+    @OneToMany(mappedBy = "variant")
+    private List<Video> videos;
+    @ManyToMany
+    @JoinTable(name = "variant_option", joinColumns = @JoinColumn(name = "variant_id"),
+                inverseJoinColumns = @JoinColumn(name = "optionvalue_id"))
+    private Set<OptionValue>   optionValues;
 }
