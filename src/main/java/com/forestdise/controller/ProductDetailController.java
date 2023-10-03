@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/api/product-detail/{product_id}")
+@RequestMapping("/api/product-detail")
 public class ProductDetailController {
     @Autowired
     private ImageService imageService;
@@ -28,14 +28,14 @@ public class ProductDetailController {
     private VideoService videoService;
     ProductDetailResponse productDetailResponse=new ProductDetailResponse();
     VariantDetailResponse variantDetailResponse =new VariantDetailResponse();
-    @GetMapping()
+    @GetMapping("/{product_id}")
     public ResponseEntity<ProductDetailResponse> getProductDetail(@PathVariable("product_id") Long productId) {
         productDetailResponse.setProductDTO(productService.getProductById(productId));
         productDetailResponse.setVariantDtos(variantService.getVariantByProductId(productId));
 //        productDetailResponse.setProductAttributeDtos(productAttributeService.getProductAttributeByProductId(productId));
         return ResponseEntity.ok(productDetailResponse);
     }
-    @GetMapping("/{variant_id}")
+    @GetMapping("/{product_id}/{variant_id}")
     public ResponseEntity<VariantDetailResponse> getImageVariant(@PathVariable("variant_id") Long variantId){
         List<ImageDto> images = imageService.getImageByVariantId(variantId);
         List<VideoDto> videos = videoService.getVideosByVariantId(variantId);
