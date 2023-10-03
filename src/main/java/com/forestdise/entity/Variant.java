@@ -35,4 +35,7 @@ public class Variant {
     @JoinTable(name = "variant_option", joinColumns = @JoinColumn(name = "variant_id"),
                 inverseJoinColumns = @JoinColumn(name = "optionvalue_id"))
     private Set<OptionValue>   optionValues;
+
+    @OneToOne(mappedBy = "variant", cascade = CascadeType.PERSIST)
+    private CartLine cartLine;
 }
