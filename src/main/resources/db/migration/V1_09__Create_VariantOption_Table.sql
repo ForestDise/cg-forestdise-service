@@ -1,7 +1,7 @@
-CREATE TABLE IF NOT EXISTS variant_option (
-                                variant_id BIGINT,
-                                optionvalue_id BIGINT,
-                                PRIMARY KEY (variant_id, optionvalue_id),
-                                FOREIGN KEY (variant_id) REFERENCES Variant(id),
-                                FOREIGN KEY (optionvalue_id) REFERENCES OptionValue(id)
+CREATE TABLE IF NOT EXISTS VARIANT_OPTION (
+                                VARIANT_ID INT,
+                                OPTIONVALUE_ID INT,
+                                PRIMARY KEY (VARIANT_ID, OPTIONVALUE_ID),
+                                FOREIGN KEY (VARIANT_ID) REFERENCES VARIANT(ID),
+                                FOREIGN KEY (OPTIONVALUE_ID) REFERENCES OPTIONVALUE(ID)
 );
