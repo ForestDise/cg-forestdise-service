@@ -11,12 +11,12 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/api/cart-line/")
+@RequestMapping("/api/cart-lines")
 public class CartLineController {
     @Autowired
     ICartLineService cartLineService;
 
-    @GetMapping("/get-all")
+    @GetMapping
     public ResponseEntity<?> getAllCartLines(){
         List<CartLineDto> cartLineDtoList = cartLineService.findAll();
         return new ResponseEntity<>(cartLineDtoList, HttpStatus.OK);
