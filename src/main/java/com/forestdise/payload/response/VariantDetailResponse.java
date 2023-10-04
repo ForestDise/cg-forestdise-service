@@ -13,6 +13,6 @@ import java.util.Set;
 public class VariantDetailResponse {
     private List<ImageDto> imageDtos;
     private List<VideoDto> videoDtos;
-    private Set<OptionValueDto> optionValueDtos;
+    private List<OptionValueDto> optionValueDtos;
     private VariantDto variantDto;
 }
