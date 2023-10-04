@@ -1,6 +1,7 @@
 package com.forestdise.controller;
 
 import com.forestdise.dto.ImageDto;
+import com.forestdise.dto.OptionValueDto;
 import com.forestdise.dto.VariantDto;
 import com.forestdise.dto.VideoDto;
 import com.forestdise.payload.response.VariantDetailResponse;
@@ -26,13 +27,15 @@ public class ProductDetailController {
     private VariantService variantService;
     @Autowired
     private VideoService videoService;
+    @Autowired
+    private OptionValueService optionValueService;
     ProductDetailResponse productDetailResponse=new ProductDetailResponse();
     VariantDetailResponse variantDetailResponse =new VariantDetailResponse();
     @GetMapping("/{product_id}")
     public ResponseEntity<ProductDetailResponse> getProductDetail(@PathVariable("product_id") Long productId) {
         productDetailResponse.setProductDTO(productService.getProductById(productId));
         productDetailResponse.setVariantDtos(variantService.getVariantByProductId(productId));
-//        productDetailResponse.setProductAttributeDtos(productAttributeService.getProductAttributeByProductId(productId));
+        productDetailResponse.setProductAttributeDtos(productAttributeService.getProductAttributeByProductId(productId));
         return ResponseEntity.ok(productDetailResponse);
     }
     @GetMapping("/{product_id}/{variant_id}")
@@ -40,9 +43,11 @@ public class ProductDetailController {
         List<ImageDto> images = imageService.getImageByVariantId(variantId);
         List<VideoDto> videos = videoService.getVideosByVariantId(variantId);
         VariantDto variantDto = variantService.getVariantById(variantId);
+        List<OptionValueDto> optionValueDtos=optionValueService.getOptionValuesByVariantId(variantId);
         variantDetailResponse.setVariantDto(variantDto);
         variantDetailResponse.setImageDtos(images);
         variantDetailResponse.setVideoDtos(videos);
+        variantDetailResponse.setOptionValueDtos(optionValueDtos);
         return ResponseEntity.ok(variantDetailResponse);
     }
 }

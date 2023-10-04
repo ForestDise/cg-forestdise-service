@@ -22,8 +22,5 @@ public class ProductAttributeService implements IProductAttributeService {
         List<ProductAttribute> productAttributeList = productAttributeRepository.findByProductId(product_id);
         return productAttributeConverter.entitiesToDTOs(productAttributeList);
     }
-//    public List<ProductAttributeDto> getProductAttributeByProductId(Long product_id) {
-//        List<ProductAttribute> productAttributeList = productAttributeRepository.findByProductId(product_id);
-//        return productAttributeConverter.entitiesToDTOs(productAttributeList);
-//    }
+
 }
