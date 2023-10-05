@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -21,9 +22,9 @@ public class OptionValue {
 
     private String value;
     @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name = "optionvalue_id")
+    @JoinColumn(name = "option_id")
     private OptionTable optionTable;
     @ManyToMany(mappedBy = "optionValues")
-    @JsonBackReference
-    private List<Variant> variants = new ArrayList<>();
+//    @JsonBackReference
+    private List<Variant> variants ;
 }

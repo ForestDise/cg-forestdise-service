@@ -31,8 +31,8 @@ public class Variant {
     private List<Image> images;
     @OneToMany(mappedBy = "variant")
     private List<Video> videos;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "variant_option", joinColumns = @JoinColumn(name = "variant_id"),
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "variant_optionvalue", joinColumns = @JoinColumn(name = "variant_id"),
                 inverseJoinColumns = @JoinColumn(name = "optionvalue_id"))
-    private List<OptionValue>   optionValues = new ArrayList<>();
+    private List<OptionValue> optionValues = new ArrayList<>();
 }
