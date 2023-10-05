@@ -1,10 +1,8 @@
 package com.forestdise.service.impl;
 
-import com.forestdise.converter.OptionValueConverter;
+import com.forestdise.converter.impl.OptionValueConverterImpl;
 import com.forestdise.dto.OptionValueDto;
-import com.forestdise.entity.OptionValue;
 import com.forestdise.entity.Variant;
-import com.forestdise.payload.response.VariantDetailResponse;
 import com.forestdise.repository.VariantRepository;
 import com.forestdise.service.IOptionValueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +12,14 @@ import java.util.List;
 
 
 @Service
-public class OptionValueService implements IOptionValueService {
+public class OptionValueServiceImpl implements IOptionValueService {
     @Autowired
     private VariantRepository variantRepository;
     @Autowired
-    private OptionValueConverter optionValueConverter;
+    private OptionValueConverterImpl optionValueConverterImpl;
     @Override
     public List<OptionValueDto> getOptionValuesByVariantId(Long variant_id) {
         Variant variant= variantRepository.findById(variant_id).orElse(null);
-        return optionValueConverter.entitiesToDTOs(variant.getOptionValues());
+        return optionValueConverterImpl.entitiesToDTOs(variant.getOptionValues());
     }
 }

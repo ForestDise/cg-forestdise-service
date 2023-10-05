@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class OptionDto {
+public class OptionTableDto {
 
     private Long id;
     private String name;

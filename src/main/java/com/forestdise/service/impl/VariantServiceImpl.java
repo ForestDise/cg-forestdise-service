@@ -1,6 +1,6 @@
 package com.forestdise.service.impl;
 
-import com.forestdise.converter.VariantConverter;
+import com.forestdise.converter.impl.VariantConverterImpl;
 import com.forestdise.dto.VariantDto;
 import com.forestdise.entity.Variant;
 import com.forestdise.repository.VariantRepository;
@@ -12,19 +12,19 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class VariantService implements IVariantService {
+public class VariantServiceImpl implements IVariantService {
     @Autowired
-    private VariantConverter variantConverter;
+    private VariantConverterImpl variantConverterImpl;
     @Autowired
     private VariantRepository variantRepository;
 
     public VariantDto getVariantById(Long id) {
-        return variantConverter.entityToDTO(variantRepository.findById(id).orElse(null));
+        return variantConverterImpl.entityToDTO(variantRepository.findById(id).orElse(null));
     }
 @Transactional
     public List<VariantDto> getVariantByProductId(Long product_id) {
         List<Variant> variants = variantRepository.findByProductId(product_id);
-        return variantConverter.entitiesToDTOs(variants);
+        return variantConverterImpl.entitiesToDTOs(variants);
     }
 
 }
