@@ -1,6 +1,7 @@
-CREATE TABLE IF NOT EXISTS video (
-                       id INT PRIMARY KEY AUTO_INCREMENT,
-                       video_path VARCHAR(255),
-                       variant_id INT,
-                       FOREIGN KEY (variant_id) REFERENCES variant (id)
+CREATE TABLE IF NOT EXISTS VIDEO
+(
+    ID         INT AUTO_INCREMENT PRIMARY KEY,
+    VIDEO_PATH VARCHAR(255),
+    VARIANT_ID INT,
+    FOREIGN KEY (VARIANT_ID) REFERENCES VARIANT (ID)
 );

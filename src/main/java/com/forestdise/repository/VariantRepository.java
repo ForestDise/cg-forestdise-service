@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+
 public interface VariantRepository  extends JpaRepository<Variant,Long > {
-    Optional<Variant> findById(Long id);
+//    Optional<Variant> findById(Long id);
     List<Variant> findByProductId(Long id);
 }

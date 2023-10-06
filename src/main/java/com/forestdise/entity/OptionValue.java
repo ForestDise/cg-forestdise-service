@@ -1,8 +1,11 @@
 package com.forestdise.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -19,8 +22,9 @@ public class OptionValue {
 
     private String value;
     @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name = "optionvalue_id")
+    @JoinColumn(name = "option_id")
     private OptionTable optionTable;
     @ManyToMany(mappedBy = "optionValues")
-    private Set<Variant> variants;
+//    @JsonBackReference
+    private List<Variant> variants ;
 }

@@ -25,9 +25,15 @@ public class CartLineConverterImpl implements CartLineConverter {
         return cartLineDto;
     }
 
-    public List<CartLineDto> convertEntitiesToDTOs(List<CartLine> cartLines) {
+    @Override
+    public List<CartLineDto> convertEntitiesToDtos(List<CartLine> cartLines) {
         return cartLines.stream()
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CartLine> convertDtoToEntities(List<CartLineDto> cartLineDtos) {
+        return null;
     }
 }

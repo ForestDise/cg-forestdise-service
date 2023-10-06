@@ -1,6 +1,6 @@
-create table IF NOT EXISTS category
+CREATE TABLE IF NOT EXISTS CATEGORY
 (
-    id        int auto_increment
-        primary key,
-    attribute varchar(255) null
+    ID        INT AUTO_INCREMENT
+        PRIMARY KEY,
+    ATTRIBUTE VARCHAR(255) NULL
 );

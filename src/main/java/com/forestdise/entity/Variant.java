@@ -3,6 +3,7 @@ package com.forestdise.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -31,11 +32,12 @@ public class Variant {
     private List<Image> images;
     @OneToMany(mappedBy = "variant")
     private List<Video> videos;
-    @ManyToMany
-    @JoinTable(name = "variant_option", joinColumns = @JoinColumn(name = "variant_id"),
-                inverseJoinColumns = @JoinColumn(name = "optionvalue_id"))
-    private Set<OptionValue>   optionValues;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "variant_optionvalue", joinColumns = @JoinColumn(name = "variant_id"),
+            inverseJoinColumns = @JoinColumn(name = "optionvalue_id"))
+    private List<OptionValue> optionValues;
 
     @OneToOne(mappedBy = "variant", cascade = CascadeType.PERSIST)
     private CartLine cartLine;
 }
+

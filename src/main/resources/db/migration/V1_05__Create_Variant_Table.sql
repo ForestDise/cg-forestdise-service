@@ -1,12 +1,12 @@
-CREATE TABLE IF NOT EXISTS variant
+CREATE TABLE IF NOT EXISTS VARIANT
 (
-    id             INT PRIMARY KEY AUTO_INCREMENT,
-    name           VARCHAR(255),
-    sku_code       VARCHAR(255),
-    stock_quantity INT,
-    weight         DOUBLE,
-    price          DOUBLE,
-    img            VARCHAR(255),
-    product_id     INT,
-    FOREIGN KEY (product_id) REFERENCES product (id)
+    ID             INT PRIMARY KEY AUTO_INCREMENT,
+    NAME           VARCHAR(255),
+    SKU_CODE       VARCHAR(255),
+    STOCK_QUANTITY INT,
+    WEIGHT         DOUBLE,
+    PRICE          DOUBLE,
+    IMG            VARCHAR(255),
+    PRODUCT_ID     INT,
+    FOREIGN KEY (PRODUCT_ID) REFERENCES PRODUCT (ID)
 );
