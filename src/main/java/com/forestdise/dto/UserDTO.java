@@ -1,17 +1,17 @@
 package com.forestdise.dto;
 
+import com.forestdise.entity.Cart;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
-    private String name;
-    private String email;
-    private String password;
+@Builder
+public class UserDTO {
+    private Long id;
+    private String clientName;
     private String address;
 }
