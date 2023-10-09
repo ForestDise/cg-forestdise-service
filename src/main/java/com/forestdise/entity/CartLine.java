@@ -27,4 +27,6 @@ public class CartLine {
     @JoinColumn(name = "variant_id")
     private Variant variant;
 
+    @OneToOne(mappedBy = "cartLine")
+    private ShopOrder shopOrder;
 }

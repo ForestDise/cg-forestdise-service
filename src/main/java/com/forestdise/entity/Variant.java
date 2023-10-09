@@ -32,7 +32,7 @@ public class Variant {
     @OneToMany(mappedBy = "variant")
     private List<Video> videos;
     @ManyToMany
-    @JoinTable(name = "variant_option", joinColumns = @JoinColumn(name = "variant_id"),
+    @JoinTable(name = "variant_option", joinColumns = @JoinColumn(name = "var2iant_id"),
                 inverseJoinColumns = @JoinColumn(name = "optionvalue_id"))
     private Set<OptionValue>   optionValues;
 }
