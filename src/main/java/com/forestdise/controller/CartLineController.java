@@ -1,7 +1,9 @@
 package com.forestdise.controller;
 
 import com.forestdise.dto.CartLineDto;
+import com.forestdise.dto.UserDTO;
 import com.forestdise.service.ICartLineService;
+import com.forestdise.service.ICartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +18,8 @@ public class CartLineController {
     @Autowired
     ICartLineService cartLineService;
 
-    @GetMapping
-    public ResponseEntity<?> getAllCartLines(){
-        List<CartLineDto> cartLineDtoList = cartLineService.findAll();
-        return new ResponseEntity<>(cartLineDtoList, HttpStatus.OK);
-    }
+    @Autowired
+    ICartService cartService;
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCartLine(@PathVariable("id")Long id){
