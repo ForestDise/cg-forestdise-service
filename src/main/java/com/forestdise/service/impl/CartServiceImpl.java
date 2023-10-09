@@ -1,6 +1,7 @@
 package com.forestdise.service.impl;
 
 import com.forestdise.dto.UserDTO;
+import com.forestdise.dto.UserRegisterDTO;
 import com.forestdise.entity.Cart;
 import com.forestdise.entity.User;
 import com.forestdise.repository.CartRepository;
@@ -17,9 +18,9 @@ public class CartServiceImpl implements ICartService {
     UserRepository userRepository;
 
     @Override
-    public Cart createCart(UserDTO userDTO) {
+    public Cart createCart(UserRegisterDTO userDTO) {
         Cart cart = new Cart();
-        User user = userRepository.findById(userDTO.getId()).orElse(null);
+        User user = userRepository.findByEmail(userDTO.getEmail());
         cart.setUser(user);
         cartRepository.save(cart);
         return cart;

@@ -1,6 +1,7 @@
 package com.forestdise.controller;
 
 import com.forestdise.dto.UserDTO;
+import com.forestdise.dto.UserRegisterDTO;
 import com.forestdise.entity.Cart;
 import com.forestdise.service.ICartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class CartController {
     ICartService cartService;
 
     @PostMapping
-    public ResponseEntity<?> createCart(@RequestBody UserDTO userDTO){
+    public ResponseEntity<?> createCart(@RequestBody UserRegisterDTO userDTO){
         Cart cart = cartService.createCart(userDTO);
         return ResponseEntity.ok(cart);
     }
