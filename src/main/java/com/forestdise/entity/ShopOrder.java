@@ -41,5 +41,11 @@ public class ShopOrder {
 
     private String message;
 
-    
+    private String paymentMethod;
+
+    @ManyToOne
+    @JoinColumn(name = "shipping_method_id")
+    private ShippingMethod shippingMethod;
+
+    private Double orderTotal;
 }
