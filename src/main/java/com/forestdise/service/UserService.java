@@ -6,7 +6,7 @@ import com.forestdise.entity.User;
 
 import java.util.List;
 
-public interface IUserService {
+public interface UserService {
     String login(UserLoginDTO userLoginDTO);
     User register(UserRegisterDTO userRegisterDTO);
     User findByEmail(String email);

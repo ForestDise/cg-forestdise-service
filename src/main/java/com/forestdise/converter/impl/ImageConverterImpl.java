@@ -1,6 +1,6 @@
 package com.forestdise.converter.impl;
 
-import com.forestdise.converter.IImageConverter;
+import com.forestdise.converter.ImageConverter;
 import com.forestdise.dto.ImageDto;
 import com.forestdise.entity.Image;
 import org.springframework.beans.BeanUtils;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 @Component
-public class ImageConverterImpl implements IImageConverter {
+public class ImageConverterImpl implements ImageConverter {
     @Override
     public List<ImageDto> entitiesToDTOs(List<Image> element) {
         return element.stream()

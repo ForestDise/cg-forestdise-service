@@ -5,7 +5,7 @@ import com.forestdise.entity.OptionValue;
 
 import java.util.List;
 
-public interface IOptionValueConverter {
+public interface OptionValueConverter {
     List<OptionValueDto> entitiesToDTOs(List<OptionValue> element);
     OptionValueDto entityToDTO(OptionValue element);
     OptionValue dtoToEntity(OptionValueDto element);

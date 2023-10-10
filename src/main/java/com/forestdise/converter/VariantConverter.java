@@ -5,7 +5,7 @@ import com.forestdise.entity.Variant;
 
 import java.util.List;
 
-public interface IVariantConverter {
+public interface VariantConverter {
     List<VariantDto> entitiesToDTOs(List<Variant> element);
     VariantDto entityToDTO(Variant element);
     Variant dtoToEntity(VariantDto element);
