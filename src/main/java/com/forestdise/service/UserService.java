@@ -11,4 +11,5 @@ public interface IUserService {
     User register(UserRegisterDTO userRegisterDTO);
     User findByEmail(String email);
     List<UserLoginDTO> findAllUsers();
+    User findById (Long id);
 }

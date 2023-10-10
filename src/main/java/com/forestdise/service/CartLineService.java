@@ -1,6 +1,7 @@
 package com.forestdise.service;
 
 import com.forestdise.dto.CartLineDto;
+import com.forestdise.entity.Cart;
 import com.forestdise.entity.CartLine;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,4 +20,6 @@ public interface ICartLineService {
     void updateCartLine(CartLineDto cartLineDto, Long id) throws Exception;
 
     void removeCartLine(Long id);
+
+    List<CartLineDto> findCartLinesByCartId(Long cartId);
 }
