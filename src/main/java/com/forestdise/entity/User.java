@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Builder
 @AllArgsConstructor
@@ -24,8 +25,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "address")
-    private String address;
+    @OneToMany(mappedBy = "user")
+    private Set<Address> address;
 
     @Column(name = "email")
     private String email;
@@ -33,10 +34,13 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.PERSIST)
     private Cart cart;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @OneToOne(mappedBy = "user")
+    private ShopOrder shopOrder;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
-            name="user_role",
-            joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
-            inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
+            name = "user_role",
+            joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")})
     private List<Role> roles = new ArrayList<>();
 }
