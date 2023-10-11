@@ -1,6 +1,6 @@
 package com.forestdise.converter.impl;
 
-import com.forestdise.converter.IOptionValueConverter;
+import com.forestdise.converter.OptionValueConverter;
 import com.forestdise.dto.OptionValueDto;
 import com.forestdise.entity.OptionValue;
 import org.springframework.beans.BeanUtils;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 @Component
-public class OptionValueConverterImpl implements IOptionValueConverter {
+public class OptionValueConverterImpl implements OptionValueConverter {
     @Override
     public List<OptionValueDto> entitiesToDTOs(List<OptionValue> element) {
         return element.stream()

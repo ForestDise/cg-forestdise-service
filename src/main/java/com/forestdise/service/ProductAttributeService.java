@@ -4,6 +4,6 @@ import com.forestdise.dto.ProductAttributeDto;
 
 import java.util.List;
 
-public interface IProductAttributeService {
+public interface ProductAttributeService {
     public List<ProductAttributeDto> getProductAttributeByProductId(Long product_id);
 }

@@ -1,9 +1,8 @@
 package com.forestdise.controller;
 
-import com.forestdise.dto.UserDTO;
 import com.forestdise.dto.UserRegisterDTO;
 import com.forestdise.entity.Cart;
-import com.forestdise.service.ICartService;
+import com.forestdise.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/cart")
 public class CartController {
     @Autowired
-    ICartService cartService;
+    CartService cartService;
 
     @PostMapping
     public ResponseEntity<?> createCart(@RequestBody UserRegisterDTO userDTO){

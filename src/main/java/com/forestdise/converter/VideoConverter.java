@@ -7,7 +7,7 @@ import com.forestdise.entity.Video;
 
 import java.util.List;
 
-public interface IVideoConverter {
+public interface VideoConverter {
     List<VideoDto> entitiesToDTOs(List<Video> element);
     VideoDto entityToDTO(Video element);
     Image dtoToEntity(ImageDto element);

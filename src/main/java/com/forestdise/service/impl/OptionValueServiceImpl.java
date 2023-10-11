@@ -4,7 +4,7 @@ import com.forestdise.converter.impl.OptionValueConverterImpl;
 import com.forestdise.dto.OptionValueDto;
 import com.forestdise.entity.Variant;
 import com.forestdise.repository.VariantRepository;
-import com.forestdise.service.IOptionValueService;
+import com.forestdise.service.OptionValueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @Service
-public class OptionValueServiceImpl implements IOptionValueService {
+public class OptionValueServiceImpl implements OptionValueService {
     @Autowired
     private VariantRepository variantRepository;
     @Autowired
