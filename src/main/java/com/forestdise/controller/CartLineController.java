@@ -2,7 +2,6 @@ package com.forestdise.controller;
 
 import com.forestdise.dto.CartLineDto;
 import com.forestdise.entity.Cart;
-import com.forestdise.entity.CartLine;
 import com.forestdise.entity.User;
 import com.forestdise.payload.request.CartLineRequest;
 import com.forestdise.service.CartLineService;
@@ -48,9 +47,9 @@ public class CartLineController {
         return new ResponseEntity<>(cartLineDtos,HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateCartLine(@PathVariable("id") Long cartLineId, @RequestBody CartLineDto cartLineDto) throws Exception {
-        cartLineService.updateCartLine(cartLineDto, cartLineId);
+    @PutMapping
+    public ResponseEntity<?> updateCartLine(@RequestBody CartLineDto cartLineDto) throws Exception {
+        cartLineService.updateCartLine(cartLineDto, cartLineDto.getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
