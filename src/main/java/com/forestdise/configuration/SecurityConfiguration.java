@@ -42,7 +42,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         webSecurity.ignoring().
                 antMatchers("/api/register", "/api/login",
                         "/api/products", "/api/product-detail/**",
-                        "/logout","/api/cart-lines/**","/api/cart/**")
+                        "/logout","/api/cart-lines/**",
+                        "/api/cart/**")
                 .antMatchers(HttpMethod.GET, "/api/products", "/api/users/**");
     }
 }
