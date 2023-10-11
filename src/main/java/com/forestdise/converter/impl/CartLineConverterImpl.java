@@ -2,8 +2,13 @@ package com.forestdise.converter.impl;
 
 import com.forestdise.converter.CartLineConverter;
 import com.forestdise.dto.CartLineDto;
+import com.forestdise.entity.Cart;
 import com.forestdise.entity.CartLine;
+import com.forestdise.entity.Variant;
+import com.forestdise.service.CartService;
+import com.forestdise.service.VariantService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,10 +16,20 @@ import java.util.stream.Collectors;
 
 @Component
 public class CartLineConverterImpl implements CartLineConverter {
+    @Autowired
+    private CartService cartService;
+
+    @Autowired
+    private VariantService variantService;
+
     @Override
     public CartLine convertDtoToEntity(CartLineDto cartLineDto) {
         CartLine cartLine = new CartLine();
         BeanUtils.copyProperties(cartLineDto, cartLine);
+        Cart cart = cartService.findById(cartLineDto.getCartId());
+        Variant variant = variantService.findById(cartLineDto.getVariantId());
+        cartLine.setCart(cart);
+        cartLine.setVariant(variant);
         return cartLine;
     }
 
@@ -25,9 +40,15 @@ public class CartLineConverterImpl implements CartLineConverter {
         return cartLineDto;
     }
 
-    public List<CartLineDto> convertEntitiesToDTOs(List<CartLine> cartLines) {
+    @Override
+    public List<CartLineDto> convertEntitiesToDtos(List<CartLine> cartLines) {
         return cartLines.stream()
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CartLine> convertDtoToEntities(List<CartLineDto> cartLineDtos) {
+        return null;
     }
 }

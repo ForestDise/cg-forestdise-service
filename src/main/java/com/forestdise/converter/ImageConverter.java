@@ -5,7 +5,7 @@ import com.forestdise.entity.Image;
 
 import java.util.List;
 
-public interface IImageConverter {
+public interface ImageConverter {
     ImageDto entityToDTO(Image element);
 
     List<ImageDto> entitiesToDTOs(List<Image> element);

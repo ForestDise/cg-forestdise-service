@@ -31,7 +31,7 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.PERSIST)
     private Cart cart;
 
     @OneToOne(mappedBy = "user")

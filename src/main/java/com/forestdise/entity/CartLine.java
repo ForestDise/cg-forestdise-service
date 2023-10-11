@@ -23,7 +23,7 @@ public class CartLine {
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "variant_id")
     private Variant variant;
 

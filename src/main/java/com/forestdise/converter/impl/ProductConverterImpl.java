@@ -1,6 +1,6 @@
 package com.forestdise.converter.impl;
 
-import com.forestdise.converter.IProductConverter;
+import com.forestdise.converter.ProductConverter;
 import com.forestdise.dto.ProductDto;
 import com.forestdise.entity.Product;
 import org.springframework.beans.BeanUtils;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 @Component
-public class ProductConverterImpl implements IProductConverter {
+public class ProductConverterImpl implements ProductConverter {
     @Override
     public List<ProductDto> entitiesToDTOs(List<Product> element) {
         return element.stream()
