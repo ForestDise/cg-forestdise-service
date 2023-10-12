@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-@Table(name = "product")
+@Table(name = "PRODUCT")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,12 +23,20 @@ public class Product {
     private String status;
     private Date createAt;
     private Date updatedAt;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "category_id")
     private Category category;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "product")
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name ="store_category_id")
+    private StoreCategory storeCategory;
+
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "product")
     private List<Variant> variants;
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "product")
     private List<ProductAttribute> productAttributes;
+
+
 
 }

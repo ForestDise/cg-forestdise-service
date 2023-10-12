@@ -3,6 +3,7 @@ package com.forestdise.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -30,4 +31,10 @@ public class User {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Cart cart;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Review> reviewList;
+
+    @OneToMany(mappedBy = "seller")
+    private List<Comment> commentList;
 }
