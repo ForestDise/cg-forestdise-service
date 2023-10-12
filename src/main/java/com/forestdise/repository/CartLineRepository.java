@@ -14,6 +14,4 @@ public interface CartLineRepository extends JpaRepository<CartLine, Long> {
     Page<CartLine> findAllBy(Pageable pageable);
 
     List<CartLine> findCartLineByCart(Cart cart);
-
-
 }

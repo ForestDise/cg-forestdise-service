@@ -10,6 +10,7 @@ import com.forestdise.repository.CartLineRepository;
 import com.forestdise.repository.CartRepository;
 import com.forestdise.repository.VariantRepository;
 import com.forestdise.service.CartLineService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
