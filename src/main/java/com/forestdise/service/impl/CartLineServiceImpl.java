@@ -10,16 +10,14 @@ import com.forestdise.repository.CartLineRepository;
 import com.forestdise.repository.CartRepository;
 import com.forestdise.repository.VariantRepository;
 import com.forestdise.service.CartLineService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class CartLineServiceImpl implements CartLineService {
     @Autowired
     private CartLineRepository cartLineRepository;
@@ -34,24 +32,6 @@ public class CartLineServiceImpl implements CartLineService {
     private VariantRepository variantRepository;
 
     @Override
-    public Page<CartLine> findAll(Pageable pageable) {
-        return cartLineRepository.findAll(pageable);
-    }
-
-    @Override
-    public List<CartLineDto> findAll() {
-        List<CartLine> cartLines = cartLineRepository.findAll();
-        List<CartLineDto> cartLineDtos = cartLineConverter.convertEntitiesToDtos(cartLines);
-        return cartLineDtos;
-    }
-
-    @Override
-    public CartLine findCartLineById(Long id) {
-        return null;
-    }
-
-    @Override
-    @Transactional
     public void updateCartLine(CartLineDto cartLineDto, Long id) throws Exception {
         CartLine cartLine = cartLineRepository.findById(id).orElse(null);
         cartLine.setQuantity(cartLineDto.getQuantity());
@@ -60,7 +40,9 @@ public class CartLineServiceImpl implements CartLineService {
 
     @Override
     public void removeCartLine(Long id) {
-        cartLineRepository.deleteById(id);
+       CartLine cartLine = cartLineRepository.findById(id).orElse(null);
+        assert cartLine != null;
+        cartLineRepository.deleteCartLineById(cartLine.getId());
     }
 
     @Override
@@ -81,5 +63,11 @@ public class CartLineServiceImpl implements CartLineService {
         cartLine.setVariant(variant);
         cartLine.setQuantity(quantity);
         cartLineRepository.save(cartLine);
+    }
+
+    @Override
+    public void removeAllCartLines(Long cartId) {
+        Cart cart = cartRepository.findById(cartId).orElse(null);
+        cartLineRepository.deleteAllByCart(cart);
     }
 }
