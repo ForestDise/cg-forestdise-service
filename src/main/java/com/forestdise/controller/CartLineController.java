@@ -3,6 +3,7 @@ package com.forestdise.controller;
 import com.forestdise.dto.CartLineDto;
 import com.forestdise.entity.Cart;
 import com.forestdise.entity.User;
+import com.forestdise.payload.request.CartLineRequest;
 import com.forestdise.service.CartLineService;
 import com.forestdise.service.CartService;
 import com.forestdise.service.UserService;
@@ -33,8 +34,8 @@ public class CartLineController {
     }
 
     @PostMapping("/add-to-cart")
-    public ResponseEntity<?> addCartLine(@RequestBody CartLineDto cartLineDto){
-        cartLineService.saveCartLine(cartLineDto);
+    public ResponseEntity<?> addCartLine(@RequestBody CartLineRequest cartLineRequest){
+        cartLineService.saveCartLine(cartLineRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -46,9 +47,9 @@ public class CartLineController {
         return new ResponseEntity<>(cartLineDtos,HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateCartLine(@PathVariable("id") Long cartLineId, @RequestBody CartLineDto cartLineDto) throws Exception {
-        cartLineService.updateCartLine(cartLineDto, cartLineId);
+    @PutMapping
+    public ResponseEntity<?> updateCartLine(@RequestBody CartLineDto cartLineDto) throws Exception {
+        cartLineService.updateCartLine(cartLineDto, cartLineDto.getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

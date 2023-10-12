@@ -29,9 +29,9 @@ public class ShopOrder {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne
-    @JoinColumn(name = "cart_line_id")
-    private CartLine cartLine;
+//    @OneToOne
+//    @JoinColumn(name = "cart_line_id")
+//    private CartLine cartLine;
 
     private String order_date;
 
