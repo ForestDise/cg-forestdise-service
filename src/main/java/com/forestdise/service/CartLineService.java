@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface CartLineService {
-    void saveCartLine(CartLineRequest cartLineRequest);
+    CartLineDto saveCartLine(CartLineRequest cartLineRequest);
 
     void updateCartLine(CartLineDto cartLineDto, Long id) throws Exception;
 

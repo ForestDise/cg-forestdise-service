@@ -35,9 +35,9 @@ public class CartLineController {
     }
 
     @PostMapping("/add-to-cart")
-    public ResponseEntity<?> addCartLine(@RequestBody CartLineRequest cartLineRequest){
-        cartLineService.saveCartLine(cartLineRequest);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<CartLineDto> addCartLine(@RequestBody CartLineRequest cartLineRequest){
+        CartLineDto cartLineDto = cartLineService.saveCartLine(cartLineRequest);
+        return new ResponseEntity<>(cartLineDto ,HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
