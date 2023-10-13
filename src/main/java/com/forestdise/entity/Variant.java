@@ -24,13 +24,17 @@ public class Variant {
     private double weight;
     private double price;
     private String img;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
+
     @OneToMany(mappedBy = "variant")
     private List<Image> images;
+
     @OneToMany(mappedBy = "variant")
     private List<Video> videos;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "variant_optionvalue", joinColumns = @JoinColumn(name = "variant_id"),
             inverseJoinColumns = @JoinColumn(name = "optionvalue_id"))
@@ -38,5 +42,8 @@ public class Variant {
 
     @OneToOne(mappedBy = "variant")
     private CartLine cartLine;
+
+    @OneToOne(mappedBy = "variant")
+    private SaveForLater saveForLater;
 }
 
