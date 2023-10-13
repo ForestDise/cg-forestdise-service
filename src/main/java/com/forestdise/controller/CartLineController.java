@@ -18,6 +18,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/cart-lines")
 public class CartLineController {
+
     @Autowired
     CartLineService cartLineService;
 
@@ -28,8 +29,8 @@ public class CartLineController {
     UserService userService;
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteCartLine(@PathVariable("id")Long id){
-        cartLineService.removeCartLine(id);
+    public ResponseEntity<?> deleteCartLine(@PathVariable("id")Long cartLineId){
+        cartLineService.removeCartLine(cartLineId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -50,6 +51,14 @@ public class CartLineController {
     @PutMapping
     public ResponseEntity<?> updateCartLine(@RequestBody CartLineDto cartLineDto) throws Exception {
         cartLineService.updateCartLine(cartLineDto, cartLineDto.getId());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete-all/{id}")
+    public ResponseEntity<?> deleteAllCartLine(@PathVariable("id") Long userId){
+        User user = userService.findById(userId);
+        Cart cart = cartService.findCartByUserId(user);
+        cartLineService.removeAllCartLines(cart.getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

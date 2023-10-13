@@ -36,7 +36,7 @@ public class Variant {
             inverseJoinColumns = @JoinColumn(name = "optionvalue_id"))
     private List<OptionValue> optionValues;
 
-    @OneToOne(mappedBy = "variant", cascade = CascadeType.PERSIST)
+    @OneToOne(mappedBy = "variant")
     private CartLine cartLine;
 }
 
