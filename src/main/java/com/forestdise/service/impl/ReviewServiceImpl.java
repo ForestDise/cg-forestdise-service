@@ -1,28 +1,27 @@
 package com.forestdise.service.impl;
 
 import com.forestdise.converter.IReviewConverter;
-import com.forestdise.converter.impl.ReviewConverterImpl;
 import com.forestdise.dto.*;
 import com.forestdise.entity.Review;
-import com.forestdise.entity.Variant;
-import com.forestdise.repository.ProductRepository;
 import com.forestdise.repository.ReviewRepository;
 import com.forestdise.service.IProductService;
 import com.forestdise.service.IReviewService;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
-@AllArgsConstructor
 public class ReviewServiceImpl implements IReviewService {
     private ReviewRepository reviewRepository;
     private IReviewConverter reviewConverter;
-    private ProductRepository productRepository;
     private IProductService productService;
+
+    public ReviewServiceImpl(ReviewRepository reviewRepository, IReviewConverter reviewConverter, IProductService productService) {
+        this.reviewRepository = reviewRepository;
+        this.reviewConverter = reviewConverter;
+        this.productService = productService;
+    }
 
     @Override
     public ReviewDto getReviewById(Long id) {
@@ -46,11 +45,14 @@ public class ReviewServiceImpl implements IReviewService {
         for(VariantDto variantDto : variantDtoList){
             List<OptionValueDto> optionValueDtoList = variantDto.getOptionValueDtoList();
             reviewDtoList = variantDto.getReviewDtoList();
-            for(ReviewDto reviewDto : reviewDtoList){
-                reviewDto.setOptionValueDtoList(optionValueDtoList);
+            if(reviewDtoList != null) {
+                for (ReviewDto reviewDto : reviewDtoList) {
+                    reviewDto.setOptionValueDtoList(optionValueDtoList);
+                }
             }
             reviewDtoList.addAll(getReviewsByVariantId(variantDto.getId()));
             //ddang sua
+            //reviewDtoList null pointer exception
         }
 
         return reviewDtoList;
