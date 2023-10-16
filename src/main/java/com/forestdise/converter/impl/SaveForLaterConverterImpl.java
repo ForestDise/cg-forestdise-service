@@ -10,13 +10,13 @@ import com.forestdise.entity.Cart;
 import com.forestdise.entity.SaveForLater;
 import com.forestdise.entity.Variant;
 import com.forestdise.service.CartService;
-import com.forestdise.service.VariantService;
+import com.forestdise.service.IVariantService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class SaveForLaterConverterImpl implements SaveForLaterConverter {
@@ -24,7 +24,7 @@ public class SaveForLaterConverterImpl implements SaveForLaterConverter {
     private CartService cartService;
 
     @Autowired
-    private VariantService variantService;
+    private IVariantService variantService;
 
     @Autowired
     private CartConverter cartConverter;
@@ -46,9 +46,12 @@ public class SaveForLaterConverterImpl implements SaveForLaterConverter {
     @Override
     public SaveForLaterDto convertEntityToDto(SaveForLater saveForLater) {
         SaveForLaterDto saveForLaterDto = new SaveForLaterDto();
-        BeanUtils.copyProperties(saveForLater, saveForLaterDto);
+        Long id = saveForLater.getId();
+        int quantity = saveForLater.getQuanity();
         CartDto cartDto = cartConverter.convertEntityToDto(saveForLater.getCart());
         VariantDto variantDto = variantConverter.entityToDTO(saveForLater.getVariant());
+        saveForLaterDto.setId(id);
+        saveForLaterDto.setQuantity(quantity);
         saveForLaterDto.setCartDto(cartDto);
         saveForLaterDto.setVariantDto(variantDto);
         return saveForLaterDto;
@@ -56,9 +59,15 @@ public class SaveForLaterConverterImpl implements SaveForLaterConverter {
 
     @Override
     public List<SaveForLaterDto> convertEntitiesToDtos(List<SaveForLater> saveForLaters) {
-        return saveForLaters.stream()
-                .map(this::convertEntityToDto)
-                .collect(Collectors.toList());
+//        return saveForLaters.stream()
+//                .map(this::convertEntityToDto)
+//                .collect(Collectors.toList());
+        List<SaveForLaterDto> saveForLaterDtoList = new ArrayList<>();
+        for (SaveForLater saveForLater: saveForLaters) {
+            SaveForLaterDto saveForLaterDto = convertEntityToDto(saveForLater);
+            saveForLaterDtoList.add(saveForLaterDto);
+        }
+        return saveForLaterDtoList;
     }
 
     @Override
