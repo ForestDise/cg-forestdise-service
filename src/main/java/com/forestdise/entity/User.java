@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Builder
 @AllArgsConstructor
@@ -23,8 +24,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "address")
-    private String address;
+    @OneToMany(mappedBy = "user")
+    private Set<Address> address;
 
     @Column(name = "email")
     private String email;
@@ -35,6 +36,8 @@ public class User {
     @OneToMany(mappedBy = "customer")
     private List<Review> reviewList;
 
-    @OneToMany(mappedBy = "seller")
-    private List<Comment> commentList;
+//    @OneToMany(mappedBy = "seller")
+//    private List<Comment> commentList;
+
+
 }

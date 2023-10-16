@@ -24,5 +24,5 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name="seller_id")
-    private User seller;
+    private Seller seller;
 }

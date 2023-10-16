@@ -19,11 +19,21 @@ public class StoreCategory {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="store_id")
+    private Store store;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="parent_store_Category_Id")
     private StoreCategory parentStoreCategory;
 
     @OneToMany(mappedBy = "storeCategory")
     private List<Product> productList;
+
+    @OneToMany(mappedBy ="storeCategory")
+    private List<Image> imageList;
+
+    @OneToMany(mappedBy ="storeCategory")
+    private List<Video> videoList;
 
 
 }

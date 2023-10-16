@@ -38,7 +38,7 @@ public class Review {
     @JoinColumn(name="customer_id")
     private User customer;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name ="variant_id")
     private Variant variant;
 

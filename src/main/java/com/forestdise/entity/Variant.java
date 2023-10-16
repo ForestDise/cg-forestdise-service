@@ -23,7 +23,9 @@ public class Variant {
     private int stockQuantity;
     private double weight;
     private double price;
+    private double salePrice;
     private String img;
+    private Boolean isDeleted;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
@@ -35,4 +37,6 @@ public class Variant {
     @JoinTable(name = "variant_optionvalue", joinColumns = @JoinColumn(name = "variant_id"),
                 inverseJoinColumns = @JoinColumn(name = "optionvalue_id"))
     private List<OptionValue> optionValues = new ArrayList<>();
+    @OneToMany(mappedBy = "variant")
+    private List<Review> reviews;
 }

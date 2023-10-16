@@ -1,0 +1,2 @@
+INSERT IGNORE INTO STORE (name, logo, hero_image, interactive_image, seller_id)
+VALUES ('Tiệm Chà Bê của Bé Chó', 'https://m.media-amazon.com/images/S/aplus-media-library-service-media/30b9eaaa-5677-4938-9645-4783f965b2fb.__CR0,0,2022,1251_PT0_SX970_V1___.png','https://m.media-amazon.com/images/S/aplus-media-library-service-media/380e8605-0054-4860-b951-9265f143284b.__CR1,0,2021,625_PT0_SX970_V1___.png','https://m.media-amazon.com/images/S/aplus-media-library-service-media/4ecf88c7-c019-4a3e-8d40-6867ac6ebd8a.__CR0,0,2022,1251_PT0_SX970_V1___.png',null)
