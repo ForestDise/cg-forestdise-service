@@ -4,6 +4,7 @@ import com.forestdise.dto.CartLineDto;
 import com.forestdise.dto.SaveForLaterDto;
 import com.forestdise.entity.Cart;
 import com.forestdise.entity.User;
+import com.forestdise.payload.request.SaveForLaterRequest;
 import com.forestdise.service.CartService;
 import com.forestdise.service.SaveForLaterService;
 import com.forestdise.service.UserService;
@@ -35,9 +36,15 @@ public class SaveForLaterController {
         return new ResponseEntity<>(saveForLaterDtos, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteSaveForLater(@PathVariable("id") Long saveForLaterId) {
         saveForLaterService.removeSaveForLater(saveForLaterId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<?> addSaveForLater(@RequestBody SaveForLaterRequest saveForLaterRequest){
+        SaveForLaterDto saveForLaterDto = saveForLaterService.addSaveForLater(saveForLaterRequest);
+        return new ResponseEntity<>(saveForLaterDto, HttpStatus.OK);
     }
 }

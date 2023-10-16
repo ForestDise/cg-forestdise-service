@@ -46,9 +46,10 @@ public class SaveForLaterConverterImpl implements SaveForLaterConverter {
     @Override
     public SaveForLaterDto convertEntityToDto(SaveForLater saveForLater) {
         SaveForLaterDto saveForLaterDto = new SaveForLaterDto();
-        BeanUtils.copyProperties(saveForLater, saveForLaterDto);
+        int quantity = saveForLater.getQuanity();
         CartDto cartDto = cartConverter.convertEntityToDto(saveForLater.getCart());
         VariantDto variantDto = variantConverter.entityToDTO(saveForLater.getVariant());
+        saveForLaterDto.setQuantity(quantity);
         saveForLaterDto.setCartDto(cartDto);
         saveForLaterDto.setVariantDto(variantDto);
         return saveForLaterDto;
