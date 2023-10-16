@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface SaveForLaterService {
     List<SaveForLaterDto> findSaveForLaterByCartId (Long cartId);
+    void removeSaveForLater(Long saveForLaterId);
 }

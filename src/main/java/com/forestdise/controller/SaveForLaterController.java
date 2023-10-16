@@ -34,4 +34,10 @@ public class SaveForLaterController {
         List<SaveForLaterDto> saveForLaterDtos = saveForLaterService.findSaveForLaterByCartId(cart.getId());
         return new ResponseEntity<>(saveForLaterDtos, HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteSaveForLater(@PathVariable("id") Long saveForLaterId) {
+        saveForLaterService.removeSaveForLater(saveForLaterId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

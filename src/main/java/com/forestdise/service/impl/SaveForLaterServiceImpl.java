@@ -32,4 +32,9 @@ public class SaveForLaterServiceImpl implements SaveForLaterService {
         List<SaveForLaterDto> saveForLaterDtos = saveForLaterConverter.convertEntitiesToDtos(saveForLaters);
         return saveForLaterDtos;
     }
+
+    @Override
+    public void removeSaveForLater(Long saveForLaterId) {
+        saveForLaterRepository.deleteById(saveForLaterId);
+    }
 }
