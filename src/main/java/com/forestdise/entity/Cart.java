@@ -23,4 +23,7 @@ public class Cart {
 
     @OneToMany(mappedBy = "cart")
     private List<CartLine> cartLines;
+
+    @OneToMany(mappedBy = "cart")
+    private List<SaveForLater> saveForLaterList;
 }
