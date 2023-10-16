@@ -37,11 +37,15 @@ public class Address {
 
     private String street;
 
-    @OneToMany(mappedBy = "address")
-    private Set<ShopOrder> shopOrders;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    
+
+
+    @ManyToOne
+    @JoinColumn(name="seller_id")
+    private Seller seller;
+
+
 }

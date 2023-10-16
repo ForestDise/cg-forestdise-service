@@ -37,10 +37,17 @@ public class User {
     @OneToOne(mappedBy = "user")
     private ShopOrder shopOrder;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_role",
             joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
             inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")})
     private List<Role> roles = new ArrayList<>();
+    @OneToMany(mappedBy = "customer")
+    private List<Review> reviewList;
+
+//    @OneToMany(mappedBy = "seller")
+//    private List<Comment> commentList;
+
+
 }

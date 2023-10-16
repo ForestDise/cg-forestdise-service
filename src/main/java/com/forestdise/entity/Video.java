@@ -20,4 +20,8 @@ public class Video {
     @ManyToOne
     @JoinColumn(name = "variant_id")
     private Variant variant;
+
+    @ManyToOne
+    @JoinColumn(name="store_category_id")
+    private StoreCategory storeCategory;
 }

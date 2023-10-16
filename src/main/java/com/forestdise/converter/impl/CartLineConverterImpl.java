@@ -2,7 +2,7 @@ package com.forestdise.converter.impl;
 
 import com.forestdise.converter.CartConverter;
 import com.forestdise.converter.CartLineConverter;
-import com.forestdise.converter.VariantConverter;
+import com.forestdise.converter.IVariantConverter;
 import com.forestdise.dto.CartDto;
 import com.forestdise.dto.CartLineDto;
 import com.forestdise.dto.VariantDto;
@@ -30,7 +30,7 @@ public class CartLineConverterImpl implements CartLineConverter {
     private CartConverter cartConverter;
 
     @Autowired
-    private VariantConverter variantConverter;
+    private IVariantConverter variantConverter;
 
     @Override
     public CartLine convertDtoToEntity(CartLineDto cartLineDto) {

@@ -23,8 +23,9 @@ public class Variant {
     private int stockQuantity;
     private double weight;
     private double price;
+    private double salePrice;
     private String img;
-
+    private Boolean isDeleted;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
@@ -35,7 +36,7 @@ public class Variant {
     @OneToMany(mappedBy = "variant")
     private List<Video> videos;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "variant_optionvalue", joinColumns = @JoinColumn(name = "variant_id"),
             inverseJoinColumns = @JoinColumn(name = "optionvalue_id"))
     private List<OptionValue> optionValues;
@@ -45,5 +46,8 @@ public class Variant {
 
     @OneToOne(mappedBy = "variant")
     private SaveForLater saveForLater;
+
+    @OneToMany(mappedBy = "variant")
+    private List<Review> reviews;
 }
 

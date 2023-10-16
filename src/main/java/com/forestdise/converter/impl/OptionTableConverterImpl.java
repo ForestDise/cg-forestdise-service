@@ -1,6 +1,6 @@
 package com.forestdise.converter.impl;
 
-import com.forestdise.converter.OptionTableConverter;
+import com.forestdise.converter.IOptionTableConverter;
 import com.forestdise.dto.OptionTableDto;
 import com.forestdise.entity.OptionTable;
 import org.springframework.beans.BeanUtils;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class OptionTableConverterImpl implements OptionTableConverter {
+public class OptionTableConverterImpl implements IOptionTableConverter {
     @Override
     public List<OptionTableDto> entitiesToDTOs(List<OptionTable> element) {
         return element.stream()

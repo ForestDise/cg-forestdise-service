@@ -12,23 +12,45 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-@Table(name = "product")
+@Table(name = "PRODUCT")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String title;
     private String description;
     private String mainPicture;
     private String status;
     private Date createAt;
     private Date updatedAt;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "category_id")
     private Category category;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "product")
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name ="store_category_id")
+    private StoreCategory storeCategory;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="store_id")
+    private Store store;
+
+    @OneToMany(mappedBy = "product")
+    private List<OptionTable> optionTables;
+
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "product")
     private List<Variant> variants;
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "product")
     private List<ProductAttribute> productAttributes;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    private List<HashTag> hashTagList;
+
+    @OneToMany(mappedBy = "product")
+    private List<Bullet> bulletList;
+
+
 
 }

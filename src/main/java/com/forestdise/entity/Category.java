@@ -11,12 +11,17 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-@Table(name = "category")
+@Table(name = "CATEGORY")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String attribute;
+
+    @ManyToOne(fetch =  FetchType.LAZY)
+    @JoinColumn(name ="parent_Category_Id")
+    private Category parentCategory;
+
     @OneToMany ( mappedBy = "category")
     private List<Product> products;
 }

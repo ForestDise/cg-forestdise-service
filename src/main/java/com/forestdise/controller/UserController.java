@@ -2,9 +2,7 @@ package com.forestdise.controller;
 
 import com.forestdise.converter.impl.UserConverterImpl;
 import com.forestdise.dto.UserDTO;
-import com.forestdise.dto.UserLoginDTO;
 import com.forestdise.entity.User;
-import com.forestdise.payload.response.ProductDetailResponse;
 import com.forestdise.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

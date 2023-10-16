@@ -22,4 +22,8 @@ public class OptionTable {
     private String name;
     @OneToMany(mappedBy = "optionTable")
     private List<OptionValue> optionValues;
+
+    @ManyToOne
+    @JoinColumn(name="product_id")
+    private Product product;
 }
