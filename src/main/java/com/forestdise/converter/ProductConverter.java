@@ -5,7 +5,7 @@ import com.forestdise.entity.Product;
 
 import java.util.List;
 
-public interface IProductConverter {
+public interface ProductConverter {
     List<ProductDto> entitiesToDTOs(List<Product> element);
     ProductDto entityToDTO(Product element);
     Product dtoToEntity(ProductDto element);

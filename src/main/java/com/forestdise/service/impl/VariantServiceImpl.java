@@ -4,8 +4,6 @@ import com.forestdise.converter.IImageConverter;
 import com.forestdise.converter.IOptionValueConverter;
 import com.forestdise.converter.IVariantConverter;
 import com.forestdise.converter.IVideoConverter;
-import com.forestdise.converter.impl.OptionValueConverterImpl;
-import com.forestdise.converter.impl.VariantConverterImpl;
 import com.forestdise.dto.ImageDto;
 import com.forestdise.dto.OptionValueDto;
 import com.forestdise.dto.VariantDto;
@@ -40,6 +38,7 @@ public class VariantServiceImpl implements IVariantService {
         //null
         return variantConverterImpl.entityToDTO(variantRepository.findById(id).orElse(null));
     }
+
     @Transactional
     public List<VariantDto> getVariantByProductId(Long product_id) {
         List<VariantDto> variantDtoList = new ArrayList<>();
@@ -57,6 +56,10 @@ public class VariantServiceImpl implements IVariantService {
     }
 
     @Override
+    public Variant findById(Long id) {
+        Variant variant = variantRepository.findById(id).orElse(null);
+        return variant;
+    }
     public VariantDto getLowestPriceVariantByProductId(Long product_id){
         List<Variant> variants = variantRepository.findByProduct_Id(product_id);
         Variant minVariant = variants.get(0);

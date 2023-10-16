@@ -25,7 +25,7 @@ public class ReviewDto {
     private String video;
     private boolean verified_admin;
     private Date update_at;
-    private UserDto userDto;
+    private UserDTO userDto;
     private List<OptionValueDto> optionValueDtoList;
     private List<CommentDto> commentDtoList;
 }

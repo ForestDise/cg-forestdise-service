@@ -21,6 +21,9 @@ public class Cart {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cart")
     private List<CartLine> cartLines;
+
+    @OneToMany(mappedBy = "cart")
+    private List<SaveForLater> saveForLaterList;
 }

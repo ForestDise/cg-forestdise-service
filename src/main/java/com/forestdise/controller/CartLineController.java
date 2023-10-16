@@ -1,7 +1,12 @@
 package com.forestdise.controller;
 
 import com.forestdise.dto.CartLineDto;
-import com.forestdise.service.ICartLineService;
+import com.forestdise.entity.Cart;
+import com.forestdise.entity.User;
+import com.forestdise.payload.request.CartLineRequest;
+import com.forestdise.service.CartLineService;
+import com.forestdise.service.CartService;
+import com.forestdise.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,18 +18,47 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/cart-lines")
 public class CartLineController {
-    @Autowired
-    ICartLineService cartLineService;
 
-    @GetMapping
-    public ResponseEntity<?> getAllCartLines(){
-        List<CartLineDto> cartLineDtoList = cartLineService.findAll();
-        return new ResponseEntity<>(cartLineDtoList, HttpStatus.OK);
+    @Autowired
+    CartLineService cartLineService;
+
+    @Autowired
+    CartService cartService;
+
+    @Autowired
+    UserService userService;
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteCartLine(@PathVariable("id")Long cartLineId){
+        cartLineService.removeCartLine(cartLineId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCartLine(@PathVariable("id")Long id){
-        cartLineService.removeCartLine(id);
+    @PostMapping("/add-to-cart")
+    public ResponseEntity<CartLineDto> addCartLine(@RequestBody CartLineRequest cartLineRequest){
+        CartLineDto cartLineDto = cartLineService.saveCartLine(cartLineRequest);
+        return new ResponseEntity<>(cartLineDto ,HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getAllCartLines(@PathVariable("id") Long userId){
+        User user = userService.findById(userId);
+        Cart cart = cartService.findCartByUserId(user);
+        List<CartLineDto> cartLineDtos = cartLineService.findCartLinesByCartId(cart.getId());
+        return new ResponseEntity<>(cartLineDtos,HttpStatus.OK);
+    }
+
+    @PutMapping
+    public ResponseEntity<?> updateCartLine(@RequestBody CartLineDto cartLineDto) throws Exception {
+        cartLineService.updateCartLine(cartLineDto, cartLineDto.getId());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete-all/{id}")
+    public ResponseEntity<?> deleteAllCartLine(@PathVariable("id") Long userId){
+        User user = userService.findById(userId);
+        Cart cart = cartService.findCartByUserId(user);
+        cartLineService.removeAllCartLines(cart.getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -1,54 +1,83 @@
 package com.forestdise.service.impl;
 
+import com.forestdise.converter.CartLineConverter;
 import com.forestdise.dto.CartLineDto;
+import com.forestdise.entity.Cart;
 import com.forestdise.entity.CartLine;
+import com.forestdise.entity.Variant;
+import com.forestdise.payload.request.CartLineRequest;
 import com.forestdise.repository.CartLineRepository;
-import com.forestdise.service.ICartLineService;
+import com.forestdise.repository.CartRepository;
+import com.forestdise.repository.VariantRepository;
+import com.forestdise.service.CartLineService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-public class CartLineServiceImpl implements ICartLineService {
+@Transactional
+public class CartLineServiceImpl implements CartLineService {
     @Autowired
     private CartLineRepository cartLineRepository;
-    private static List<CartLineDto>  cartLineDtoList = new ArrayList<>();
-    static {
-        cartLineDtoList.add(new CartLineDto(1L,"Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops","Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",109.95,"men's clothing","https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-                10,"red"));
-        cartLineDtoList.add(new CartLineDto(2L, "Mens Casual Premium Slim Fit T-Shirts", "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.", 22.3, "men's clothing", "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
-                90,"blue"));
-    }
 
-    @Override
-    public Page<CartLine> findAll(Pageable pageable) {
-        return cartLineRepository.findAll(pageable);
-    }
+    @Autowired
+    private CartLineConverter cartLineConverter;
 
-    @Override
-    public List<CartLineDto> findAll() {
-        return cartLineDtoList;
-    }
+    @Autowired
+    private CartRepository cartRepository;
 
-    @Override
-    public void saveCartLine(CartLineDto cartLineDto) {
-    }
-
-    @Override
-    public CartLine findCartLineById(Long id) {
-        return null;
-    }
+    @Autowired
+    private VariantRepository variantRepository;
 
     @Override
     public void updateCartLine(CartLineDto cartLineDto, Long id) throws Exception {
+        CartLine cartLine = cartLineRepository.findById(id).orElse(null);
+        cartLine.setQuantity(cartLineDto.getQuantity());
+        cartLineRepository.save(cartLine);
     }
 
     @Override
     public void removeCartLine(Long id) {
-        cartLineRepository.deleteById(id);
+       CartLine cartLine = cartLineRepository.findById(id).orElse(null);
+        assert cartLine != null;
+        cartLineRepository.deleteCartLineById(cartLine.getId());
+    }
+
+    @Override
+    public List<CartLineDto> findCartLinesByCartId(Long cartId) {
+        Cart cart = cartRepository.findById(cartId).orElse(null);
+        List<CartLine> cartLines = cartLineRepository.findCartLineByCart(cart);
+        List<CartLineDto> cartLineDtos = cartLineConverter.convertEntitiesToDtos(cartLines);
+        return cartLineDtos;
+    }
+
+    @Override
+    public CartLineDto saveCartLine(CartLineRequest cartLineRequest) {
+        Variant variant = variantRepository.findById(cartLineRequest.getVariantId()).orElse(null);
+        Cart cart = cartRepository.findById(cartLineRequest.getCartId()).orElse(null);
+        CartLine cartLine = cartLineRepository.findCartLineByVariant(variant);
+        if (cartLine != null) {
+            int newQuantity = cartLine.getQuantity() + 1;
+            cartLine.setQuantity(newQuantity);
+            cartLineRepository.save(cartLine);
+            CartLineDto cartLineDto = cartLineConverter.convertEntityToDto(cartLine);
+            return cartLineDto;
+        }
+        int quantity = cartLineRequest.getQuantity();
+        CartLine newCartLine = new CartLine();
+        newCartLine.setCart(cart);
+        newCartLine.setVariant(variant);
+        newCartLine.setQuantity(quantity);
+        cartLineRepository.save(newCartLine);
+        CartLineDto cartLineDto = cartLineConverter.convertEntityToDto(newCartLine);
+        return cartLineDto;
+    }
+
+    @Override
+    public void removeAllCartLines(Long cartId) {
+        Cart cart = cartRepository.findById(cartId).orElse(null);
+        cartLineRepository.deleteAllByCart(cart);
     }
 }

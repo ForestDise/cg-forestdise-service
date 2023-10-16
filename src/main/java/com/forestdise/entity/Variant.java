@@ -29,14 +29,25 @@ public class Variant {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
+
     @OneToMany(mappedBy = "variant")
     private List<Image> images;
+
     @OneToMany(mappedBy = "variant")
     private List<Video> videos;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "variant_optionvalue", joinColumns = @JoinColumn(name = "variant_id"),
-                inverseJoinColumns = @JoinColumn(name = "optionvalue_id"))
-    private List<OptionValue> optionValues = new ArrayList<>();
+            inverseJoinColumns = @JoinColumn(name = "optionvalue_id"))
+    private List<OptionValue> optionValues;
+
+    @OneToOne(mappedBy = "variant")
+    private CartLine cartLine;
+
+    @OneToOne(mappedBy = "variant")
+    private SaveForLater saveForLater;
+
     @OneToMany(mappedBy = "variant")
     private List<Review> reviews;
 }
+
