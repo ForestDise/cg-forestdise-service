@@ -9,4 +9,5 @@ import java.util.List;
 public interface IProductService {
     ProductDto getProductById(Long id);
     List<ProductDto> getAllProductDtos();
+    List<ProductDto> getProductsByContaining(String text);
 }

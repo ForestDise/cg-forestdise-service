@@ -19,6 +19,9 @@ public class VariantConverterImpl implements IVariantConverter {
     @Override
 
     public VariantDto entityToDTO(Variant element) {
+        if (element == null) {
+            return null;
+        }
         VariantDto result = new VariantDto();
         BeanUtils.copyProperties(element, result);
         return result;
@@ -26,6 +29,9 @@ public class VariantConverterImpl implements IVariantConverter {
     @Override
 
     public Variant dtoToEntity(VariantDto element) {
+        if (element == null) {
+            return null;
+        }
         Variant result = new Variant();
         BeanUtils.copyProperties(element, result);
         return result;

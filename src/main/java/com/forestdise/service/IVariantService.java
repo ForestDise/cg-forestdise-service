@@ -8,5 +8,5 @@ import java.util.List;
 public interface IVariantService {
      VariantDto getVariantById(Long id);
      List<VariantDto> getVariantByProductId(Long product_id);
-
+     VariantDto getVariantByProductPriceMin(Long product_id);
 }
