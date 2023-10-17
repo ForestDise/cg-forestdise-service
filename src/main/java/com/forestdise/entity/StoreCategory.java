@@ -17,6 +17,7 @@ public class StoreCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String hero_image;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="store_id")

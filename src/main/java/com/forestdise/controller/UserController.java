@@ -1,5 +1,6 @@
 package com.forestdise.controller;
 
+import com.forestdise.converter.UserConverter;
 import com.forestdise.converter.impl.UserConverterImpl;
 import com.forestdise.dto.UserDTO;
 import com.forestdise.entity.User;
@@ -16,7 +17,7 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private UserConverterImpl userConverter;
+    private UserConverter userConverter;
 
     @GetMapping("/{user_id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long user_id){

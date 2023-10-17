@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+
 public interface IVariantService {
     public VariantDto getVariantById(Long id);
     public List<VariantDto> getVariantByProductId(Long product_id);

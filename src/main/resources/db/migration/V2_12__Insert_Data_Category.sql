@@ -1,4 +1,4 @@
-INSERT IGNORE INTO CATEGORY (attribute, parent_Category_Id) VALUES ('All Department', null);
+INSERT IGNORE INTO CATEGORY (attribute,parent_Category_Id) VALUES ('All Department', null);
 INSERT IGNORE INTO CATEGORY (attribute,parent_Category_Id) VALUES ('Electronic',1);
 INSERT IGNORE INTO CATEGORY (attribute,parent_Category_Id) VALUES ('Computers',1);
 INSERT IGNORE INTO CATEGORY (attribute,parent_Category_Id) VALUES ('Smart Homes',1);
