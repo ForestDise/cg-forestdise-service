@@ -1,5 +1,7 @@
 package com.forestdise.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,10 +23,13 @@ public class CartLine {
 
     @ManyToOne
     @JoinColumn(name = "cart_id")
+    @JsonBackReference(value = "cart_cartLine")
     private Cart cart;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "variant_id")
     private Variant variant;
 
+    @OneToOne(mappedBy = "cartLine")
+    private ShopOrder shopOrder;
 }

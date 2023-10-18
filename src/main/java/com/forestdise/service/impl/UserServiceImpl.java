@@ -8,7 +8,7 @@ import com.forestdise.entity.User;
 import com.forestdise.repository.RoleRepository;
 import com.forestdise.repository.UserRepository;
 import com.forestdise.security.JwtUserDetailsService;
-import com.forestdise.service.IUserService;
+import com.forestdise.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
@@ -70,5 +70,11 @@ public class UserServiceImpl implements IUserService {
     @Override
     public List<UserLoginDTO> findAllUsers() {
         return null;
+    }
+
+    @Override
+    public User findById(Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        return user;
     }
 }

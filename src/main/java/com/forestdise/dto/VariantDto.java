@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 
 @Data
 @Builder
@@ -17,5 +19,10 @@ public class VariantDto {
     private int stockQuantity;
     private double weight;
     private double price;
+    private double salePrice;
     private String img;
+    private List<OptionValueDto> optionValueDtoList;
+    private List<ImageDto> imageDtoList;
+    private List<VideoDto> videoDtoList;
+    private List<ReviewDto> reviewDtoList;
 }

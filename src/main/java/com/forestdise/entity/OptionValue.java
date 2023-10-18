@@ -1,6 +1,7 @@
 package com.forestdise.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,10 +22,13 @@ public class OptionValue {
     private Long id;
 
     private String value;
-    @ManyToOne (fetch = FetchType.LAZY)
+
+    @ManyToOne
     @JoinColumn(name = "option_id")
+    @JsonBackReference(value = "optionTable_optionValue")
     private OptionTable optionTable;
+
     @ManyToMany(mappedBy = "optionValues")
-//    @JsonBackReference
+    @JsonBackReference(value = "optionValue_variant")
     private List<Variant> variants ;
 }

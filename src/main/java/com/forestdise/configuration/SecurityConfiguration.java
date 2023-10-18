@@ -40,8 +40,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity webSecurity) {
         webSecurity.ignoring().
-                antMatchers("/api/register", "/api/login",
-                        "/api/products", "/api/product-detail/**", "/logout")
-                .antMatchers(HttpMethod.GET, "/api/products", "/api/users/**");
+                antMatchers("/api/register/**", "/api/login/**",
+                        "/api/products", "/api/product-detail/**",
+                        "/api/cart-lines/**", "/api/cart/**",
+                        "/api/save-for-later/**", "/api/stores/**")
+                .antMatchers(HttpMethod.GET, "/api/products", "/api/users/**", "/api/cart-lines/**");
     }
 }
