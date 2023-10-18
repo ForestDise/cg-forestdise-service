@@ -1,5 +1,6 @@
 package com.forestdise.service;
 
+import com.forestdise.dto.ProductDto;
 import com.forestdise.dto.VariantDto;
 import com.forestdise.entity.Variant;
 
@@ -13,4 +14,5 @@ public interface IVariantService {
 
     public VariantDto getLowestPriceVariantByProductId(Long product_id);
     public VariantDto getVariantByProductPriceMin(Long product_id);
+
 }

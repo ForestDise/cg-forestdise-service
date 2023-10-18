@@ -80,7 +80,7 @@ public class ProductServiceImpl implements IProductService {
     public List<ProductDto> getProductsByContaining(String text) {
         List<Product> products = productRepository.findByTitleContaining(text);
         return productConverterImpl.entitiesToDTOs(products);
-    }
 
+    }
 
 }

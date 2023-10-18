@@ -16,4 +16,5 @@ public interface IProductService {
     public StoreDto getStoreByProductId(Long productId);
     public List<OptionTableDto> getOptionsByProductId(Long productId);
     public List<ProductDto> getProductsByContaining(String text);
+
 }

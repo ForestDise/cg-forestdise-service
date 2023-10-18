@@ -33,6 +33,7 @@ public class SearchController {
         List<VariantDto> variantDtoList = new ArrayList<>();
         productDtoList.forEach(productDto -> {
             VariantDto variantDto= variantService.getVariantByProductPriceMin(productDto.getId());
+
             variantDtoList.add(variantDto);
         });
         searchResponse.setProductDtos(productDtoList);

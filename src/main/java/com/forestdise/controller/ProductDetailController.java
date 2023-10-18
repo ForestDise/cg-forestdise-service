@@ -7,6 +7,7 @@ import com.forestdise.dto.VideoDto;
 import com.forestdise.payload.response.ProductDetailResponse;
 import com.forestdise.payload.response.VariantDetailResponse;
 import com.forestdise.service.*;
+import com.forestdise.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,7 @@ public class ProductDetailController {
     private IOptionValueService optionValueServiceImpl;
     ProductDetailResponse productDetailResponse=new ProductDetailResponse();
     VariantDetailResponse variantDetailResponse =new VariantDetailResponse();
+
     @GetMapping("/{product_id}")
     public ResponseEntity<ProductDetailResponse> getProduct(@PathVariable("product_id") Long productId) {
         productDetailResponse.setProductDTO(productServiceImpl.getProductById(productId));
