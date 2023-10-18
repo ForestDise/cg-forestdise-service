@@ -17,20 +17,31 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("api/product-detail")
 public class ProductDetailController {
+    private final ImageServiceImpl imageServiceImpl;
+    private final ProductServiceImpl productServiceImpl;
+    private final ProductAttributeServiceImpl productAttributeServiceImpl;
+    private final VariantServiceImpl variantServiceImpl;
+    private final VideoServiceImpl videoServiceImpl;
+    private final OptionValueServiceImpl optionValueServiceImpl;
+    private final ProductDetailResponse productDetailResponse = new ProductDetailResponse();
+    private final VariantDetailResponse variantDetailResponse = new VariantDetailResponse();
+
     @Autowired
-    private ImageServiceImpl imageServiceImpl;
-    @Autowired
-    private ProductServiceImpl productServiceImpl;
-    @Autowired
-    private ProductAttributeServiceImpl productAttributeServiceImpl;
-    @Autowired
-    private VariantServiceImpl variantServiceImpl;
-    @Autowired
-    private VideoServiceImpl videoServiceImpl;
-    @Autowired
-    private OptionValueServiceImpl optionValueServiceImpl;
-    ProductDetailResponse productDetailResponse=new ProductDetailResponse();
-    VariantDetailResponse variantDetailResponse =new VariantDetailResponse();
+    public ProductDetailController(
+            ImageServiceImpl imageServiceImpl,
+            ProductServiceImpl productServiceImpl,
+            ProductAttributeServiceImpl productAttributeServiceImpl,
+            VariantServiceImpl variantServiceImpl,
+            VideoServiceImpl videoServiceImpl,
+            OptionValueServiceImpl optionValueServiceImpl
+    ) {
+        this.imageServiceImpl = imageServiceImpl;
+        this.productServiceImpl = productServiceImpl;
+        this.productAttributeServiceImpl = productAttributeServiceImpl;
+        this.variantServiceImpl = variantServiceImpl;
+        this.videoServiceImpl = videoServiceImpl;
+        this.optionValueServiceImpl = optionValueServiceImpl;
+    }
     @GetMapping("/{product_id}")
     public ResponseEntity<ProductDetailResponse> getProductDetail(@PathVariable("product_id") Long productId) {
         productDetailResponse.setProductDTO(productServiceImpl.getProductById(productId));

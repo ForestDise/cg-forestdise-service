@@ -1,10 +1,12 @@
 package com.forestdise.service;
 
+import com.forestdise.dto.ProductDto;
 import com.forestdise.dto.VariantDto;
 
 import java.util.List;
 
 public interface IVariantService {
-    public VariantDto getVariantById(Long id);
-    public List<VariantDto> getVariantByProductId(Long product_id);
+     VariantDto getVariantById(Long id);
+     List<VariantDto> getVariantByProductId(Long product_id);
+     VariantDto getVariantByProductPriceMin(Long product_id);
 }

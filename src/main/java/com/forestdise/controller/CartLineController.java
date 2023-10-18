@@ -13,8 +13,13 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/cart-lines")
 public class CartLineController {
+    private final ICartLineService cartLineService;
+
     @Autowired
-    ICartLineService cartLineService;
+    public CartLineController(ICartLineService cartLineService) {
+        this.cartLineService = cartLineService;
+    }
+
 
     @GetMapping
     public ResponseEntity<?> getAllCartLines(){

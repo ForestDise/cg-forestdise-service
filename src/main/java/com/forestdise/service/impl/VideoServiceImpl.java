@@ -11,10 +11,14 @@ import java.util.List;
 
 @Service
 public class VideoServiceImpl implements IVideoService {
+    private final VideoRepository videoRepository;
+    private final VideoConverterImpl videoConverterImpl;
+
     @Autowired
-    private VideoRepository videoRepository;
-    @Autowired
-    private VideoConverterImpl videoConverterImpl;
+    public VideoServiceImpl(VideoRepository videoRepository, VideoConverterImpl videoConverterImpl) {
+        this.videoRepository = videoRepository;
+        this.videoConverterImpl = videoConverterImpl;
+    }
     public List<VideoDto> getVideosByVariantId(Long variant_id){
         List<Video> videos = videoRepository.findVideosByVariant_Id(variant_id);
         return videoConverterImpl.entitiesToDTOs(videos);

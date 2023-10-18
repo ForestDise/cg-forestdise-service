@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface IProductService {
-    public ProductDto getProductById(Long id);
-    public List<ProductDto> getAllProductDtos();
+    ProductDto getProductById(Long id);
+    List<ProductDto> getAllProductDtos();
+    List<ProductDto> getProductsByContaining(String text);
 }

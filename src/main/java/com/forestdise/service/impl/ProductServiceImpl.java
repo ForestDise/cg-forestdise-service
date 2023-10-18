@@ -26,4 +26,12 @@ public class ProductServiceImpl implements IProductService {
         return productConverterImpl.entitiesToDTOs(productRepository.findAll());
     }
 
+
+
+    @Override
+    public List<ProductDto> getProductsByContaining(String text) {
+        return productConverterImpl.entitiesToDTOs(productRepository.findByTitleContaining(text));
+    }
+
+
 }
