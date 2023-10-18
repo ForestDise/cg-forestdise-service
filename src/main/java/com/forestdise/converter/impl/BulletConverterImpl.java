@@ -2,9 +2,7 @@ package com.forestdise.converter.impl;
 
 import com.forestdise.converter.IBulletConverter;
 import com.forestdise.dto.BulletDto;
-import com.forestdise.dto.ProductDto;
 import com.forestdise.entity.Bullet;
-import com.forestdise.entity.Product;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 

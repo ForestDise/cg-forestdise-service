@@ -1,10 +1,8 @@
 package com.forestdise.service.impl;
 
 import com.forestdise.converter.SaveForLaterConverter;
-import com.forestdise.dto.CartLineDto;
 import com.forestdise.dto.SaveForLaterDto;
 import com.forestdise.entity.Cart;
-import com.forestdise.entity.CartLine;
 import com.forestdise.entity.SaveForLater;
 import com.forestdise.entity.Variant;
 import com.forestdise.payload.request.SaveForLaterRequest;
@@ -12,7 +10,6 @@ import com.forestdise.repository.CartRepository;
 import com.forestdise.repository.SaveForLaterRepository;
 import com.forestdise.repository.VariantRepository;
 import com.forestdise.service.SaveForLaterService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -6,7 +6,6 @@ import com.forestdise.dto.*;
 import com.forestdise.entity.*;
 import com.forestdise.repository.ProductRepository;
 import com.forestdise.service.IProductService;
-import com.forestdise.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -75,6 +74,12 @@ public class ProductServiceImpl implements IProductService {
             optionTableDtoList.add(optionTableDto);
         }
         return optionTableDtoList;
+    }
+
+    @Override
+    public List<ProductDto> getProductsByContaining(String text) {
+        List<Product> products = productRepository.findByTitleContaining(text);
+        return productConverterImpl.entitiesToDTOs(products);
     }
 
 
