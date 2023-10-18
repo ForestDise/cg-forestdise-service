@@ -1,5 +1,7 @@
 package com.forestdise.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,32 +27,39 @@ public class Product {
     private Date createAt;
     private Date updatedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn (name = "category_id")
+    @JsonBackReference(value = "product_category")
     private Category category;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name ="store_category_id")
+    @JsonBackReference(value = "product_storeCategory")
     private StoreCategory storeCategory;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="store_id")
+    @JsonBackReference(value = "store_product")
     private Store store;
 
     @OneToMany(mappedBy = "product")
+    @JsonManagedReference(value = "product_optionTable")
     private List<OptionTable> optionTables;
 
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "product")
+    @OneToMany(mappedBy = "product")
+    @JsonManagedReference(value = "product_variant")
     private List<Variant> variants;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "product")
+
+    @OneToMany(mappedBy = "product")
+    @JsonManagedReference(value = "product_attribute")
     private List<ProductAttribute> productAttributes;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    @OneToMany(mappedBy = "product")
+    @JsonManagedReference(value = "product_hashTag")
     private List<HashTag> hashTagList;
 
     @OneToMany(mappedBy = "product")
+    @JsonManagedReference(value = "product_bulletList")
     private List<Bullet> bulletList;
-
-
 
 }

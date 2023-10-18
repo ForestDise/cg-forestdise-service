@@ -1,5 +1,7 @@
 package com.forestdise.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,24 +19,28 @@ public class StoreCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String hero_image;
+    private String heroImage;
+    private String squareImage;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="store_id")
+    @JsonBackReference(value = "store_category")
     private Store store;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="parent_store_Category_Id")
     private StoreCategory parentStoreCategory;
 
     @OneToMany(mappedBy = "storeCategory")
+    @JsonManagedReference(value = "product_storeCategory")
     private List<Product> productList;
 
     @OneToMany(mappedBy ="storeCategory")
+    @JsonManagedReference(value = "storeCategory_image")
     private List<Image> imageList;
 
     @OneToMany(mappedBy ="storeCategory")
+    @JsonManagedReference(value = "storeCategory_video")
     private List<Video> videoList;
-
 
 }

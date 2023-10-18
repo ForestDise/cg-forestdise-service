@@ -1,5 +1,7 @@
 package com.forestdise.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,6 +28,7 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference(value = "address_user")
     private Set<Address> address;
 
     @Column(name = "email")
@@ -43,11 +46,9 @@ public class User {
             joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
             inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")})
     private List<Role> roles = new ArrayList<>();
+
     @OneToMany(mappedBy = "customer")
+    @JsonManagedReference(value = "user_review")
     private List<Review> reviewList;
-
-//    @OneToMany(mappedBy = "seller")
-//    private List<Comment> commentList;
-
 
 }

@@ -15,5 +15,5 @@ import java.util.List;
 public class StoreCategoryDTO {
     private Long id;
     private String name;
-    private String hero_image;
+    private String heroImage;
 }

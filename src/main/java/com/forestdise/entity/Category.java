@@ -1,5 +1,7 @@
 package com.forestdise.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,10 +20,11 @@ public class Category {
     private Long id;
     private String attribute;
 
-    @ManyToOne(fetch =  FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name ="parent_Category_Id")
     private Category parentCategory;
 
+    @JsonManagedReference(value = "product_category")
     @OneToMany ( mappedBy = "category")
     private List<Product> products;
 }

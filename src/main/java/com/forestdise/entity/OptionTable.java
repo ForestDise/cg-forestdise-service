@@ -1,6 +1,8 @@
 package com.forestdise.entity;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,12 +20,14 @@ public class OptionTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
+
     @OneToMany(mappedBy = "optionTable")
+    @JsonManagedReference(value = "optionTable_optionValue")
     private List<OptionValue> optionValues;
 
     @ManyToOne
     @JoinColumn(name="product_id")
+    @JsonBackReference(value = "product_optionTable")
     private Product product;
 }

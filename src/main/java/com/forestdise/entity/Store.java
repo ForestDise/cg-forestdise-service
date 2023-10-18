@@ -1,5 +1,7 @@
 package com.forestdise.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 
@@ -20,17 +22,21 @@ public class Store {
     private Long id;
     private String name;
     private String logo;
-    private String heroImage;
+    private String homeImage;
+    private String dealsImage;
     private String interactiveImage;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="seller_id")
+    @JsonBackReference(value = "store_seller")
     private User seller;
 
     @OneToMany(mappedBy = "store")
+    @JsonManagedReference(value = "store_category")
     private List<StoreCategory> storeCategoryList;
 
     @OneToMany(mappedBy = "store")
+    @JsonManagedReference(value = "store_product")
     private List<Product> productlist;
 
 }

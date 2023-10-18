@@ -9,6 +9,6 @@ import lombok.*;
 @Setter
 public class UserDTO {
     private Long id;
-    private String name;
+    private String clientName;
     private String logo;
 }

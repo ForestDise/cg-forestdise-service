@@ -1,5 +1,7 @@
 package com.forestdise.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,9 +22,11 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name="review_id")
+    @JsonBackReference(value = "comment_review")
     private Review review;
 
     @ManyToOne
     @JoinColumn(name="seller_id")
+    @JsonBackReference(value = "comment_seller")
     private Seller seller;
 }

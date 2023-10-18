@@ -1,4 +1,5 @@
 package com.forestdise.dto;
+import com.forestdise.entity.Store;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,5 +21,6 @@ public class ProductDto {
     private String status;
     private Date createAt;
     private Date updatedAt;
+    private Store store;
     private List<BulletDto> bulletDtoList;
 }

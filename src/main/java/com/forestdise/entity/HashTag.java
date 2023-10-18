@@ -1,5 +1,7 @@
 package com.forestdise.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,4 +22,5 @@ public class HashTag {
 
     @ManyToOne
     @JoinColumn(name = "product_id")
+    @JsonBackReference(value = "product_hashTag")
     private Product product;}

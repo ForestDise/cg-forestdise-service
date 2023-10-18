@@ -1,5 +1,6 @@
 package com.forestdise.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,10 +28,14 @@ public class Seller {
     private String password;
 
     @OneToMany(mappedBy = "seller")
+    @JsonManagedReference(value = "address_seller")
     private Set<Address> address;
 
     @OneToMany(mappedBy = "seller")
+    @JsonManagedReference(value = "store_seller")
     private List<Store> storeList;
 
-
+    @OneToMany(mappedBy = "seller")
+    @JsonManagedReference(value = "comment_seller")
+    private List<Comment> storeComments;
 }

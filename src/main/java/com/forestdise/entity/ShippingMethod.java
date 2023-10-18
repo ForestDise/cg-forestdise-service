@@ -1,5 +1,7 @@
 package com.forestdise.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +27,7 @@ public class ShippingMethod {
     private Long id;
 
     @OneToMany(mappedBy = "shippingMethod")
+    @JsonManagedReference(value = "shopOrder_shippingMethod")
     private Set<ShopOrder> shopOrders;
 
     private String name;
