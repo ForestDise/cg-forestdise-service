@@ -4,15 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.validation.constraints.Null;
+import reactor.util.annotation.Nullable;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class SaveForLaterDto {
-    @Null
     private Long id;
     private int quantity;
     private CartDto cartDto;

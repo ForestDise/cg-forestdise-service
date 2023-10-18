@@ -58,7 +58,7 @@ public class CartLineServiceImpl implements CartLineService {
         Cart cart = cartRepository.findById(cartLineRequest.getCartId()).orElse(null);
         CartLine cartLine = cartLineRepository.findCartLineByVariant(variant);
         if (cartLine != null) {
-            int newQuantity = cartLine.getQuantity() + 1;
+            int newQuantity = cartLine.getQuantity() + cartLineRequest.getQuantity();
             cartLine.setQuantity(newQuantity);
             cartLineRepository.save(cartLine);
             CartLineDto cartLineDto = cartLineConverter.convertEntityToDto(cartLine);
