@@ -82,5 +82,22 @@ public class ProductServiceImpl implements IProductService {
         return productConverterImpl.entitiesToDTOs(products);
 
     }
+    @Override
+    public Product createProduct(ProductDto productDto) {
+        Product product= productConverterImpl.dtoToEntity(productDto);
+        return productRepository.save(product);
+    }
+
+    @Override
+    public Product updateProduct(ProductDto productDto) {
+        Product product = productConverterImpl.dtoToEntity(productDto);
+        return productRepository.save(product);
+
+    }
+
+    @Override
+    public void deleteProduct(Long productId) {
+        productRepository.deleteById(productId);
+    }
 
 }
