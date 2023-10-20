@@ -1,5 +1,7 @@
 package com.forestdise.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,11 +39,17 @@ public class Address {
 
     private String street;
 
-    @OneToMany(mappedBy = "address")
-    private Set<ShopOrder> shopOrders;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference(value = "address_user")
     private User user;
-    
+
+
+    @ManyToOne
+    @JoinColumn(name="seller_id")
+    @JsonBackReference(value = "address_seller")
+    private Seller seller;
+
+
 }

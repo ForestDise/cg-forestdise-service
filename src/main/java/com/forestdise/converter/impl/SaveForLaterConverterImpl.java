@@ -2,7 +2,7 @@ package com.forestdise.converter.impl;
 
 import com.forestdise.converter.CartConverter;
 import com.forestdise.converter.SaveForLaterConverter;
-import com.forestdise.converter.VariantConverter;
+import com.forestdise.converter.IVariantConverter;
 import com.forestdise.dto.CartDto;
 import com.forestdise.dto.SaveForLaterDto;
 import com.forestdise.dto.VariantDto;
@@ -10,14 +10,13 @@ import com.forestdise.entity.Cart;
 import com.forestdise.entity.SaveForLater;
 import com.forestdise.entity.Variant;
 import com.forestdise.service.CartService;
-import com.forestdise.service.VariantService;
+import com.forestdise.service.IVariantService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class SaveForLaterConverterImpl implements SaveForLaterConverter {
@@ -25,13 +24,13 @@ public class SaveForLaterConverterImpl implements SaveForLaterConverter {
     private CartService cartService;
 
     @Autowired
-    private VariantService variantService;
+    private IVariantService variantService;
 
     @Autowired
     private CartConverter cartConverter;
 
     @Autowired
-    private VariantConverter variantConverter;
+    private IVariantConverter variantConverter;
 
     @Override
     public SaveForLater convertDtoToEntity(SaveForLaterDto saveForLaterDto) {

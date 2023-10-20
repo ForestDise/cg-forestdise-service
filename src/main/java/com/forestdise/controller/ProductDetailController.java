@@ -6,6 +6,7 @@ import com.forestdise.dto.VariantDto;
 import com.forestdise.dto.VideoDto;
 import com.forestdise.payload.response.VariantDetailResponse;
 import com.forestdise.payload.response.ProductDetailResponse;
+import com.forestdise.service.*;
 import com.forestdise.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,36 +19,40 @@ import java.util.List;
 @RequestMapping("/api/product-detail")
 public class ProductDetailController {
     @Autowired
-    private ImageServiceImpl imageServiceImpl;
+    private IImageService imageServiceImpl;
     @Autowired
-    private ProductServiceImpl productServiceImpl;
+    private IProductService productServiceImpl;
     @Autowired
-    private ProductAttributeServiceImpl productAttributeServiceImpl;
+    private IProductAttributeService productAttributeServiceImpl;
     @Autowired
-    private VariantServiceImpl variantServiceImpl;
+    private IVariantService variantServiceImpl;
     @Autowired
-    private VideoServiceImpl videoServiceImpl;
+    private IVideoService videoServiceImpl;
     @Autowired
-    private OptionValueServiceImpl optionValueServiceImpl;
+    private IOptionValueService optionValueServiceImpl;
     ProductDetailResponse productDetailResponse=new ProductDetailResponse();
     VariantDetailResponse variantDetailResponse =new VariantDetailResponse();
     @GetMapping("/{product_id}")
-    public ResponseEntity<ProductDetailResponse> getProductDetail(@PathVariable("product_id") Long productId) {
+    public ResponseEntity<ProductDetailResponse> getProduct(@PathVariable("product_id") Long productId) {
         productDetailResponse.setProductDTO(productServiceImpl.getProductById(productId));
-        productDetailResponse.setVariantDtos(variantServiceImpl.getVariantByProductId(productId));
-        productDetailResponse.setProductAttributeDtos(productAttributeServiceImpl.getProductAttributeByProductId(productId));
+        productDetailResponse.setStoreDto(productServiceImpl.getStoreByProductId(productId));
+        productDetailResponse.setOptionTableDto(productServiceImpl.getOptionsByProductId(productId));
+        productDetailResponse.setVariantDtoList(variantServiceImpl.getVariantByProductId(productId));
+        productDetailResponse.setProductAttributeDtoList(productAttributeServiceImpl.getProductAttributeByProductId(productId));
+        productDetailResponse.setVariantDto(variantServiceImpl.getLowestPriceVariantByProductId(productId));
+        // lay variant lowest price by productId
         return ResponseEntity.ok(productDetailResponse);
     }
     @GetMapping("/{product_id}/{variant_id}")
-    public ResponseEntity<VariantDetailResponse> getImageVariant(@PathVariable("variant_id") Long variantId){
+    public ResponseEntity<VariantDetailResponse> getVariant(@PathVariable("variant_id") Long variantId){
         List<ImageDto> images = imageServiceImpl.getImageByVariantId(variantId);
         List<VideoDto> videos = videoServiceImpl.getVideosByVariantId(variantId);
         VariantDto variantDto = variantServiceImpl.getVariantById(variantId);
-        List<OptionValueDto> optionValueDtos= optionValueServiceImpl.getOptionValuesByVariantId(variantId);
+        List<OptionValueDto> optionValueDtoList= optionValueServiceImpl.getOptionValuesByVariantId(variantId);
         variantDetailResponse.setVariantDto(variantDto);
         variantDetailResponse.setImageDtos(images);
         variantDetailResponse.setVideoDtos(videos);
-        variantDetailResponse.setOptionValueDtos(optionValueDtos);
+        variantDetailResponse.setOptionValueDtos(optionValueDtoList);
         return ResponseEntity.ok(variantDetailResponse);
     }
 }

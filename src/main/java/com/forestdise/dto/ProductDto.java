@@ -1,10 +1,12 @@
 package com.forestdise.dto;
+import com.forestdise.entity.Store;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -19,4 +21,6 @@ public class ProductDto {
     private String status;
     private Date createAt;
     private Date updatedAt;
+    private Store store;
+    private List<BulletDto> bulletDtoList;
 }

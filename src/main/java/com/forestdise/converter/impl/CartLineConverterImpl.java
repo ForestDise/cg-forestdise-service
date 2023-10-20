@@ -2,7 +2,7 @@ package com.forestdise.converter.impl;
 
 import com.forestdise.converter.CartConverter;
 import com.forestdise.converter.CartLineConverter;
-import com.forestdise.converter.VariantConverter;
+import com.forestdise.converter.IVariantConverter;
 import com.forestdise.dto.CartDto;
 import com.forestdise.dto.CartLineDto;
 import com.forestdise.dto.VariantDto;
@@ -10,7 +10,7 @@ import com.forestdise.entity.Cart;
 import com.forestdise.entity.CartLine;
 import com.forestdise.entity.Variant;
 import com.forestdise.service.CartService;
-import com.forestdise.service.VariantService;
+import com.forestdise.service.IVariantService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,14 +24,13 @@ public class CartLineConverterImpl implements CartLineConverter {
     private CartService cartService;
 
     @Autowired
-    private VariantService variantService;
-
-    @Autowired
     private CartConverter cartConverter;
 
     @Autowired
-    private VariantConverter variantConverter;
+    private IVariantConverter variantConverter;
 
+    @Autowired
+    private IVariantService variantService;
     @Override
     public CartLine convertDtoToEntity(CartLineDto cartLineDto) {
         CartLine cartLine = new CartLine();

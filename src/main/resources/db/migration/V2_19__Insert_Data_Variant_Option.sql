@@ -1,0 +1,4 @@
+INSERT IGNORE INTO VARIANT_OPTIONVALUE (variant_id, optionvalue_id) VALUES (1, 1);
+INSERT IGNORE INTO VARIANT_OPTIONVALUE (variant_id, optionvalue_id) VALUES (1, 3);
+INSERT IGNORE INTO VARIANT_OPTIONVALUE (variant_id, optionvalue_id) VALUES (2, 2);
+INSERT IGNORE INTO VARIANT_OPTIONVALUE (variant_id, optionvalue_id) VALUES (2, 4);

@@ -1,6 +1,8 @@
 package com.forestdise.repository;
 
 import com.forestdise.entity.Product;
+import com.forestdise.entity.Variant;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

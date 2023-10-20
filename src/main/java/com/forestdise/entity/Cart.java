@@ -1,5 +1,6 @@
 package com.forestdise.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,8 +23,10 @@ public class Cart {
     private User user;
 
     @OneToMany(mappedBy = "cart")
+    @JsonManagedReference(value = "cart_cartLine")
     private List<CartLine> cartLines;
 
     @OneToMany(mappedBy = "cart")
+    @JsonManagedReference(value = "cart_saveForLater")
     private List<SaveForLater> saveForLaterList;
 }

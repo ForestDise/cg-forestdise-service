@@ -10,5 +10,7 @@ import java.util.Optional;
 
 public interface VariantRepository  extends JpaRepository<Variant,Long > {
 //    Optional<Variant> findById(Long id);
-    List<Variant> findByProductId(Long id);
+    List<Variant> findByProduct_Id(Long id);
+
+    List<Variant> findVariantsByProductId(Long id);
 }
