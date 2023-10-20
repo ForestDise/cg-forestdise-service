@@ -6,6 +6,7 @@ import com.forestdise.entity.Review;
 import com.forestdise.repository.ReviewRepository;
 import com.forestdise.service.IProductService;
 import com.forestdise.service.IReviewService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,8 +14,11 @@ import java.util.List;
 
 @Service
 public class ReviewServiceImpl implements IReviewService {
+    @Autowired
     private ReviewRepository reviewRepository;
+    @Autowired
     private IReviewConverter reviewConverter;
+    @Autowired
     private IProductService productService;
 
     public ReviewServiceImpl(ReviewRepository reviewRepository, IReviewConverter reviewConverter, IProductService productService) {

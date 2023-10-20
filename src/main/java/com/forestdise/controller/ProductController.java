@@ -1,7 +1,7 @@
 package com.forestdise.controller;
 
 import com.forestdise.dto.ProductDto;
-import com.forestdise.service.impl.ProductServiceImpl;
+import com.forestdise.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +16,11 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    private ProductServiceImpl productServiceImpl;
+    private IProductService productService;
 
 
     @GetMapping
     public List<ProductDto> productDtoList(){
-        return productServiceImpl.getAllProductDtos();
+        return productService.getAllProductDtos();
     }
 }
