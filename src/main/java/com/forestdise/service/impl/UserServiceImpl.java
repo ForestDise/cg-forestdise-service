@@ -1,8 +1,8 @@
 package com.forestdise.service.impl;
 
 import com.forestdise.configuration.JwtTokenUtil;
-import com.forestdise.dto.UserRegisterDTO;
 import com.forestdise.dto.UserLoginDTO;
+import com.forestdise.dto.UserRegisterDTO;
 import com.forestdise.entity.Role;
 import com.forestdise.entity.User;
 import com.forestdise.repository.RoleRepository;

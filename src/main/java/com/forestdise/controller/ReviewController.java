@@ -1,6 +1,5 @@
 package com.forestdise.controller;
 
-import com.forestdise.dto.SummaryDto;
 import com.forestdise.payload.response.ReviewResponse;
 import com.forestdise.service.IReviewService;
 import lombok.AllArgsConstructor;
