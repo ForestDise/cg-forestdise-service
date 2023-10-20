@@ -1,9 +1,12 @@
 package com.forestdise.controller;
 
+import com.forestdise.converter.IReviewConverter;
 import com.forestdise.dto.SummaryDto;
 import com.forestdise.payload.response.ReviewResponse;
+import com.forestdise.repository.ReviewRepository;
 import com.forestdise.service.IReviewService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/reviews")
 @AllArgsConstructor
 public class ReviewController {
+    @Autowired
     private IReviewService reviewService;
 
 

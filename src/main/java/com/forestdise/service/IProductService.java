@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface IProductService {
     public ProductDto getProductById(Long id);
     public List<ProductDto> getAllProductDtos();
