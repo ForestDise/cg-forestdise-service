@@ -72,6 +72,7 @@ public class ProductDetailController {
         Product product = productServiceImpl.createProduct(productDto);
 
         if (product != null) {
+            // trả về 1 productId, để có the tạo variant phụ thuộc vào productId
             return new ResponseEntity<>("Product created successfully", HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>("Failed to create product", HttpStatus.BAD_REQUEST);
@@ -116,4 +117,5 @@ public class ProductDetailController {
             return new ResponseEntity<>("Failed to delete product", HttpStatus.BAD_REQUEST);
         }
     }
+
 }

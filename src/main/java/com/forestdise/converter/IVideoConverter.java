@@ -10,5 +10,5 @@ import java.util.List;
 public interface IVideoConverter {
     List<VideoDto> entitiesToDTOs(List<Video> element);
     VideoDto entityToDTO(Video element);
-    Image dtoToEntity(ImageDto element);
+    Video dtoToEntity(VideoDto element);
 }
