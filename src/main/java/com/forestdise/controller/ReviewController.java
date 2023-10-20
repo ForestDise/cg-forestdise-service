@@ -1,9 +1,6 @@
 package com.forestdise.controller;
 
-import com.forestdise.converter.IReviewConverter;
-import com.forestdise.dto.SummaryDto;
 import com.forestdise.payload.response.ReviewResponse;
-import com.forestdise.repository.ReviewRepository;
 import com.forestdise.service.IReviewService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

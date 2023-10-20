@@ -76,5 +76,28 @@ public class ProductServiceImpl implements IProductService {
         return optionTableDtoList;
     }
 
+    @Override
+    public List<ProductDto> getProductsByContaining(String text) {
+        List<Product> products = productRepository.findByTitleContaining(text);
+        return productConverterImpl.entitiesToDTOs(products);
+
+    }
+    @Override
+    public Product createProduct(ProductDto productDto) {
+        Product product= productConverterImpl.dtoToEntity(productDto);
+        return productRepository.save(product);
+    }
+
+    @Override
+    public Product updateProduct(ProductDto productDto) {
+        Product product = productConverterImpl.dtoToEntity(productDto);
+        return productRepository.save(product);
+
+    }
+
+    @Override
+    public void deleteProduct(Long productId) {
+        productRepository.deleteById(productId);
+    }
 
 }

@@ -80,6 +80,11 @@ public class VariantServiceImpl implements IVariantService {
         variantDto.setVideoDtoList(videoDtoList);
         return variantDto;
     }
+    @Override
+    public VariantDto getVariantByProductPriceMin(Long product_id) {
+        Variant variant = variantRepository.findTopByProductIdOrderByPriceAsc(product_id);
+        return variantConverterImpl.entityToDTO(variant);
+    }
 
 
 

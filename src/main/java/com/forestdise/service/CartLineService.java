@@ -1,10 +1,7 @@
 package com.forestdise.service;
 
 import com.forestdise.dto.CartLineDto;
-import com.forestdise.entity.CartLine;
 import com.forestdise.payload.request.CartLineRequest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

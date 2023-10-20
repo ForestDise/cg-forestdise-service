@@ -1,8 +1,6 @@
 package com.forestdise.converter;
 
-import com.forestdise.dto.ReviewDto;
 import com.forestdise.dto.StoreDto;
-import com.forestdise.entity.Review;
 import com.forestdise.entity.Store;
 
 import java.util.List;
