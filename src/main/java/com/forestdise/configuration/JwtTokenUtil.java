@@ -18,14 +18,14 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @RequiredArgsConstructor
 public class JwtTokenUtil {
 
-    public static final long JWT_TOKEN_VALIDITY = 60*60;
+    public static final long JWT_TOKEN_VALIDITY = 7*24*60*60;
 
     public static final long JWT_REFRESH_TOKEN_VALIDITY = 7*24*60*60;
 
     @Value("${security.jwt.token.secret-key:secret-key}")
     private String secret;
 
-    public String getEmailFromToken(String token) {
+    public String getIdFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
@@ -88,7 +88,7 @@ public class JwtTokenUtil {
     }
 
     public Boolean validateToken(String token, User user) {
-        final String email = getEmailFromToken(token);
-        return (email.equals(user.getEmail()) && !isTokenExpired(token));
+        final String id = getIdFromToken(token);
+        return (id.equals(user.getId().toString()) && !isTokenExpired(token));
     }
 }

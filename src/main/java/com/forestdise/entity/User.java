@@ -34,18 +34,14 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "role")
+    private String role;
+
     @OneToOne(mappedBy = "user")
     private Cart cart;
 
     @OneToOne(mappedBy = "user")
     private ShopOrder shopOrder;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "user_role",
-            joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")})
-    private List<Role> roles = new ArrayList<>();
 
     @OneToMany(mappedBy = "customer")
     @JsonManagedReference(value = "user_review")

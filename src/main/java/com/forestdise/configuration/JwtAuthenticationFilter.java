@@ -43,7 +43,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         final String requestTokenHeader = request.getHeader(AUTHORIZATION);
 
-        String email = null;
+        String id = null;
         String jwtToken = null;
         // JWT Token is in the form "Bearer token". Remove Bearer word and get only the Token
         if (requestTokenHeader != null && requestTokenHeader.startsWith(BEARER)) {
@@ -52,7 +52,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 if(jwtTokenUtil.isTokenExpired(jwtToken)){
                     throw new ExpiredJwtException(null, null, "Jwt expired");
                 }
-                email = jwtTokenUtil.getEmailFromToken(jwtToken);
+                id = jwtTokenUtil.getIdFromToken(jwtToken);
 
             } catch (IllegalArgumentException e) {
                 System.out.println("Unable to get JWT Token");
@@ -64,9 +64,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         //Once we get the token validate it.
-        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+        if (id != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            User user = userRepository.findByEmail(email);
+            User user = userRepository.findById(Long.parseLong(id)).orElse(null);
             if(user == null){
                 throw new UsernameNotFoundException("User not found!");
             }
@@ -75,7 +75,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                     user,
                     null,
-                    Collections.singleton(new SimpleGrantedAuthority(user.getRoles().toString())));
+                    Collections.singleton(new SimpleGrantedAuthority(user.getRole().toString())));
                     usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             // After setting the Authentication in the context, we specify
             // that the current user is authenticated. So it passes the Spring Security Configurations successfully.

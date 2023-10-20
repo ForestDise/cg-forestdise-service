@@ -1,11 +1,10 @@
 package com.forestdise.service.impl;
 
 import com.forestdise.configuration.JwtTokenUtil;
+import com.forestdise.constraint.Role;
 import com.forestdise.dto.UserRegisterDTO;
 import com.forestdise.dto.UserLoginDTO;
-import com.forestdise.entity.Role;
 import com.forestdise.entity.User;
-import com.forestdise.repository.RoleRepository;
 import com.forestdise.repository.UserRepository;
 import com.forestdise.security.JwtUserDetailsService;
 import com.forestdise.service.UserService;
@@ -26,8 +25,6 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
-    @Autowired
-    private RoleRepository roleRepository;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
@@ -56,8 +53,7 @@ public class UserServiceImpl implements UserService {
         user.setClientName(userRegisterDto.getClientName());
         user.setEmail(userRegisterDto.getEmail());
         user.setPassword(passwordEncoder.encode(password));
-        Role role = roleRepository.findByName("ROLE_USER");
-        user.setRoles(Arrays.asList(role));
+        user.setRole("ROLE_".concat(Role.USER.toString()));
         userRepository.save(user);
         return user;
     }
