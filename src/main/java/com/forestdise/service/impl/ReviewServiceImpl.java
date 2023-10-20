@@ -1,66 +1,70 @@
 package com.forestdise.service.impl;
 
-import com.forestdise.converter.IReviewConverter;
+import com.forestdise.converter.ReviewConverter;
 import com.forestdise.dto.*;
 import com.forestdise.entity.Review;
 import com.forestdise.repository.ReviewRepository;
-import com.forestdise.service.IProductService;
-import com.forestdise.service.IReviewService;
+import com.forestdise.service.ProductService;
+import com.forestdise.service.ReviewService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ReviewServiceImpl implements IReviewService {
+public class ReviewServiceImpl implements ReviewService {
+    @Autowired
     private ReviewRepository reviewRepository;
-    private IReviewConverter reviewConverter;
-    private IProductService productService;
+    @Autowired
+    private ReviewConverter reviewConverter;
+    @Autowired
+    private ProductService productService;
 
-    public ReviewServiceImpl(ReviewRepository reviewRepository, IReviewConverter reviewConverter, IProductService productService) {
+    public ReviewServiceImpl(ReviewRepository reviewRepository, ReviewConverter reviewConverter, ProductService productService) {
         this.reviewRepository = reviewRepository;
         this.reviewConverter = reviewConverter;
         this.productService = productService;
     }
 
     @Override
-    public ReviewDto getReviewById(Long id) {
-        ReviewDto reviewDto;
+    public ReviewDTO getReviewById(Long id) {
+        ReviewDTO reviewDto;
         Review review = reviewRepository.findById(id).orElse(new Review());
         reviewDto = reviewConverter.entityToDTO(review);
         return reviewDto;
     }
 
     @Override
-    public List<ReviewDto> getReviewsByVariantId(Long variantId) {
+    public List<ReviewDTO> getReviewsByVariantId(Long variantId) {
         List<Review> reviewList = reviewRepository.findByVariant_Id(variantId);
-        List<ReviewDto> reviewDtoList = reviewConverter.entitiesToDTOs(reviewList);
-        return reviewDtoList;
+        List<ReviewDTO> reviewDTOList = reviewConverter.entitiesToDTOs(reviewList);
+        return reviewDTOList;
     }
 
     @Override
-    public List<ReviewDto> getReviewsByProductId(Long productId){
-        List<ReviewDto> reviewDtoList = new ArrayList<>();
-        List<VariantDto> variantDtoList = productService.getVariantsByProductId(productId);
-        for(VariantDto variantDto : variantDtoList){
-            List<OptionValueDto> optionValueDtoList = variantDto.getOptionValueDtoList();
-            reviewDtoList = variantDto.getReviewDtoList();
-            if(reviewDtoList != null) {
-                for (ReviewDto reviewDto : reviewDtoList) {
-                    reviewDto.setOptionValueDtoList(optionValueDtoList);
+    public List<ReviewDTO> getReviewsByProductId(Long productId){
+        List<ReviewDTO> reviewDTOList = new ArrayList<>();
+        List<VariantDTO> variantDTOList = productService.getVariantsByProductId(productId);
+        for(VariantDTO variantDto : variantDTOList){
+            List<OptionValueDTO> optionValueDTOList = variantDto.getOptionValueDTOList();
+            reviewDTOList = variantDto.getReviewDTOList();
+            if(reviewDTOList != null) {
+                for (ReviewDTO reviewDto : reviewDTOList) {
+                    reviewDto.setOptionValueDTOList(optionValueDTOList);
                 }
             }
-            reviewDtoList.addAll(getReviewsByVariantId(variantDto.getId()));
+            reviewDTOList.addAll(getReviewsByVariantId(variantDto.getId()));
             //ddang sua
-            //reviewDtoList null pointer exception
+            //reviewDTOList null pointer exception
         }
 
-        return reviewDtoList;
+        return reviewDTOList;
     }
 
     @Override
-    public SummaryDto getSummaryDtoByProductId(Long productId) {
-        SummaryDto summaryDto = new SummaryDto();
+    public SummaryDTO getSummaryDtoByProductId(Long productId) {
+        SummaryDTO summaryDto = new SummaryDTO();
         int total = 0;
         int count = 0;
         int countFiveStar = 0;
@@ -68,11 +72,11 @@ public class ReviewServiceImpl implements IReviewService {
         int countThreeStar = 0;
         int countTwoStar = 0;
         int countOneStar = 0;
-        List<VariantDto> variantDtoList = productService.getVariantsByProductId(productId);
-        for(VariantDto variantDto : variantDtoList){
-            List<ReviewDto> reviewDtoList = variantDto.getReviewDtoList();
-            total += reviewDtoList.size();
-            for(ReviewDto reviewDto : reviewDtoList){
+        List<VariantDTO> variantDTOList = productService.getVariantsByProductId(productId);
+        for(VariantDTO variantDto : variantDTOList){
+            List<ReviewDTO> reviewDTOList = variantDto.getReviewDTOList();
+            total += reviewDTOList.size();
+            for(ReviewDTO reviewDto : reviewDTOList){
                 if(reviewDto.getStar() == 5){
                     countFiveStar++;
                     count += 5;

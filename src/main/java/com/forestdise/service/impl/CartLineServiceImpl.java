@@ -1,7 +1,7 @@
 package com.forestdise.service.impl;
 
 import com.forestdise.converter.CartLineConverter;
-import com.forestdise.dto.CartLineDto;
+import com.forestdise.dto.CartLineDTO;
 import com.forestdise.entity.Cart;
 import com.forestdise.entity.CartLine;
 import com.forestdise.entity.Variant;
@@ -32,7 +32,7 @@ public class CartLineServiceImpl implements CartLineService {
     private VariantRepository variantRepository;
 
     @Override
-    public void updateCartLine(CartLineDto cartLineDto, Long id) throws Exception {
+    public void updateCartLine(CartLineDTO cartLineDto, Long id) throws Exception {
         CartLine cartLine = cartLineRepository.findById(id).orElse(null);
         cartLine.setQuantity(cartLineDto.getQuantity());
         cartLineRepository.save(cartLine);
@@ -46,15 +46,15 @@ public class CartLineServiceImpl implements CartLineService {
     }
 
     @Override
-    public List<CartLineDto> findCartLinesByCartId(Long cartId) {
+    public List<CartLineDTO> findCartLinesByCartId(Long cartId) {
         Cart cart = cartRepository.findById(cartId).orElse(null);
         List<CartLine> cartLines = cartLineRepository.findCartLineByCart(cart);
-        List<CartLineDto> cartLineDtos = cartLineConverter.convertEntitiesToDtos(cartLines);
-        return cartLineDtos;
+        List<CartLineDTO> cartLineDTOS = cartLineConverter.convertEntitiesToDtos(cartLines);
+        return cartLineDTOS;
     }
 
     @Override
-    public CartLineDto saveCartLine(CartLineRequest cartLineRequest) {
+    public CartLineDTO saveCartLine(CartLineRequest cartLineRequest) {
         Variant variant = variantRepository.findById(cartLineRequest.getVariantId()).orElse(null);
         Cart cart = cartRepository.findById(cartLineRequest.getCartId()).orElse(null);
         CartLine cartLine = cartLineRepository.findCartLineByVariant(variant);
@@ -62,7 +62,7 @@ public class CartLineServiceImpl implements CartLineService {
             int newQuantity = cartLine.getQuantity() + 1;
             cartLine.setQuantity(newQuantity);
             cartLineRepository.save(cartLine);
-            CartLineDto cartLineDto = cartLineConverter.convertEntityToDto(cartLine);
+            CartLineDTO cartLineDto = cartLineConverter.convertEntityToDto(cartLine);
             return cartLineDto;
         }
         int quantity = cartLineRequest.getQuantity();
@@ -71,7 +71,7 @@ public class CartLineServiceImpl implements CartLineService {
         newCartLine.setVariant(variant);
         newCartLine.setQuantity(quantity);
         cartLineRepository.save(newCartLine);
-        CartLineDto cartLineDto = cartLineConverter.convertEntityToDto(newCartLine);
+        CartLineDTO cartLineDto = cartLineConverter.convertEntityToDto(newCartLine);
         return cartLineDto;
     }
 

@@ -1,13 +1,13 @@
 package com.forestdise.converter;
 
-import com.forestdise.dto.SaveForLaterDto;
+import com.forestdise.dto.SaveForLaterDTO;
 import com.forestdise.entity.SaveForLater;
 
 import java.util.List;
 
 public interface SaveForLaterConverter {
-    SaveForLater convertDtoToEntity(SaveForLaterDto saveForLaterDto);
-    SaveForLaterDto convertEntityToDto(SaveForLater saveForLater);
-    List<SaveForLaterDto> convertEntitiesToDtos(List<SaveForLater> saveForLaters);
-    List<SaveForLater> convertDtoToEntities(List<SaveForLaterDto> cartLineDtos);
+    SaveForLater convertDtoToEntity(SaveForLaterDTO saveForLaterDto);
+    SaveForLaterDTO convertEntityToDto(SaveForLater saveForLater);
+    List<SaveForLaterDTO> convertEntitiesToDtos(List<SaveForLater> saveForLaters);
+    List<SaveForLater> convertDtoToEntities(List<SaveForLaterDTO> cartLineDtos);
 }

@@ -1,6 +1,6 @@
 package com.forestdise.payload.response;
 
-import com.forestdise.dto.CartLineDto;
+import com.forestdise.dto.CartLineDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,5 +14,5 @@ import java.util.List;
 public class CartResponse {
     private String message;
     private String statusCode;
-    private List<CartLineDto> data;
+    private List<CartLineDTO> data;
 }

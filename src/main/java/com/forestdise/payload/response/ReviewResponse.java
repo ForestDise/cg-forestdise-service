@@ -1,7 +1,7 @@
 package com.forestdise.payload.response;
 
-import com.forestdise.dto.ReviewDto;
-import com.forestdise.dto.SummaryDto;
+import com.forestdise.dto.ReviewDTO;
+import com.forestdise.dto.SummaryDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,8 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReviewResponse {
-    private List<ReviewDto> reviewDtoList;
-    private SummaryDto summaryDto;
+    private List<ReviewDTO> reviewDTOList;
+    private SummaryDTO summaryDto;
     // % cua moi sao
     //tong so review
     // trung binh sao

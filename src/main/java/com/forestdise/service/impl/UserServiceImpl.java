@@ -15,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -56,16 +55,6 @@ public class UserServiceImpl implements UserService {
         user.setRole("ROLE_".concat(Role.USER.toString()));
         userRepository.save(user);
         return user;
-    }
-
-    @Override
-    public User findByEmail(String email) {
-        return null;
-    }
-
-    @Override
-    public List<UserLoginDTO> findAllUsers() {
-        return null;
     }
 
     @Override

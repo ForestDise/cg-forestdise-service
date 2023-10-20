@@ -1,6 +1,6 @@
 package com.forestdise.controller;
 
-import com.forestdise.dto.CartLineDto;
+import com.forestdise.dto.CartLineDTO;
 import com.forestdise.entity.Cart;
 import com.forestdise.entity.User;
 import com.forestdise.payload.request.CartLineRequest;
@@ -19,6 +19,7 @@ import java.util.List;
 @RequestMapping("/api/cart-lines")
 public class CartLineController {
 
+
     @Autowired
     CartLineService cartLineService;
 
@@ -35,8 +36,8 @@ public class CartLineController {
     }
 
     @PostMapping("/add-to-cart")
-    public ResponseEntity<CartLineDto> addCartLine(@RequestBody CartLineRequest cartLineRequest){
-        CartLineDto cartLineDto = cartLineService.saveCartLine(cartLineRequest);
+    public ResponseEntity<CartLineDTO> addCartLine(@RequestBody CartLineRequest cartLineRequest){
+        CartLineDTO cartLineDto = cartLineService.saveCartLine(cartLineRequest);
         return new ResponseEntity<>(cartLineDto ,HttpStatus.OK);
     }
 
@@ -44,12 +45,12 @@ public class CartLineController {
     public ResponseEntity<?> getAllCartLines(@PathVariable("id") Long userId){
         User user = userService.findById(userId);
         Cart cart = cartService.findCartByUserId(user);
-        List<CartLineDto> cartLineDtos = cartLineService.findCartLinesByCartId(cart.getId());
-        return new ResponseEntity<>(cartLineDtos,HttpStatus.OK);
+        List<CartLineDTO> cartLineDTOS = cartLineService.findCartLinesByCartId(cart.getId());
+        return new ResponseEntity<>(cartLineDTOS,HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity<?> updateCartLine(@RequestBody CartLineDto cartLineDto) throws Exception {
+    public ResponseEntity<?> updateCartLine(@RequestBody CartLineDTO cartLineDto) throws Exception {
         cartLineService.updateCartLine(cartLineDto, cartLineDto.getId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
