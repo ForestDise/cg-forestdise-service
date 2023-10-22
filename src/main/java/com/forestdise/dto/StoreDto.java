@@ -1,6 +1,5 @@
 package com.forestdise.dto;
 
-import com.forestdise.entity.StoreCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,5 +18,5 @@ public class StoreDto {
     private String dealsImage;
     private String interactiveImage;
     private String logo;
-//    private List<StoreCategory> storeCategoryList;
+    private List<StoreCategoryDTO> storeCategoryList;
 }

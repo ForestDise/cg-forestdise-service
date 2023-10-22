@@ -58,10 +58,10 @@ public class ProductDetailController {
         return ResponseEntity.ok(variantDetailResponse);
     }
     @PostMapping("/create")
-    public ResponseEntity<String> createProduct(@RequestBody ProductRequest productRequest) {
+    public ResponseEntity<Product> createProduct(@RequestBody ProductRequest productRequest) {
         ProductDto productDto =ProductDto.builder()
                 .title(productRequest.getTitle())
-                .status("currently for sale")
+                .status("ACTIVE")
                 .createAt(Calendar.getInstance().getTime()) // lay thoi gian hien tai
                 .updatedAt(Calendar.getInstance().getTime())
                 .description(productRequest.getDescription())
@@ -72,9 +72,9 @@ public class ProductDetailController {
         Product product = productServiceImpl.createProduct(productDto);
 
         if (product != null) {
-            return new ResponseEntity<>("Product created successfully", HttpStatus.CREATED);
+            return new ResponseEntity<>(product, HttpStatus.CREATED);
         } else {
-            return new ResponseEntity<>("Failed to create product", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(product, HttpStatus.BAD_REQUEST);
         }
     }
     @PutMapping("/update/{product_id}")

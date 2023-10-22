@@ -5,4 +5,6 @@ import com.forestdise.dto.StoreDto;
 public interface StoreService {
 
     StoreDto findStore(Long id);
+
+    StoreDto createStore(Long sellerId, StoreDto storeDto);
 }
