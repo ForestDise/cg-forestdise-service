@@ -1,22 +1,15 @@
 package com.forestdise.controller.sellingController;
 
-import com.forestdise.converter.impl.ProductConverterImpl;
-import com.forestdise.converter.impl.VariantConverterImpl;
-import com.forestdise.dto.ProductDto;
+
 import com.forestdise.dto.VariantDto;
-import com.forestdise.entity.Product;
 import com.forestdise.entity.Variant;
-import com.forestdise.payload.request.ProductRequest;
 import com.forestdise.payload.request.VariantRequest;
 import com.forestdise.payload.response.VariantCreateResponse;
-import com.forestdise.service.impl.ProductServiceImpl;
 import com.forestdise.service.impl.VariantServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Calendar;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
