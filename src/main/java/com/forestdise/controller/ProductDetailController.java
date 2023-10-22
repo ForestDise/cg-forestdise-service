@@ -67,8 +67,6 @@ public class ProductDetailController {
                 .description(productRequest.getDescription())
                 .mainPicture(productRequest.getMainPicture())
                 .build();
-
-
         Product product = productServiceImpl.createProduct(productDto);
 
         if (product != null) {
