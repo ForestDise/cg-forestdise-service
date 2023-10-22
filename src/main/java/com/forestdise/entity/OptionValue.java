@@ -31,4 +31,10 @@ public class OptionValue {
     @ManyToMany(mappedBy = "optionValues")
     @JsonBackReference(value = "optionValue_variant")
     private List<Variant> variants ;
+    public List<Variant> getVariants() {
+        if (variants == null) {
+            variants = new ArrayList<>();
+        }
+        return variants;
+    }
 }

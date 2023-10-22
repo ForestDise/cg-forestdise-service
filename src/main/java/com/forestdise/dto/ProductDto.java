@@ -20,6 +20,6 @@ public class ProductDto {
     private String status;
     private Date createAt;
     private Date updatedAt;
-    private StoreDto store;
+    private StoreDto storeDto;
     private List<BulletDto> bulletDtoList;
 }

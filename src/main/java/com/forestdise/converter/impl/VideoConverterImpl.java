@@ -27,8 +27,8 @@ public class VideoConverterImpl implements IVideoConverter {
     }
 
     @Override
-    public Image dtoToEntity(ImageDto element) {
-        Image result = new Image();
+    public Video dtoToEntity(VideoDto element) {
+        Video result = new Video();
         BeanUtils.copyProperties(element, result);
         return result;
     }

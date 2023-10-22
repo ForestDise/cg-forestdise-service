@@ -114,4 +114,5 @@ public class ProductDetailController {
             return new ResponseEntity<>("Failed to delete product", HttpStatus.BAD_REQUEST);
         }
     }
+
 }
