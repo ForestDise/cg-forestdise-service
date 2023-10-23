@@ -12,10 +12,17 @@ import java.util.List;
 
 @Service
 public class ProductAttributeServiceImpl implements IProductAttributeService {
+    private final ProductAttributeRepository productAttributeRepository;
+    private final ProductAttributeConverterImpl productAttributeConverterImpl;
+
     @Autowired
-    private ProductAttributeRepository productAttributeRepository;
-    @Autowired
-    private ProductAttributeConverterImpl productAttributeConverterImpl;
+    public ProductAttributeServiceImpl(
+            ProductAttributeRepository productAttributeRepository,
+            ProductAttributeConverterImpl productAttributeConverterImpl
+    ) {
+        this.productAttributeRepository = productAttributeRepository;
+        this.productAttributeConverterImpl = productAttributeConverterImpl;
+    }
 
     @Override
     public List<ProductAttributeDto> getProductAttributeByProductId(Long product_id) {

@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("api/reviews")
-@AllArgsConstructor
 public class ReviewController {
-    @Autowired
-    private ReviewServiceImpl reviewService;
 
+    private final ReviewServiceImpl reviewService;
+    @Autowired
+    public ReviewController(ReviewServiceImpl reviewService){ this.reviewService=reviewService;}
 
     @GetMapping("/{variant_id}")
     public ResponseEntity<ReviewResponse> getReviewsByVariantId(@PathVariable("variant_id") Long variantId){

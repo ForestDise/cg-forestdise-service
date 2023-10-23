@@ -6,7 +6,6 @@ import com.forestdise.payload.request.ProductRequest;
 import com.forestdise.payload.response.ProductDetailResponse;
 import com.forestdise.payload.response.VariantDetailResponse;
 import com.forestdise.service.*;
-import com.forestdise.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,18 +18,27 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/product-detail")
 public class ProductDetailController {
+    private final IImageService imageServiceImpl;
+    private final IProductService productServiceImpl;
+    private final IProductAttributeService productAttributeServiceImpl;
+    private final IVariantService variantServiceImpl;
+    private final IVideoService videoServiceImpl;
+
+    private final IOptionValueService optionValueServiceImpl;
     @Autowired
-    private IImageService imageServiceImpl;
-    @Autowired
-    private IProductService productServiceImpl;
-    @Autowired
-    private IProductAttributeService productAttributeServiceImpl;
-    @Autowired
-    private IVariantService variantServiceImpl;
-    @Autowired
-    private IVideoService videoServiceImpl;
-    @Autowired
-    private IOptionValueService optionValueServiceImpl;
+            public ProductDetailController(IImageService imageServiceImpl,
+                                           IProductService productServiceImpl,
+                                           IProductAttributeService productAttributeServiceImpl,
+                                           IVariantService variantServiceImpl,
+                                           IVideoService videoServiceImpl,
+                                           IOptionValueService optionValueServiceImpl) {
+        this.imageServiceImpl =imageServiceImpl;
+        this.productServiceImpl= productServiceImpl;
+        this.productAttributeServiceImpl=productAttributeServiceImpl;
+        this.variantServiceImpl=variantServiceImpl;
+        this.videoServiceImpl=videoServiceImpl;
+        this.optionValueServiceImpl=optionValueServiceImpl;
+    }
     ProductDetailResponse productDetailResponse=new ProductDetailResponse();
     VariantDetailResponse variantDetailResponse =new VariantDetailResponse();
 
@@ -62,7 +70,7 @@ public class ProductDetailController {
         ProductDto productDto =ProductDto.builder()
                 .title(productRequest.getTitle())
                 .status("currently for sale")
-                .createAt(Calendar.getInstance().getTime()) // lay thoi gian hien tai
+                .createAt(Calendar.getInstance().getTime())
                 .updatedAt(Calendar.getInstance().getTime())
                 .description(productRequest.getDescription())
                 .mainPicture(productRequest.getMainPicture())
@@ -72,7 +80,6 @@ public class ProductDetailController {
         Product product = productServiceImpl.createProduct(productDto);
 
         if (product != null) {
-            // trả về 1 productId, để có the tạo variant phụ thuộc vào productId
             return new ResponseEntity<>("Product created successfully", HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>("Failed to create product", HttpStatus.BAD_REQUEST);
@@ -86,7 +93,6 @@ public class ProductDetailController {
             return new ResponseEntity<>("Product not found", HttpStatus.NOT_FOUND);
         }
 
-        // Cập nhật thông tin sản phẩm từ productRequest
         productDto.setTitle(productRequest.getTitle());
         productDto.setDescription(productRequest.getDescription());
         productDto.setMainPicture(productRequest.getMainPicture());

@@ -10,11 +10,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class StoreServiceImpl implements StoreService {
-    @Autowired
-    StoreRepository storeRepository;
+    private final StoreRepository storeRepository;
+    private final IStoreConverter storeConverter;
 
     @Autowired
-    IStoreConverter storeConverter;
+    public StoreServiceImpl(StoreRepository storeRepository, IStoreConverter storeConverter) {
+        this.storeRepository = storeRepository;
+        this.storeConverter = storeConverter;
+    }
 
     @Override
     public StoreDto findStore(Long id) {

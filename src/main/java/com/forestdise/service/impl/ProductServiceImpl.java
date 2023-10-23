@@ -14,22 +14,32 @@ import java.util.List;
 
 @Service
 public class ProductServiceImpl implements IProductService {
-    @Autowired
-    private ProductConverterImpl productConverterImpl;
-    @Autowired
-    private IVariantConverter variantConverter;
+    private final ProductConverterImpl productConverterImpl;
+    private final IVariantConverter variantConverter;
+    private final IStoreConverter iStoreConverter;
+    private final IOptionValueConverter iOptionValueConverter;
+    private final IOptionTableConverter iOptionTableConverter;
+    private final IBulletConverter iBulletConverter;
+    private final ProductRepository productRepository;
 
     @Autowired
-    private IStoreConverter iStoreConverter;
-
-    @Autowired
-    private IOptionValueConverter iOptionValueConverter;
-    @Autowired
-    private IOptionTableConverter iOptionTableConverter;
-    @Autowired
-    private IBulletConverter iBulletConverter;
-    @Autowired
-    private ProductRepository productRepository;
+    public ProductServiceImpl(
+            ProductConverterImpl productConverterImpl,
+            IVariantConverter variantConverter,
+            IStoreConverter iStoreConverter,
+            IOptionValueConverter iOptionValueConverter,
+            IOptionTableConverter iOptionTableConverter,
+            IBulletConverter iBulletConverter,
+            ProductRepository productRepository
+    ) {
+        this.productConverterImpl = productConverterImpl;
+        this.variantConverter = variantConverter;
+        this.iStoreConverter = iStoreConverter;
+        this.iOptionValueConverter = iOptionValueConverter;
+        this.iOptionTableConverter = iOptionTableConverter;
+        this.iBulletConverter = iBulletConverter;
+        this.productRepository = productRepository;
+    }
     @Override
     public ProductDto getProductById(Long id) {
         Product product = productRepository.findById(id).orElse(new Product()) ;
@@ -57,8 +67,8 @@ public class ProductServiceImpl implements IProductService {
     public StoreDto getStoreByProductId(Long productId) {
         Product product = productRepository.findById(productId).orElse(new Product());
         Store store = product.getStore();
-        StoreDto storeDto = iStoreConverter.entityToDTO(store);
-        return storeDto;
+        return iStoreConverter.entityToDTO(store);
+
     }
 
     @Override

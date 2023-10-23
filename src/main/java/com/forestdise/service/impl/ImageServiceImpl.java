@@ -14,12 +14,20 @@ import java.util.List;
 
 @Service
 public class ImageServiceImpl implements IImageService {
+    private final ImageRepository imageRepository;
+    private final ImageConverterImpl imageConverterImpl;
+    private final VariantRepository variantRepository;
+
     @Autowired
-    private ImageRepository imageRepository;
-    @Autowired
-    private ImageConverterImpl imageConverterImpl;
-    @Autowired
-    private VariantRepository variantRepository;
+    public ImageServiceImpl(
+            ImageRepository imageRepository,
+            ImageConverterImpl imageConverterImpl,
+            VariantRepository variantRepository
+    ) {
+        this.imageRepository = imageRepository;
+        this.imageConverterImpl = imageConverterImpl;
+        this.variantRepository = variantRepository;
+    }
 
     @Override
     public List<ImageDto> getImageByVariantId(Long variant_id) {

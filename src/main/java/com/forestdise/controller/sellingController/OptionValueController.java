@@ -1,14 +1,9 @@
 package com.forestdise.controller.sellingController;
 
-import com.forestdise.dto.OptionTableDto;
 import com.forestdise.dto.OptionValueDto;
-import com.forestdise.entity.OptionTable;
 import com.forestdise.entity.OptionValue;
-import com.forestdise.payload.request.OptionRequest;
 import com.forestdise.payload.request.OptionValueRequest;
-import com.forestdise.payload.response.OptionCreateResponse;
 import com.forestdise.payload.response.OptionValueCreateResponse;
-import com.forestdise.service.impl.OptionServiceImpl;
 import com.forestdise.service.impl.OptionValueServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

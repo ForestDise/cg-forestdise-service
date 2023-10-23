@@ -16,7 +16,6 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("api/search/products")
 public class SearchController {
-    private  SearchResponse searchResponse =new SearchResponse();
     private final ProductServiceImpl productService;
     private final VariantServiceImpl variantService;
     @Autowired
@@ -27,7 +26,12 @@ public class SearchController {
     }
 
     @GetMapping()
-    public ResponseEntity<SearchResponse> getProductsByPrice(@RequestParam("searchText")String searchText) {
+    public ResponseEntity<SearchResponse> getProductsByPrice(
+            @RequestParam("searchText") String searchText,
+            @RequestParam(name = "page", defaultValue = "1") int page,
+            @RequestParam(name = "pageSize", defaultValue = "10") int pageSize
+    ) {
+        SearchResponse searchResponse =new SearchResponse();
         List<ProductDto> productDtoList = productService.getProductsByContaining(searchText);
         searchResponse.setProductDtos(productDtoList);
         List<VariantDto> variantDtoList = new ArrayList<>();

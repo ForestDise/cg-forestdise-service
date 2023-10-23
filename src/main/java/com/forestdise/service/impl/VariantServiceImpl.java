@@ -18,18 +18,29 @@ import java.util.List;
 
 @Service
 public class VariantServiceImpl implements IVariantService {
+    private final IVariantConverter variantConverterImpl;
+    private final VariantRepository variantRepository;
+    private final IOptionValueConverter optionValueConverter;
+    private final IImageConverter iImageConverter;
+    private final IVideoConverter iVideoConverter;
+    private final ProductRepository productRepository;
+
     @Autowired
-    private IVariantConverter variantConverterImpl;
-    @Autowired
-    private VariantRepository variantRepository;
-    @Autowired
-    private IOptionValueConverter optionValueConverter;
-    @Autowired
-    private IImageConverter iImageConverter;
-    @Autowired
-    private IVideoConverter iVideoConverter;
-    @Autowired
-    private ProductRepository productRepository;
+    public VariantServiceImpl(
+            IVariantConverter variantConverterImpl,
+            VariantRepository variantRepository,
+            IOptionValueConverter optionValueConverter,
+            IImageConverter iImageConverter,
+            IVideoConverter iVideoConverter,
+            ProductRepository productRepository
+    ) {
+        this.variantConverterImpl = variantConverterImpl;
+        this.variantRepository = variantRepository;
+        this.optionValueConverter = optionValueConverter;
+        this.iImageConverter = iImageConverter;
+        this.iVideoConverter = iVideoConverter;
+        this.productRepository = productRepository;
+    }
 
     public VariantDto getVariantById(Long id) {
         //null
