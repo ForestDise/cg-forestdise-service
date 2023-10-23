@@ -39,6 +39,7 @@ public class Address {
 
     private String street;
 
+    private boolean defaultAddress;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

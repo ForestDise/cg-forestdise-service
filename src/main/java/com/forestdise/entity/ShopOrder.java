@@ -6,14 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -30,9 +24,8 @@ public class ShopOrder {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne
-    @JoinColumn(name = "cart_line_id")
-    private CartLine cartLine;
+    @OneToMany(mappedBy = "shopOrder")
+    private List<Variant> variantList;
 
     private String order_date;
 
@@ -42,12 +35,16 @@ public class ShopOrder {
 
     private String message;
 
-    private String paymentMethod;
+    @OneToOne
+    @JoinColumn(name = "payment_method_id")
+    private PaymentMethod paymentMethod;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "shipping_method_id")
     @JsonBackReference(value = "shopOrder_shippingMethod")
     private ShippingMethod shippingMethod;
 
-    private Double orderTotal;
+    private int quantity;
+
+    private double orderTotal;
 }

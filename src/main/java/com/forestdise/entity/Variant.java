@@ -57,5 +57,9 @@ public class Variant {
     @OneToMany(mappedBy = "variant")
     @JsonManagedReference(value = "variant_review")
     private List<Review> reviews;
+
+    @ManyToOne
+    @JoinColumn(name = "shop_order_id")
+    private ShopOrder shopOrder;
 }
 

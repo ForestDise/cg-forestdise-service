@@ -4,6 +4,7 @@ import com.forestdise.dto.SummaryDto;
 import com.forestdise.payload.response.ReviewResponse;
 import com.forestdise.service.IReviewService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
