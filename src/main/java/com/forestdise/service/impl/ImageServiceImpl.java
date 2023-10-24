@@ -28,10 +28,14 @@ public class ImageServiceImpl implements IImageService {
     }
 
     @Override
-    public Image createImage(ImageDto imageDto, Long variant_id) {
+    public List<Image> createImage(List<ImageDto> imageDtoList, Long variant_id) {
         Variant variant = variantRepository.findById(variant_id).orElse(null);
-        Image image= imageConverterImpl.dtoToEntity(imageDto);
-        image.setVariant(variant);
-        return imageRepository.save(image);
+        List<Image> images= imageConverterImpl.dtosToEntities(imageDtoList);
+        for(Image element : images){
+            element.setVariant(variant);
+            imageRepository.save(element);
+        }
+        assert variant != null;
+        return variant.getImages();
     }
 }

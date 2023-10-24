@@ -17,4 +17,6 @@ public interface IVariantService {
     public Variant createVariant(VariantDto variantDto,Long product_id);
     public Variant updateVariant(VariantDto variantDto);
     public void deleteVariant(Long variantId);
+
+    public VariantDto createRawVariant(List<Long> valueIdList, Long productId);
 }

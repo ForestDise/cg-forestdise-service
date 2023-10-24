@@ -9,5 +9,5 @@ import java.util.List;
 @Service
 public interface IImageService {
     public List<ImageDto> getImageByVariantId(Long variant_id);
-    public Image createImage(ImageDto imageDto,Long variant_id);
+    public List<Image> createImage(List<ImageDto> imageDtos,Long variant_id);
 }

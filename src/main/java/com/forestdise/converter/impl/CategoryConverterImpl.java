@@ -1,8 +1,8 @@
 package com.forestdise.converter.impl;
 
-import com.forestdise.converter.ISellerConverter;
-import com.forestdise.dto.SellerDto;
-import com.forestdise.entity.Seller;
+import com.forestdise.converter.ICategoryConverter;
+import com.forestdise.dto.CategoryDto;
+import com.forestdise.entity.Category;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
@@ -10,24 +10,25 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class SellerConverterImpl implements ISellerConverter {
+
+public class CategoryConverterImpl implements ICategoryConverter {
     @Override
-    public List<SellerDto> entitiesToDTOs(List<Seller> element) {
+    public List<CategoryDto> entitiesToDTOs(List<Category> element) {
         return element.stream()
                 .map(this::entityToDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public SellerDto entityToDTO(Seller element) {
-        SellerDto result = new SellerDto();
+    public CategoryDto entityToDTO(Category element) {
+        CategoryDto result = new CategoryDto();
         BeanUtils.copyProperties(element, result);
         return result;
     }
 
     @Override
-    public Seller dtoToEntity(SellerDto element) {
-        Seller result = new Seller();
+    public Category dtoToEntity(CategoryDto element) {
+        Category result = new Category();
         BeanUtils.copyProperties(element, result);
         return result;
     }

@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/option/{product_id}")
@@ -20,16 +23,20 @@ public class OptionController {
         this.optionService = optionService;
     }
     @PostMapping("/create")
-    public ResponseEntity<OptionCreateResponse> createOption(@RequestBody OptionRequest optionRequest, @PathVariable("product_id") Long product_id){
+    public ResponseEntity<OptionCreateResponse> createOption(@RequestBody List<String> optionRequest, @PathVariable("product_id") Long product_id){
         OptionCreateResponse optionCreateResponse= new OptionCreateResponse();
-        OptionTableDto optionDto = OptionTableDto.builder()
-                .name(optionRequest.getName())
-                .build();
-        OptionTable option =optionService.createOption(optionDto,product_id);
+        List<OptionTableDto> optionTableDtoList = new ArrayList<>();
+        for(String ele : optionRequest){
+            OptionTableDto optionTableDto = OptionTableDto.builder()
+                    .name(ele)
+                    .build();
+            optionTableDtoList.add(optionTableDto);
+        }
+        List<OptionTableDto> options =optionService.createOption(optionTableDtoList,product_id);
 
-        if (option != null) {
+        if (options != null) {
             optionCreateResponse.setMessage("Option created successfully");
-            optionCreateResponse.setOptionId(option.getId());
+            optionCreateResponse.setOptionTableDtoList(options);
             return new ResponseEntity<>(optionCreateResponse, HttpStatus.CREATED);
         } else {
             optionCreateResponse.setMessage("Failed to create Option");

@@ -24,4 +24,11 @@ public class StoreCategoryConverterImpl implements StoreCategoryConverter {
         BeanUtils.copyProperties(element, result);
         return result;
     }
+
+    @Override
+    public StoreCategory dtoToEntity(StoreCategoryDTO element) {
+        StoreCategory result = new StoreCategory();
+        BeanUtils.copyProperties(element, result);
+        return result;
+    }
 }

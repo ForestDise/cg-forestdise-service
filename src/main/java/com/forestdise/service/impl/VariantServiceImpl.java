@@ -6,10 +6,12 @@ import com.forestdise.converter.IVariantConverter;
 import com.forestdise.converter.IVideoConverter;
 import com.forestdise.dto.*;
 import com.forestdise.entity.*;
+import com.forestdise.repository.OptionValueRepository;
 import com.forestdise.repository.ProductRepository;
 import com.forestdise.repository.VariantRepository;
 import com.forestdise.service.IVariantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +32,8 @@ public class VariantServiceImpl implements IVariantService {
     private IVideoConverter iVideoConverter;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private OptionValueRepository optionValueRepository;
 
     public VariantDto getVariantById(Long id) {
         //null
@@ -101,4 +105,23 @@ public class VariantServiceImpl implements IVariantService {
         variantRepository.deleteById(variantId);
     }
 
+    @Override
+    public VariantDto createRawVariant(List<Long> valueIdList, Long productId) {
+        List<OptionValue> optionValueList = new ArrayList<>();
+        for(Long ele : valueIdList){
+            OptionValue optionValue = optionValueRepository.findById(ele).orElse(new OptionValue());
+            optionValueList.add(optionValue);
+        }
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("product not found"));
+        Variant variant = new Variant();
+        variant.setProduct(product);
+        variant.setOptionValues(optionValueList);
+        variantRepository.save(variant);
+        List<OptionValue> optionValues = variant.getOptionValues();
+        List<OptionValueDto> optionValueDtoList = optionValueConverter.entitiesToDTOs(optionValues);
+        VariantDto variantDto = variantConverterImpl.entityToDTO(variant);
+        variantDto.setOptionValueDtoList(optionValueDtoList);
+        return variantDto;
+    }
 }

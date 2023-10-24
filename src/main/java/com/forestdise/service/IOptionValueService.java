@@ -8,5 +8,5 @@ import java.util.List;
 @Service
 public interface IOptionValueService {
     List<OptionValueDto> getOptionValuesByVariantId(Long variant_id);
-    OptionValue createOptionValue(OptionValueDto optionValueDto, Long product_id, Long variant_id);
+    List<OptionValueDto> createOptionValue(List<OptionValueDto> optionValueDto, Long product_id);
 }

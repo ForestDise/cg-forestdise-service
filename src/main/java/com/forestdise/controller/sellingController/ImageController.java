@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/image/{variant_id}")
@@ -22,13 +25,18 @@ public class ImageController {
     @PostMapping("/create")
     public ResponseEntity<ImageCreateResponse> createImage(@RequestBody ImageRequest imageRequest, @PathVariable("variant_id") Long variant_id){
         ImageCreateResponse imageCreateResponse= new ImageCreateResponse();
-        ImageDto imageDto = ImageDto.builder()
-                .imgPath(imageRequest.getImagePath())
-                .build();
-        Image image =imageService.createImage(imageDto,variant_id);
+        List<String> images = imageRequest.getImagePath();
+        List<ImageDto> imageDtoList = new ArrayList<>();
+        for(String element : images){
+            ImageDto imageDto = ImageDto.builder()
+                    .imgPath(element)
+                    .build();
+            imageDtoList.add(imageDto);
+        }
+
+        List<Image> image =imageService.createImage(imageDtoList,variant_id);
         if (image != null) {
             imageCreateResponse.setMessage("Image created successfully");
-            imageCreateResponse.setImageId(image.getId());
             return new ResponseEntity<>(imageCreateResponse, HttpStatus.CREATED);
         } else {
             imageCreateResponse.setMessage("Failed to create Image");

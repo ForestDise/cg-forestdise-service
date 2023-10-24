@@ -37,15 +37,15 @@ public class OptionValueServiceImpl implements IOptionValueService {
     }
 
     @Override
-    public OptionValue createOptionValue(OptionValueDto optionValueDto, Long option_id,Long variant_id) {
-        OptionValue optionValue = optionValueConverterImpl.dtoToEntity(optionValueDto) ;
-        Variant variant = variantRepository.findById(variant_id).orElse(null);
-        OptionTable option = optionTableRepository.findById(option_id).orElse(null);
-        optionValue.setOptionTable(option);
-//  tạo optionvalue va variant (n-n) => tạo optionvalue thì set variant nào chứa nó, chiều ngược laại nó chua variant nào.
-        optionValue.getVariants().add(variant);
-        variant.getOptionValues().add(optionValue);
-        return optionValueRepository.save(optionValue);
+    public List<OptionValueDto> createOptionValue(List<OptionValueDto> optionValueDto, Long option_id) {
+        List<OptionValue> optionValue = optionValueConverterImpl.dtosToEntities(optionValueDto) ;
+        OptionTable option = optionTableRepository.findById(option_id).orElse(new OptionTable());
+        for(OptionValue ele : optionValue){
+            ele.setOptionTable(option);
+            optionValueRepository.save(ele);
+        }
+        List<OptionValue> optionValueList = option.getOptionValues();
+        return optionValueConverterImpl.entitiesToDTOs(optionValueList);
     }
 
 

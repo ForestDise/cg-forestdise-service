@@ -1,4 +1,4 @@
-package com.forestdise.converter.impl;
+package com.forestdise.converter;
 
 import com.forestdise.dto.ProductDto;
 import com.forestdise.dto.SellerDto;

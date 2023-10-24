@@ -11,4 +11,5 @@ public interface IOptionTableConverter {
     List<OptionTableDto> entitiesToDTOs(List<OptionTable> element);
 
     OptionTable dtoToEntity(OptionTableDto element);
+     List<OptionTable> dtoToEntities(List<OptionTableDto> element);
 }

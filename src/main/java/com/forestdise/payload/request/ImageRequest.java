@@ -1,9 +1,12 @@
 package com.forestdise.payload.request;
 
+import lombok.Data;
 import lombok.Getter;
 
-@Getter
+import java.util.List;
+
+@Data
 public class ImageRequest {
-    private String imagePath;
+    private List<String> imagePath;
 
 }

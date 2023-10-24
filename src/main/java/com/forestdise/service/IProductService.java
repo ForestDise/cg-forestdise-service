@@ -16,7 +16,7 @@ public interface IProductService {
     public StoreDto getStoreByProductId(Long productId);
     public List<OptionTableDto> getOptionsByProductId(Long productId);
     public List<ProductDto> getProductsByContaining(String text);
-    public Product createProduct(ProductDto productDto);
+    public Product createProduct(Long storeId,Long categoryId,Long storeCategoryId,ProductDto productDto);
     public Product updateProduct(ProductDto productDto);
     public void    deleteProduct(Long productId);
 

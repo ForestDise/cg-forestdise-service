@@ -4,7 +4,10 @@ import com.forestdise.converter.*;
 import com.forestdise.converter.impl.ProductConverterImpl;
 import com.forestdise.dto.*;
 import com.forestdise.entity.*;
+import com.forestdise.repository.CategoryRepository;
 import com.forestdise.repository.ProductRepository;
+import com.forestdise.repository.StoreCategoryRepository;
+import com.forestdise.repository.StoreRepository;
 import com.forestdise.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +33,12 @@ public class ProductServiceImpl implements IProductService {
     private IBulletConverter iBulletConverter;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private StoreRepository storeRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private StoreCategoryRepository storeCategoryRepository;
     @Override
     public ProductDto getProductById(Long id) {
         Product product = productRepository.findById(id).orElse(new Product()) ;
@@ -83,8 +92,14 @@ public class ProductServiceImpl implements IProductService {
 
     }
     @Override
-    public Product createProduct(ProductDto productDto) {
+    public Product createProduct(Long storeId,Long categoryId,Long storeCategoryId, ProductDto productDto) {
+        Store store = storeRepository.findById(storeId).orElse(new Store());
+        Category category = categoryRepository.findById(categoryId).orElse(new Category());
+        StoreCategory storeCategory = storeCategoryRepository.findById(storeCategoryId).orElse(new StoreCategory());
         Product product= productConverterImpl.dtoToEntity(productDto);
+        product.setStore(store);
+        product.setCategory(category);
+        product.setStoreCategory(storeCategory);
         return productRepository.save(product);
     }
 

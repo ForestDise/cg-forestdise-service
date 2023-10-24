@@ -1,15 +1,21 @@
 package com.forestdise.controller.sellingController;
 
 
+import com.forestdise.dto.OptionValueDto;
 import com.forestdise.dto.VariantDto;
 import com.forestdise.entity.Variant;
 import com.forestdise.payload.request.VariantRequest;
+import com.forestdise.payload.response.OptionValueCreateResponse;
 import com.forestdise.payload.response.VariantCreateResponse;
+import com.forestdise.payload.response.VariantRawResponse;
 import com.forestdise.service.impl.VariantServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -21,7 +27,22 @@ public class VariantController {
     public VariantController(VariantServiceImpl variantService ) {
         this.variantService = variantService;
     }
+
+    //createVariantByProductId, and ListValue
     @PostMapping("/create")
+    public ResponseEntity<VariantRawResponse> createVariantWithListValue(@RequestBody List<Long> valueIdList, @PathVariable("product_id") Long product_id){
+        VariantRawResponse variantRawResponse= new VariantRawResponse();
+        VariantDto variantDto = variantService.createRawVariant(valueIdList,product_id);
+        if (variantDto != null) {
+            variantRawResponse.setMessage("OptionValue created successfully");
+            variantRawResponse.setVariantDto(variantDto);
+            return new ResponseEntity<>(variantRawResponse, HttpStatus.CREATED);
+        } else {
+            variantRawResponse.setMessage("Failed to create Variant");
+            return new ResponseEntity<>(variantRawResponse,HttpStatus.BAD_REQUEST);
+        }
+    }
+    @PostMapping("/create1")
     public ResponseEntity<VariantCreateResponse> createVariant(@RequestBody VariantRequest variantRequest,@PathVariable("product_id") Long product_id){
         VariantCreateResponse variantCreateResponse= new VariantCreateResponse();
         VariantDto variantDto = VariantDto.builder()

@@ -57,8 +57,8 @@ public class ProductDetailController {
         variantDetailResponse.setOptionValueDtos(optionValueDtoList);
         return ResponseEntity.ok(variantDetailResponse);
     }
-    @PostMapping("/create")
-    public ResponseEntity<Product> createProduct(@RequestBody ProductRequest productRequest) {
+    @PostMapping("/create/{storeId}/{categoryId}/{storeCategoryId}")
+    public ResponseEntity<Product> createProduct(@PathVariable Long storeId,@PathVariable Long categoryId,@PathVariable Long storeCategoryId,@RequestBody ProductRequest productRequest) {
         ProductDto productDto =ProductDto.builder()
                 .title(productRequest.getTitle())
                 .status("ACTIVE")
@@ -67,7 +67,7 @@ public class ProductDetailController {
                 .description(productRequest.getDescription())
                 .mainPicture(productRequest.getMainPicture())
                 .build();
-        Product product = productServiceImpl.createProduct(productDto);
+        Product product = productServiceImpl.createProduct(storeId,categoryId,storeCategoryId,productDto);
 
         if (product != null) {
             return new ResponseEntity<>(product, HttpStatus.CREATED);

@@ -1,6 +1,6 @@
 package com.forestdise.controller;
 
-import com.forestdise.converter.impl.ISellerConverter;
+import com.forestdise.converter.ISellerConverter;
 import com.forestdise.dto.SellerDto;
 import com.forestdise.entity.Seller;
 import com.forestdise.repository.SellerRepository;

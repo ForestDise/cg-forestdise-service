@@ -15,9 +15,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/api/option-value/{option_id}/{variant_id}")
+@RequestMapping("/api/option-value/{option_id}")
 public class OptionValueController {
     private final OptionValueServiceImpl optionValueService;
     @Autowired
@@ -25,16 +28,19 @@ public class OptionValueController {
         this.optionValueService = optionValueService;
     }
     @PostMapping("/create")
-    public ResponseEntity<OptionValueCreateResponse> createOptionValue(@RequestBody OptionValueRequest optionValueRequest, @PathVariable("option_id") Long option_id,@PathVariable("variant_id") Long variant_id){
+    public ResponseEntity<OptionValueCreateResponse> createOptionValue(@RequestBody List<String> valueRequest, @PathVariable("option_id") Long option_id){
         OptionValueCreateResponse optionValueCreateResponse= new OptionValueCreateResponse();
-        OptionValueDto optionValueDto = OptionValueDto.builder()
-                .value(optionValueRequest.getValue())
-                .build();
-        OptionValue optionValue =optionValueService.createOptionValue(optionValueDto,option_id, variant_id);
-
+        List<OptionValueDto> optionValueDtoList = new ArrayList<>();
+        for(String ele : valueRequest){
+            OptionValueDto optionValueDto = OptionValueDto.builder()
+                    .value(ele)
+                    .build();
+            optionValueDtoList.add(optionValueDto);
+        }
+        List<OptionValueDto> optionValue =optionValueService.createOptionValue(optionValueDtoList,option_id);
         if (optionValue != null) {
             optionValueCreateResponse.setMessage("OptionValue created successfully");
-            optionValueCreateResponse.setOptionValue_Id(optionValue.getId());
+            optionValueCreateResponse.setOptionValueDtoList(optionValue);
             return new ResponseEntity<>(optionValueCreateResponse, HttpStatus.CREATED);
         } else {
             optionValueCreateResponse.setMessage("Failed to create OptionValue");

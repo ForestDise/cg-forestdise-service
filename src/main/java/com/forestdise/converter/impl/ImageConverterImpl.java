@@ -28,4 +28,11 @@ public class ImageConverterImpl implements IImageConverter {
         BeanUtils.copyProperties(element, result);
         return result;
     }
+
+    @Override
+    public List<Image> dtosToEntities(List<ImageDto> element) {
+        return element.stream()
+                .map(this::dtoToEntity)
+                .collect(Collectors.toList());
+    }
 }
