@@ -19,8 +19,8 @@ public class UserController {
     private UserConverter userConverter;
 
     @GetMapping("/{user_id}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable("user_id") Long user_id){
-        User user = userRepository.findById(user_id)
+    public ResponseEntity<UserDTO> getUser(@PathVariable("user_id") Long userId){
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         UserDTO userDTO = userConverter.convertEntityToDTO(user);
         return ResponseEntity.ok(userDTO);

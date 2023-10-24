@@ -32,6 +32,9 @@ public class Seller {
     @Column(name = "balance")
     private Double balance;
 
+    @Column(name = "role")
+    private String role;
+
     @OneToMany(mappedBy = "seller")
     @JsonManagedReference(value = "address_seller")
     private Set<Address> address;

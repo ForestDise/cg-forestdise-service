@@ -1,6 +1,8 @@
 package com.forestdise.configuration;
 
+import com.forestdise.entity.Seller;
 import com.forestdise.entity.User;
+import com.forestdise.repository.SellerRepository;
 import com.forestdise.repository.UserRepository;
 import com.forestdise.security.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -37,6 +39,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private SellerRepository sellerRepository;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
@@ -67,16 +72,28 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (id != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             User user = userRepository.findById(Long.parseLong(id)).orElse(null);
+            Seller seller = sellerRepository.findById(Long.parseLong(id)).orElse(null);
             if(user == null){
-                throw new UsernameNotFoundException("User not found!");
+                if(seller == null){
+                    throw new UsernameNotFoundException("User not found!");
+                }
             }
             //filterPermissionAndPath(request.getRequestURL(), request.getMethod(), user.getRoles());
 
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                    user,
-                    null,
-                    Collections.singleton(new SimpleGrantedAuthority(user.getRole().toString())));
-                    usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken;
+            if(user == null){
+                usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                        seller,
+                        null,
+                        Collections.singleton(new SimpleGrantedAuthority(seller.getRole().toString())));
+            } else{
+                usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                        user,
+                        null,
+                        Collections.singleton(new SimpleGrantedAuthority(user.getRole().toString())));
+            }
+            usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
             // After setting the Authentication in the context, we specify
             // that the current user is authenticated. So it passes the Spring Security Configurations successfully.
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);

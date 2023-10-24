@@ -91,6 +91,13 @@ public class ProductServiceImpl implements ProductService {
         return productConverterImpl.entitiesToDTOs(products);
 
     }
+
+    @Override
+    public List<ProductDTO> getProductsOfStoreByContaining(Long id, String text) {
+        List<Product> products = productRepository.findByTitleContaining(text);
+        return productConverterImpl.entitiesToDTOs(products);
+    }
+
     @Override
     public Product createProduct(ProductDTO productDto) {
         Product product= productConverterImpl.dtoToEntity(productDto);

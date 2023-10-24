@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import com.forestdise.entity.Seller;
 import com.forestdise.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -61,6 +62,11 @@ public class JwtTokenUtil {
         return doGenerateToken(claims, user.getId() + "");
     }
 
+    public String generateSellerToken(Seller seller) {
+        Map<String, Object> claims = new HashMap<>();
+        return doGenerateToken(claims, seller.getId() + "");
+    }
+
     private String doGenerateToken(Map<String, Object> claims, String subject) {
 
         return Jwts.builder()
@@ -90,5 +96,10 @@ public class JwtTokenUtil {
     public Boolean validateToken(String token, User user) {
         final String id = getIdFromToken(token);
         return (id.equals(user.getId().toString()) && !isTokenExpired(token));
+    }
+
+    public Boolean validateSellerToken(String token, Seller seller) {
+        final String id = getIdFromToken(token);
+        return (id.equals(seller.getId().toString()) && !isTokenExpired(token));
     }
 }
