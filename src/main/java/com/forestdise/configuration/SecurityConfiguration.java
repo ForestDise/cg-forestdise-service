@@ -1,5 +1,6 @@
 package com.forestdise.configuration;
 
+import com.forestdise.constraint.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -34,7 +35,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests((requests) -> requests
-                        .anyRequest().authenticated());
+                                .antMatchers("/api/users/**").hasAnyRole(Role.USER.toString())
+                                .antMatchers("/api/sellers/**").hasAnyRole(Role.SELLER.toString())
+                                .anyRequest().authenticated()
+                        );
     }
 
     @Override
@@ -49,7 +53,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/api/category/**","/api/store-category/**","/api/bullet/**","/api/attribute/**","/api/hashtag/**")
                 .antMatchers(HttpMethod.GET, "/api/products", "/api/users/**", "/api/cart-lines/**","/api/search/**","/api/reviews/**","/api/sellers/**","/api/stores/**")
                 .antMatchers(HttpMethod.POST, "/api/products", "/api/users/**", "/api/cart-lines/**","/api/search/**","/api/reviews/**","/api/sellers/**","/api/stores/**");
-
-
     }
 }

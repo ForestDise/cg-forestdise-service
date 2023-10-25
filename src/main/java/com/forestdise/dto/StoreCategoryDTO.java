@@ -17,5 +17,5 @@ public class StoreCategoryDTO {
     private String name;
     private String heroImage;
     private String squareImage;
-
+    private StoreCategory parentStoreCategory;
 }

@@ -47,11 +47,11 @@ public class VariantServiceImpl implements VariantService {
             List<OptionValue> optionValueList = variant.getOptionValues();
             List<OptionValueDTO> optionValueDto = optionValueConverter.entitiesToDTOs(optionValueList);
             VariantDTO variantDto = variantConverterImpl.entityToDTO(variant);
-            variantDto.setOptionValueDtoList(optionValueDto);
+            variantDto.setOptionValueDTOList(optionValueDto);
             variantDtoList.add(variantDto);
         }
         //if (variants != null && !variants.isEmpty()) {
-    //variants = new ArrayList<>(); else{}
+        //variants = new ArrayList<>(); else{}
         return variantDtoList;
     }
 
@@ -75,9 +75,9 @@ public class VariantServiceImpl implements VariantService {
         List<ImageDTO> imageDtoList = iImageConverter.entitiesToDTOs(images);
         List<VideoDTO> videoDtoList = iVideoConverter.entitiesToDTOs(videos);
         VariantDTO variantDto = variantConverterImpl.entityToDTO(minVariant);
-        variantDto.setOptionValueDtoList(optionValueDto);
-        variantDto.setImageDtoList(imageDtoList);
-        variantDto.setVideoDtoList(videoDtoList);
+        variantDto.setOptionValueDTOList(optionValueDto);
+        variantDto.setImageDTOList(imageDtoList);
+        variantDto.setVideoDTOList(videoDtoList);
         return variantDto;
     }
     @Override
@@ -120,7 +120,7 @@ public class VariantServiceImpl implements VariantService {
         List<OptionValue> optionValues = variant.getOptionValues();
         List<OptionValueDTO> optionValueDtoList = optionValueConverter.entitiesToDTOs(optionValues);
         VariantDTO variantDto = variantConverterImpl.entityToDTO(variant);
-        variantDto.setOptionValueDtoList(optionValueDtoList);
+        variantDto.setOptionValueDTOList(optionValueDtoList);
         return variantDto;
     }
 }

@@ -16,8 +16,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class VariantDetailResponse {
-    private List<ImageDTO> imageDtos;
-    private List<VideoDTO> videoDtos;
-    private List<OptionValueDTO> optionValueDtos;
+    private List<ImageDTO> imageDTOS;
+    private List<VideoDTO> videoDTOS;
+    private List<OptionValueDTO> optionValueDTOS;
     private VariantDTO variantDto;
 }

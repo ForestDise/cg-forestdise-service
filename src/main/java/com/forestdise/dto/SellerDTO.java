@@ -1,20 +1,17 @@
 package com.forestdise.dto;
-
-import com.forestdise.entity.Address;
-import com.forestdise.entity.Comment;
-import com.forestdise.entity.Store;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-
-import java.util.List;
-import java.util.Set;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class SellerDTO {
     private Long id;
     private String sellerName;
     private String email;
-    private Set<Address> address;
-    private List<Store> storeList;
-    private List<Comment> storeComments;
-
+    private String password;
+    private Double balance;
 }

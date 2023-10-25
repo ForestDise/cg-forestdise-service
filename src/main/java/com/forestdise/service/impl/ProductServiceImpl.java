@@ -23,14 +23,14 @@ public class ProductServiceImpl implements ProductService {
     private VariantConverter variantConverter;
 
     @Autowired
-    private StoreConverter iStoreConverter;
+    private StoreConverter storeConverter;
 
     @Autowired
-    private OptionValueConverter iOptionValueConverter;
+    private OptionValueConverter optionValueConverter;
     @Autowired
-    private OptionTableConverter iOptionTableConverter;
+    private OptionTableConverter optionTableConverter;
     @Autowired
-    private BulletConverter iBulletConverter;
+    private BulletConverter bulletConverter;
     @Autowired
     private ProductRepository productRepository;
     @Autowired
@@ -43,16 +43,25 @@ public class ProductServiceImpl implements ProductService {
     public ProductDTO getProductById(Long id) {
         Product product = productRepository.findById(id).orElse(new Product()) ;
         List<Bullet> bullets = product.getBulletList();
-        List<BulletDTO> bulletDtoList = iBulletConverter.entitiesToDTOs(bullets);
+        List<BulletDTO> bulletDTOList = bulletConverter.entitiesToDTOs(bullets);
         ProductDTO productDto = productConverterImpl.entityToDTO(product);
-        productDto.setBulletDtoList(bulletDtoList);
+        productDto.setBulletDTOList(bulletDTOList);
 
         return productDto;
     }
 
     @Override
     public List<ProductDTO> getAllProductDtos() {
-        return productConverterImpl.entitiesToDTOs(productRepository.findAll());
+        List<Product> products = productRepository.findAll();
+        List<ProductDTO> productDTOS = productConverterImpl.entitiesToDTOs(products);
+        for(Product product: products){
+            Store store = product.getStore();
+            StoreDTO storeDto = storeConverter.entityToDTO(store);
+            for(ProductDTO productDto: productDTOS){
+                productDto.setStore(storeDto);
+            }
+        }
+        return productDTOS;
     }
 
     @Override
@@ -66,23 +75,23 @@ public class ProductServiceImpl implements ProductService {
     public StoreDTO getStoreByProductId(Long productId) {
         Product product = productRepository.findById(productId).orElse(new Product());
         Store store = product.getStore();
-        StoreDTO storeDto = iStoreConverter.entityToDTO(store);
+        StoreDTO storeDto = storeConverter.entityToDTO(store);
         return storeDto;
     }
 
     @Override
     public List<OptionTableDTO> getOptionsByProductId(Long productId) {
-        List<OptionTableDTO> optionTableDtoList = new ArrayList<>();
+        List<OptionTableDTO> optionTableDTOList = new ArrayList<>();
         Product product = productRepository.findById(productId).orElse(new Product());
         List<OptionTable> optionTableList = product.getOptionTables();
         for(OptionTable optionTable : optionTableList){
             List<OptionValue> optionValueList = optionTable.getOptionValues();
-            List<OptionValueDTO> optionValueDtoList = iOptionValueConverter.entitiesToDTOs(optionValueList);
-            OptionTableDTO optionTableDto = iOptionTableConverter.entityToDTO(optionTable);
-            optionTableDto.setOptionValueDtoList(optionValueDtoList);
-            optionTableDtoList.add(optionTableDto);
+            List<OptionValueDTO> optionValueDTOList = optionValueConverter.entitiesToDTOs(optionValueList);
+            OptionTableDTO optionTableDto = optionTableConverter.entityToDTO(optionTable);
+            optionTableDto.setOptionValueDTOList(optionValueDTOList);
+            optionTableDTOList.add(optionTableDto);
         }
-        return optionTableDtoList;
+        return optionTableDTOList;
     }
 
     @Override
@@ -91,6 +100,13 @@ public class ProductServiceImpl implements ProductService {
         return productConverterImpl.entitiesToDTOs(products);
 
     }
+
+    @Override
+    public List<ProductDTO> getProductsOfStoreByContaining(Long id, String text) {
+        List<Product> products = productRepository.findByTitleContaining(text);
+        return productConverterImpl.entitiesToDTOs(products);
+    }
+
     @Override
     public Product createProduct(Long storeId,Long categoryId,Long storeCategoryId, ProductDTO productDto) {
         Store store = storeRepository.findById(storeId).orElse(new Store());

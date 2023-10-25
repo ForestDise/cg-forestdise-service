@@ -13,9 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReviewResponse {
-    private List<ReviewDTO> reviewDtoList;
+    private List<ReviewDTO> reviewDTOList;
     private SummaryDTO summaryDto;
-    // % cua moi sao
-    //tong so review
-    // trung binh sao
 }

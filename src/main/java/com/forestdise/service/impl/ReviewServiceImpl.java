@@ -47,11 +47,11 @@ public class ReviewServiceImpl implements ReviewService {
         List<ReviewDTO> reviewDtoList = new ArrayList<>();
         List<VariantDTO> variantDtoList = productService.getVariantsByProductId(productId);
         for(VariantDTO variantDto : variantDtoList){
-            List<OptionValueDTO> optionValueDtoList = variantDto.getOptionValueDtoList();
-            reviewDtoList = variantDto.getReviewDtoList();
+            List<OptionValueDTO> optionValueDtoList = variantDto.getOptionValueDTOList();
+            reviewDtoList = variantDto.getReviewDTOList();
             if(reviewDtoList != null) {
                 for (ReviewDTO reviewDto : reviewDtoList) {
-                    reviewDto.setOptionValueDtoList(optionValueDtoList);
+                    reviewDto.setOptionValueDTOList(optionValueDtoList);
                 }
             }
             reviewDtoList.addAll(getReviewsByVariantId(variantDto.getId()));
@@ -74,7 +74,7 @@ public class ReviewServiceImpl implements ReviewService {
         int countOneStar = 0;
         List<VariantDTO> variantDtoList = productService.getVariantsByProductId(productId);
         for(VariantDTO variantDto : variantDtoList){
-            List<ReviewDTO> reviewDtoList = variantDto.getReviewDtoList();
+            List<ReviewDTO> reviewDtoList = variantDto.getReviewDTOList();
             total += reviewDtoList.size();
             for(ReviewDTO reviewDto : reviewDtoList){
                 if(reviewDto.getStar() == 5){

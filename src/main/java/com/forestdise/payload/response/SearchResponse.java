@@ -9,6 +9,7 @@ import java.util.List;
 
 @Data
 public class SearchResponse {
-    private List<ProductDTO> productDtos;
-    private List<VariantDTO> variantDtos;
+
+    private List<ProductDTO> productDTOS;
+    private List<VariantDTO> variantDTOS;
 }

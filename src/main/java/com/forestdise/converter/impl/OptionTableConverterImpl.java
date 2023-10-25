@@ -31,9 +31,10 @@ public class OptionTableConverterImpl implements OptionTableConverter {
     }
 
     @Override
-    public List<OptionTable> dtoToEntities(List<OptionTableDTO> element) {
+    public  List<OptionTable> dtoToEntities(List<OptionTableDTO> element) {
         return element.stream()
                 .map(this::dtoToEntity)
                 .collect(Collectors.toList());
     }
+
 }

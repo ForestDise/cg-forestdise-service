@@ -1,10 +1,10 @@
 package com.forestdise.repository;
 
-import com.forestdise.entity.Role;
+import com.forestdise.entity.ShopOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RoleRepository extends JpaRepository<Role,Long> {
-    Role findByName(String name);
+public interface ShopOrderRepository extends JpaRepository<ShopOrder, Long> {
+    ShopOrder findByUserId(Long userId);
 }

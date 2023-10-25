@@ -21,8 +21,8 @@ public class VariantDTO {
     private double price;
     private double salePrice;
     private String img;
-    private List<OptionValueDTO> optionValueDtoList;
-    private List<ImageDTO> imageDtoList;
-    private List<VideoDTO> videoDtoList;
-    private List<ReviewDTO> reviewDtoList;
+    private List<OptionValueDTO> optionValueDTOList;
+    private List<ImageDTO> imageDTOList;
+    private List<VideoDTO> videoDTOList;
+    private List<ReviewDTO> reviewDTOList;
 }

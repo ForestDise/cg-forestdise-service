@@ -26,6 +26,6 @@ public class ReviewDTO {
     private boolean verified_admin;
     private Date update_at;
     private UserDTO userDto;
-    private List<OptionValueDTO> optionValueDtoList;
-    private List<CommentDTO> commentDtoList;
+    private List<OptionValueDTO> optionValueDTOList;
+    private List<CommentDTO> commentDTOList;
 }

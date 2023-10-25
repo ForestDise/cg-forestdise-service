@@ -16,6 +16,7 @@ public class StoreDTO {
     private String name;
     private String homeImage;
     private String dealsImage;
+    private String dealsSquareImage;
     private String interactiveImage;
     private String logo;
     private List<StoreCategoryDTO> storeCategoryList;

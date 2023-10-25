@@ -45,8 +45,8 @@ public class CartLineController {
     public ResponseEntity<?> getAllCartLines(@PathVariable("id") Long userId){
         User user = userService.findById(userId);
         Cart cart = cartService.findCartByUserId(user);
-        List<CartLineDTO> cartLineDtos = cartLineService.findCartLinesByCartId(cart.getId());
-        return new ResponseEntity<>(cartLineDtos,HttpStatus.OK);
+        List<CartLineDTO> cartLineDTOS = cartLineService.findCartLinesByCartId(cart.getId());
+        return new ResponseEntity<>(cartLineDTOS,HttpStatus.OK);
     }
 
     @PutMapping

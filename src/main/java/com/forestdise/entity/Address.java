@@ -6,14 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -39,17 +37,17 @@ public class Address {
 
     private String street;
 
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference(value = "address_user")
     private User user;
-
 
     @ManyToOne
     @JoinColumn(name="seller_id")
     @JsonBackReference(value = "address_seller")
     private Seller seller;
 
-
+    @OneToMany(mappedBy = "address")
+    @JsonManagedReference(value = "address_shopOrder")
+    private Set<ShopOrder> shopOrders;
 }

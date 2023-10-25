@@ -7,6 +7,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -57,5 +58,8 @@ public class Variant {
     @OneToMany(mappedBy = "variant")
     @JsonManagedReference(value = "variant_review")
     private List<Review> reviews;
+
+    @OneToMany(mappedBy = "variant")
+    private Set<ShopOrder> shopOrders;
 }
 

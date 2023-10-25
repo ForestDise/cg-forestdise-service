@@ -38,8 +38,8 @@ public class ProductDetailController {
         productDetailResponse.setProductDTO(productServiceImpl.getProductById(productId));
         productDetailResponse.setStoreDto(productServiceImpl.getStoreByProductId(productId));
         productDetailResponse.setOptionTableDto(productServiceImpl.getOptionsByProductId(productId));
-        productDetailResponse.setVariantDtoList(variantServiceImpl.getVariantByProductId(productId));
-        productDetailResponse.setProductAttributeDtoList(productAttributeServiceImpl.getProductAttributeByProductId(productId));
+        productDetailResponse.setVariantDTOList(variantServiceImpl.getVariantByProductId(productId));
+        productDetailResponse.setProductAttributeDTOList(productAttributeServiceImpl.getProductAttributeByProductId(productId));
         productDetailResponse.setVariantDto(variantServiceImpl.getLowestPriceVariantByProductId(productId));
         // lay variant lowest price by productId
         return ResponseEntity.ok(productDetailResponse);
@@ -49,15 +49,16 @@ public class ProductDetailController {
         List<ImageDTO> images = imageServiceImpl.getImageByVariantId(variantId);
         List<VideoDTO> videos = videoServiceImpl.getVideosByVariantId(variantId);
         VariantDTO variantDto = variantServiceImpl.getVariantById(variantId);
-        List<OptionValueDTO> optionValueDtoList= optionValueServiceImpl.getOptionValuesByVariantId(variantId);
+        List<OptionValueDTO> optionValueDTOList = optionValueServiceImpl.getOptionValuesByVariantId(variantId);
         variantDetailResponse.setVariantDto(variantDto);
-        variantDetailResponse.setImageDtos(images);
-        variantDetailResponse.setVideoDtos(videos);
-        variantDetailResponse.setOptionValueDtos(optionValueDtoList);
+        variantDetailResponse.setImageDTOS(images);
+        variantDetailResponse.setVideoDTOS(videos);
+        variantDetailResponse.setOptionValueDTOS(optionValueDTOList);
         return ResponseEntity.ok(variantDetailResponse);
     }
     @PostMapping("/create/{storeId}/{categoryId}/{storeCategoryId}")
     public ResponseEntity<Product> createProduct(@PathVariable Long storeId,@PathVariable Long categoryId,@PathVariable Long storeCategoryId,@RequestBody ProductRequest productRequest) {
+
         ProductDTO productDto = ProductDTO.builder()
                 .title(productRequest.getTitle())
                 .status("ACTIVE")

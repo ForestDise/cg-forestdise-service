@@ -31,8 +31,8 @@ public class SaveForLaterController {
     public ResponseEntity<?> getAllSaveForLater(@PathVariable("id") Long userId){
         User user = userService.findById(userId);
         Cart cart = cartService.findCartByUserId(user);
-        List<SaveForLaterDTO> saveForLaterDtos = saveForLaterService.findSaveForLaterByCartId(cart.getId());
-        return new ResponseEntity<>(saveForLaterDtos, HttpStatus.OK);
+        List<SaveForLaterDTO> saveForLaterDTOS = saveForLaterService.findSaveForLaterByCartId(cart.getId());
+        return new ResponseEntity<>(saveForLaterDTOS, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

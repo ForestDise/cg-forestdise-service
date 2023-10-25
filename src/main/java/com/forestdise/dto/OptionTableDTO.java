@@ -17,5 +17,5 @@ public class OptionTableDTO {
 
     private Long id;
     private String name;
-    private List<OptionValueDTO> optionValueDtoList;
+    private List<OptionValueDTO> optionValueDTOList;
 }

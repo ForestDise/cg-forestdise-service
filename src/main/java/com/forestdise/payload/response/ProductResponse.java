@@ -14,12 +14,11 @@ import java.util.List;
 @NoArgsConstructor
 public class ProductResponse {
     private ProductDTO productDto;
-    private List<ProductAttributeDTO> productAttributeDtoList;
+    private List<ProductAttributeDTO> productAttributeDTOList;
     private StoreDTO storeDto;
     private List<OptionTableDTO> optionTableDto;
-    private List<VariantDTO> variantDtoList;
+    private List<VariantDTO> variantDTOList;
     private VariantDTO variantDto;
-    // lấy ra 1 variant có price thấp rồi setcho nó variant hiện tại
 
 
 }

@@ -12,5 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommentResponse {
-    private List<CommentDTO> commentDtoList;
+
+    private List<CommentDTO> commentDTOList;
 }

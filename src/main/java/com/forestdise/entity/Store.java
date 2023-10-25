@@ -24,6 +24,7 @@ public class Store {
     private String logo;
     private String homeImage;
     private String dealsImage;
+    private String dealsSquareImage;
     private String interactiveImage;
 
     @ManyToOne
