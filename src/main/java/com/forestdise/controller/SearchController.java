@@ -1,7 +1,7 @@
 package com.forestdise.controller;
 
-import com.forestdise.dto.ProductDto;
-import com.forestdise.dto.VariantDto;
+import com.forestdise.dto.ProductDTO;
+import com.forestdise.dto.VariantDTO;
 import com.forestdise.payload.response.SearchResponse;
 import com.forestdise.service.impl.ProductServiceImpl;
 import com.forestdise.service.impl.VariantServiceImpl;
@@ -28,16 +28,16 @@ public class SearchController {
 
     @GetMapping()
     public ResponseEntity<SearchResponse> getProductsByPrice(@RequestParam("searchText")String searchText) {
-        List<ProductDto> productDtoList = productService.getProductsByContaining(searchText);
-        searchResponse.setProductDtos(productDtoList);
-        List<VariantDto> variantDtoList = new ArrayList<>();
-        productDtoList.forEach(productDto -> {
-            VariantDto variantDto= variantService.getVariantByProductPriceMin(productDto.getId());
+        List<ProductDTO> productDTOList = productService.getProductsByContaining(searchText);
+        searchResponse.setProductDTOS(productDTOList);
+        List<VariantDTO> variantDTOList = new ArrayList<>();
+        productDTOList.forEach(productDto -> {
+            VariantDTO variantDto= variantService.getVariantByProductPriceMin(productDto.getId());
 
-            variantDtoList.add(variantDto);
+            variantDTOList.add(variantDto);
         });
-        searchResponse.setProductDtos(productDtoList);
-        searchResponse.setVariantDtos(variantDtoList);
+        searchResponse.setProductDTOS(productDTOList);
+        searchResponse.setVariantDTOS(variantDTOList);
         return ResponseEntity.ok(searchResponse);
     }
 }

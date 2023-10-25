@@ -1,7 +1,7 @@
 package com.forestdise.service.impl;
 
 import com.forestdise.converter.SaveForLaterConverter;
-import com.forestdise.dto.SaveForLaterDto;
+import com.forestdise.dto.SaveForLaterDTO;
 import com.forestdise.entity.Cart;
 import com.forestdise.entity.SaveForLater;
 import com.forestdise.entity.Variant;
@@ -30,11 +30,11 @@ public class SaveForLaterServiceImpl implements SaveForLaterService {
     private VariantRepository variantRepository;
 
     @Override
-    public List<SaveForLaterDto> findSaveForLaterByCartId(Long cartId) {
+    public List<SaveForLaterDTO> findSaveForLaterByCartId(Long cartId) {
         Cart cart = cartRepository.findById(cartId).orElse(null);
         List<SaveForLater> saveForLaters = saveForLaterRepository.findSaveForLaterByCart(cart);
-        List<SaveForLaterDto> saveForLaterDtos = saveForLaterConverter.convertEntitiesToDtos(saveForLaters);
-        return saveForLaterDtos;
+        List<SaveForLaterDTO> saveForLaterDTOS = saveForLaterConverter.convertEntitiesToDtos(saveForLaters);
+        return saveForLaterDTOS;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class SaveForLaterServiceImpl implements SaveForLaterService {
     }
 
     @Override
-    public SaveForLaterDto addSaveForLater(SaveForLaterRequest saveForLaterRequest) {
+    public SaveForLaterDTO addSaveForLater(SaveForLaterRequest saveForLaterRequest) {
         SaveForLater saveForLater = new SaveForLater();
         Cart cart = cartRepository.findById(saveForLaterRequest.getCartId()).orElse(null);
         Variant variant = variantRepository.findById(saveForLaterRequest.getVariantId()).orElse(null);
@@ -51,7 +51,7 @@ public class SaveForLaterServiceImpl implements SaveForLaterService {
         saveForLater.setVariant(variant);
         saveForLater.setQuanity(saveForLaterRequest.getQuantity());
         saveForLaterRepository.save(saveForLater);
-        SaveForLaterDto saveForLaterDto = saveForLaterConverter.convertEntityToDto(saveForLater);
+        SaveForLaterDTO saveForLaterDto = saveForLaterConverter.convertEntityToDto(saveForLater);
         return saveForLaterDto;
     }
 }

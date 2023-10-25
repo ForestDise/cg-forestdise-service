@@ -1,19 +1,19 @@
 package com.forestdise.service.impl;
 
-import com.forestdise.converter.IImageConverter;
-import com.forestdise.converter.IOptionValueConverter;
-import com.forestdise.converter.IVariantConverter;
-import com.forestdise.converter.IVideoConverter;
-import com.forestdise.dto.ImageDto;
-import com.forestdise.dto.OptionValueDto;
-import com.forestdise.dto.VariantDto;
-import com.forestdise.dto.VideoDto;
+import com.forestdise.converter.ImageConverter;
+import com.forestdise.converter.OptionValueConverter;
+import com.forestdise.converter.VariantConverter;
+import com.forestdise.converter.VideoConverter;
+import com.forestdise.dto.ImageDTO;
+import com.forestdise.dto.OptionValueDTO;
+import com.forestdise.dto.VariantDTO;
+import com.forestdise.dto.VideoDTO;
 import com.forestdise.entity.Image;
 import com.forestdise.entity.OptionValue;
 import com.forestdise.entity.Variant;
 import com.forestdise.entity.Video;
 import com.forestdise.repository.VariantRepository;
-import com.forestdise.service.IVariantService;
+import com.forestdise.service.VariantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,37 +22,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class VariantServiceImpl implements IVariantService {
+public class VariantServiceImpl implements VariantService {
     @Autowired
-    private IVariantConverter variantConverterImpl;
+    private VariantConverter variantConverterImpl;
     @Autowired
     private VariantRepository variantRepository;
     @Autowired
-    private IOptionValueConverter optionValueConverter;
+    private OptionValueConverter optionValueConverter;
     @Autowired
-    private IImageConverter iImageConverter;
+    private ImageConverter imageConverter;
     @Autowired
-    private IVideoConverter iVideoConverter;
+    private VideoConverter videoConverter;
 
-    public VariantDto getVariantById(Long id) {
+    public VariantDTO getVariantById(Long id) {
         //null
         return variantConverterImpl.entityToDTO(variantRepository.findById(id).orElse(null));
     }
 
     @Transactional
-    public List<VariantDto> getVariantByProductId(Long product_id) {
-        List<VariantDto> variantDtoList = new ArrayList<>();
+    public List<VariantDTO> getVariantByProductId(Long product_id) {
+        List<VariantDTO> variantDTOList = new ArrayList<>();
         List<Variant> variants = variantRepository.findByProduct_Id(product_id);
         for(Variant variant : variants){
             List<OptionValue> optionValueList = variant.getOptionValues();
-            List<OptionValueDto> optionValueDto = optionValueConverter.entitiesToDTOs(optionValueList);
-            VariantDto variantDto = variantConverterImpl.entityToDTO(variant);
-            variantDto.setOptionValueDtoList(optionValueDto);
-            variantDtoList.add(variantDto);
+            List<OptionValueDTO> optionValueDto = optionValueConverter.entitiesToDTOs(optionValueList);
+            VariantDTO variantDto = variantConverterImpl.entityToDTO(variant);
+            variantDto.setOptionValueDTOList(optionValueDto);
+            variantDTOList.add(variantDto);
         }
         //if (variants != null && !variants.isEmpty()) {
     //variants = new ArrayList<>(); else{}
-        return variantDtoList;
+        return variantDTOList;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class VariantServiceImpl implements IVariantService {
         Variant variant = variantRepository.findById(id).orElse(null);
         return variant;
     }
-    public VariantDto getLowestPriceVariantByProductId(Long product_id){
+    public VariantDTO getLowestPriceVariantByProductId(Long product_id){
         List<Variant> variants = variantRepository.findByProduct_Id(product_id);
         Variant minVariant = variants.get(0);
         for(Variant variant : variants){
@@ -71,17 +71,17 @@ public class VariantServiceImpl implements IVariantService {
         List<OptionValue> optionValueList = minVariant.getOptionValues();
         List<Image> images = minVariant.getImages();
         List<Video> videos = minVariant.getVideos();
-        List<OptionValueDto> optionValueDto = optionValueConverter.entitiesToDTOs(optionValueList);
-        List<ImageDto> imageDtoList = iImageConverter.entitiesToDTOs(images);
-        List<VideoDto> videoDtoList = iVideoConverter.entitiesToDTOs(videos);
-        VariantDto variantDto = variantConverterImpl.entityToDTO(minVariant);
-        variantDto.setOptionValueDtoList(optionValueDto);
-        variantDto.setImageDtoList(imageDtoList);
-        variantDto.setVideoDtoList(videoDtoList);
+        List<OptionValueDTO> optionValueDto = optionValueConverter.entitiesToDTOs(optionValueList);
+        List<ImageDTO> imageDTOList = imageConverter.entitiesToDTOs(images);
+        List<VideoDTO> videoDTOList = videoConverter.entitiesToDTOs(videos);
+        VariantDTO variantDto = variantConverterImpl.entityToDTO(minVariant);
+        variantDto.setOptionValueDTOList(optionValueDto);
+        variantDto.setImageDTOList(imageDTOList);
+        variantDto.setVideoDTOList(videoDTOList);
         return variantDto;
     }
     @Override
-    public VariantDto getVariantByProductPriceMin(Long product_id) {
+    public VariantDTO getVariantByProductPriceMin(Long product_id) {
         Variant variant = variantRepository.findTopByProductIdOrderByPriceAsc(product_id);
         return variantConverterImpl.entityToDTO(variant);
     }

@@ -1,16 +1,16 @@
 package com.forestdise.service.impl;
 import com.forestdise.converter.impl.VideoConverterImpl;
-import com.forestdise.dto.VideoDto;
+import com.forestdise.dto.VideoDTO;
 import com.forestdise.entity.Video;
 import com.forestdise.repository.VideoRepository;
-import com.forestdise.service.IVideoService;
+import com.forestdise.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class VideoServiceImpl implements IVideoService {
+public class VideoServiceImpl implements VideoService {
     private final VideoRepository videoRepository;
     private final VideoConverterImpl videoConverterImpl;
 
@@ -19,7 +19,7 @@ public class VideoServiceImpl implements IVideoService {
         this.videoRepository = videoRepository;
         this.videoConverterImpl = videoConverterImpl;
     }
-    public List<VideoDto> getVideosByVariantId(Long variant_id){
+    public List<VideoDTO> getVideosByVariantId(Long variant_id){
         List<Video> videos = videoRepository.findVideosByVariant_Id(variant_id);
         return videoConverterImpl.entitiesToDTOs(videos);
     }

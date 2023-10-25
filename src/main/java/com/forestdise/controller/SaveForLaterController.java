@@ -1,6 +1,6 @@
 package com.forestdise.controller;
 
-import com.forestdise.dto.SaveForLaterDto;
+import com.forestdise.dto.SaveForLaterDTO;
 import com.forestdise.entity.Cart;
 import com.forestdise.entity.User;
 import com.forestdise.payload.request.SaveForLaterRequest;
@@ -31,8 +31,8 @@ public class SaveForLaterController {
     public ResponseEntity<?> getAllSaveForLater(@PathVariable("id") Long userId){
         User user = userService.findById(userId);
         Cart cart = cartService.findCartByUserId(user);
-        List<SaveForLaterDto> saveForLaterDtos = saveForLaterService.findSaveForLaterByCartId(cart.getId());
-        return new ResponseEntity<>(saveForLaterDtos, HttpStatus.OK);
+        List<SaveForLaterDTO> saveForLaterDTOS = saveForLaterService.findSaveForLaterByCartId(cart.getId());
+        return new ResponseEntity<>(saveForLaterDTOS, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -43,7 +43,7 @@ public class SaveForLaterController {
 
     @PostMapping
     public ResponseEntity<?> addSaveForLater(@RequestBody SaveForLaterRequest saveForLaterRequest){
-        SaveForLaterDto saveForLaterDto = saveForLaterService.addSaveForLater(saveForLaterRequest);
+        SaveForLaterDTO saveForLaterDto = saveForLaterService.addSaveForLater(saveForLaterRequest);
         return new ResponseEntity<>(saveForLaterDto, HttpStatus.OK);
     }
 }

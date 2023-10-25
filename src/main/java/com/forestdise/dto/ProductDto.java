@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class ProductDto {
+public class ProductDTO {
     private Long id;
     private String title;
     private String description;
@@ -20,6 +20,6 @@ public class ProductDto {
     private String status;
     private Date createAt;
     private Date updatedAt;
-    private StoreDto store;
-    private List<BulletDto> bulletDtoList;
+    private StoreDTO store;
+    private List<BulletDTO> bulletDTOList;
 }

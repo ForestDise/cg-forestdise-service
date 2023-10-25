@@ -5,7 +5,7 @@ import com.forestdise.converter.impl.ProductConverterImpl;
 import com.forestdise.dto.*;
 import com.forestdise.entity.*;
 import com.forestdise.repository.ProductRepository;
-import com.forestdise.service.IProductService;
+import com.forestdise.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,83 +13,99 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ProductServiceImpl implements IProductService {
+public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductConverterImpl productConverterImpl;
     @Autowired
-    private IVariantConverter variantConverter;
+    private VariantConverter variantConverter;
 
     @Autowired
-    private IStoreConverter iStoreConverter;
+    private StoreConverter storeConverter;
 
     @Autowired
-    private IOptionValueConverter iOptionValueConverter;
+    private OptionValueConverter optionValueConverter;
     @Autowired
-    private IOptionTableConverter iOptionTableConverter;
+    private OptionTableConverter optionTableConverter;
     @Autowired
-    private IBulletConverter iBulletConverter;
+    private BulletConverter bulletConverter;
     @Autowired
     private ProductRepository productRepository;
     @Override
-    public ProductDto getProductById(Long id) {
+    public ProductDTO getProductById(Long id) {
         Product product = productRepository.findById(id).orElse(new Product()) ;
         List<Bullet> bullets = product.getBulletList();
-        List<BulletDto> bulletDtoList = iBulletConverter.entitiesToDTOs(bullets);
-        ProductDto productDto = productConverterImpl.entityToDTO(product);
-        productDto.setBulletDtoList(bulletDtoList);
+        List<BulletDTO> bulletDTOList = bulletConverter.entitiesToDTOs(bullets);
+        ProductDTO productDto = productConverterImpl.entityToDTO(product);
+        productDto.setBulletDTOList(bulletDTOList);
 
         return productDto;
     }
 
     @Override
-    public List<ProductDto> getAllProductDtos() {
-        return productConverterImpl.entitiesToDTOs(productRepository.findAll());
+    public List<ProductDTO> getAllProductDtos() {
+        List<Product> products = productRepository.findAll();
+        List<ProductDTO> productDTOS = productConverterImpl.entitiesToDTOs(products);
+        for(Product product: products){
+            Store store = product.getStore();
+            StoreDTO storeDto = storeConverter.entityToDTO(store);
+            for(ProductDTO productDto: productDTOS){
+                productDto.setStore(storeDto);
+            }
+        }
+        return productDTOS;
     }
 
     @Override
-    public List<VariantDto> getVariantsByProductId(Long productId) {
+    public List<VariantDTO> getVariantsByProductId(Long productId) {
         Product product = productRepository.findById(productId).orElse(new Product());
         List<Variant> variantList = product.getVariants();
         return variantConverter.entitiesToDTOs(variantList);
     }
 
     @Override
-    public StoreDto getStoreByProductId(Long productId) {
+    public StoreDTO getStoreByProductId(Long productId) {
         Product product = productRepository.findById(productId).orElse(new Product());
         Store store = product.getStore();
-        StoreDto storeDto = iStoreConverter.entityToDTO(store);
+        StoreDTO storeDto = storeConverter.entityToDTO(store);
         return storeDto;
     }
 
     @Override
-    public List<OptionTableDto> getOptionsByProductId(Long productId) {
-        List<OptionTableDto> optionTableDtoList = new ArrayList<>();
+    public List<OptionTableDTO> getOptionsByProductId(Long productId) {
+        List<OptionTableDTO> optionTableDTOList = new ArrayList<>();
         Product product = productRepository.findById(productId).orElse(new Product());
         List<OptionTable> optionTableList = product.getOptionTables();
         for(OptionTable optionTable : optionTableList){
             List<OptionValue> optionValueList = optionTable.getOptionValues();
-            List<OptionValueDto> optionValueDtoList = iOptionValueConverter.entitiesToDTOs(optionValueList);
-            OptionTableDto optionTableDto = iOptionTableConverter.entityToDTO(optionTable);
-            optionTableDto.setOptionValueDtoList(optionValueDtoList);
-            optionTableDtoList.add(optionTableDto);
+            List<OptionValueDTO> optionValueDTOList = optionValueConverter.entitiesToDTOs(optionValueList);
+            OptionTableDTO optionTableDto = optionTableConverter.entityToDTO(optionTable);
+            optionTableDto.setOptionValueDTOList(optionValueDTOList);
+            optionTableDTOList.add(optionTableDto);
         }
-        return optionTableDtoList;
+        return optionTableDTOList;
     }
 
     @Override
-    public List<ProductDto> getProductsByContaining(String text) {
+    public List<ProductDTO> getProductsByContaining(String text) {
         List<Product> products = productRepository.findByTitleContaining(text);
         return productConverterImpl.entitiesToDTOs(products);
 
     }
+
     @Override
-    public Product createProduct(ProductDto productDto) {
+    public List<ProductDTO> getProductsOfStoreByContaining(Long id, String text) {
+        List<Product> products = productRepository.findByTitleContaining(text);
+        return productConverterImpl.entitiesToDTOs(products);
+    }
+
+    @Override
+    public Product createProduct(ProductDTO productDto) {
         Product product= productConverterImpl.dtoToEntity(productDto);
         return productRepository.save(product);
     }
 
     @Override
-    public Product updateProduct(ProductDto productDto) {
+    public Product updateProduct(ProductDTO productDto) {
         Product product = productConverterImpl.dtoToEntity(productDto);
         return productRepository.save(product);
 

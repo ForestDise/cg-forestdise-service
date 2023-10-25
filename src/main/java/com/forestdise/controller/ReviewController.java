@@ -1,7 +1,7 @@
 package com.forestdise.controller;
 
 import com.forestdise.payload.response.ReviewResponse;
-import com.forestdise.service.IReviewService;
+import com.forestdise.service.ReviewService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class ReviewController {
     @Autowired
-    private IReviewService reviewService;
+    private ReviewService reviewService;
 
 
     @GetMapping("/{variant_id}")
     public ResponseEntity<ReviewResponse> getReviewsByVariantId(@PathVariable("variant_id") Long variantId){
         ReviewResponse reviewResponse = new ReviewResponse();
-        reviewResponse.setReviewDtoList(reviewService.getReviewsByVariantId(variantId));
+        reviewResponse.setReviewDTOList(reviewService.getReviewsByVariantId(variantId));
         return new ResponseEntity<>(reviewResponse, HttpStatus.OK);
 
     }
     @GetMapping("/product/{product_id}")
     public ResponseEntity<ReviewResponse> getReviewsByProductId(@PathVariable("product_id") Long productId){
         ReviewResponse reviewResponse = new ReviewResponse();
-        reviewResponse.setReviewDtoList(reviewService.getReviewsByProductId(productId));
+        reviewResponse.setReviewDTOList(reviewService.getReviewsByProductId(productId));
         reviewResponse.setSummaryDto(reviewService.getSummaryDtoByProductId(productId));
         return new ResponseEntity<>(reviewResponse, HttpStatus.OK);
 

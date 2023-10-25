@@ -1,9 +1,13 @@
 package com.forestdise.controller;
 
+import com.forestdise.dto.SellerLoginDTO;
+import com.forestdise.dto.SellerRegisterDTO;
 import com.forestdise.dto.UserLoginDTO;
 import com.forestdise.dto.UserRegisterDTO;
+import com.forestdise.entity.Seller;
 import com.forestdise.entity.User;
-import com.forestdise.service.impl.UserServiceImpl;
+import com.forestdise.service.SellerService;
+import com.forestdise.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api")
 public class AuthController {
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
+    @Autowired
+    private SellerService sellerService;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserLoginDTO userLoginDto) {
@@ -25,5 +31,17 @@ public class AuthController {
     public ResponseEntity<?> register(@RequestBody UserRegisterDTO userRegisterDto){
         User user = userService.register(userRegisterDto);
         return ResponseEntity.ok(user);
+    }
+
+    @PostMapping("/login/seller")
+    public ResponseEntity<?> loginSeller(@RequestBody SellerLoginDTO sellerLoginDto) {
+        String token = sellerService.login(sellerLoginDto);
+        return ResponseEntity.ok(token);
+    }
+
+    @PostMapping("/register/seller")
+    public ResponseEntity<?> registerSeller(@RequestBody SellerRegisterDTO sellerRegisterDto){
+        Seller seller = sellerService.register(sellerRegisterDto);
+        return ResponseEntity.ok(seller);
     }
 }

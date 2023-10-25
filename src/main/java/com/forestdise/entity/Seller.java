@@ -2,6 +2,7 @@ package com.forestdise.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import java.util.List;
@@ -21,11 +22,18 @@ public class Seller {
 
     @Column(name = "seller_name")
     private String sellerName;
+
     @Column(name = "email")
     private String email;
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "balance")
+    private Double balance;
+
+    @Column(name = "role")
+    private String role;
 
     @OneToMany(mappedBy = "seller")
     @JsonManagedReference(value = "address_seller")
