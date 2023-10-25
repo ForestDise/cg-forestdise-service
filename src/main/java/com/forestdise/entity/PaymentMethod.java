@@ -13,41 +13,33 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.util.Set;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "Address")
-public class Address {
+@Table(name = "payment_method")
+public class PaymentMethod {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String district;
+    private String cartNumber;
 
-    private String ward;
+    private String nameOnCard;
 
-    private String city;
+    private String expirationDate;
 
-    private String street;
+    private Boolean defaultPayment;
+
+    @OneToOne(mappedBy = "paymentMethod")
+    private ShopOrder shopOrder;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    @JsonBackReference(value = "address_user")
+    @JoinColumn(name = "user_id", nullable=false)
+    @JsonBackReference(value = "user_paymentMethod")
     private User user;
-
-    @ManyToOne
-    @JoinColumn(name="seller_id")
-    @JsonBackReference(value = "address_seller")
-    private Seller seller;
-
-    @OneToMany(mappedBy = "address")
-    @JsonManagedReference(value = "address_shopOrder")
-    private Set<ShopOrder> shopOrders;
 }

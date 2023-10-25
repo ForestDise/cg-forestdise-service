@@ -41,7 +41,6 @@ public class CartLineServiceImpl implements CartLineService {
     @Override
     public void removeCartLine(Long id) {
        CartLine cartLine = cartLineRepository.findById(id).orElse(null);
-        assert cartLine != null;
         cartLineRepository.deleteCartLineById(cartLine.getId());
     }
 
@@ -59,7 +58,7 @@ public class CartLineServiceImpl implements CartLineService {
         Cart cart = cartRepository.findById(cartLineRequest.getCartId()).orElse(null);
         CartLine cartLine = cartLineRepository.findCartLineByVariant(variant);
         if (cartLine != null) {
-            int newQuantity = cartLine.getQuantity() + 1;
+            int newQuantity = cartLine.getQuantity() + cartLineRequest.getQuantity();
             cartLine.setQuantity(newQuantity);
             cartLineRepository.save(cartLine);
             CartLineDto cartLineDto = cartLineConverter.convertEntityToDto(cartLine);
