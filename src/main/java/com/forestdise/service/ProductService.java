@@ -11,6 +11,8 @@ import java.util.List;
 public interface ProductService {
     public ProductDTO getProductById(Long id);
     public List<ProductDTO> getAllProductDtos();
+    public List<ProductDTO> getAllProductDtosByStore(Long id);
+    List<ProductDTO> getAllProductDtosByStoreCategory(String categoryName);
     public List<VariantDTO> getVariantsByProductId(Long productId);
     public StoreDTO getStoreByProductId(Long productId);
     public List<OptionTableDTO> getOptionsByProductId(Long productId);
