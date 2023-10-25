@@ -62,4 +62,5 @@ public class Product {
     @JsonManagedReference(value = "product_bulletList")
     private List<Bullet> bulletList;
 
+
 }

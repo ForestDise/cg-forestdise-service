@@ -28,4 +28,11 @@ public class OptionValueConverterImpl implements OptionValueConverter {
         BeanUtils.copyProperties(element, result);
         return result;
     }
+
+    @Override
+    public List<OptionValue> dtosToEntities(List<OptionValueDTO> element) {
+        return element.stream()
+                .map(this::dtoToEntity)
+                .collect(Collectors.toList());
+    }
 }

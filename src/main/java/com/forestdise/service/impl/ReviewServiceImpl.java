@@ -38,28 +38,28 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public List<ReviewDTO> getReviewsByVariantId(Long variantId) {
         List<Review> reviewList = reviewRepository.findByVariant_Id(variantId);
-        List<ReviewDTO> reviewDTOList = reviewConverter.entitiesToDTOs(reviewList);
-        return reviewDTOList;
+        List<ReviewDTO> reviewDtoList = reviewConverter.entitiesToDTOs(reviewList);
+        return reviewDtoList;
     }
 
     @Override
     public List<ReviewDTO> getReviewsByProductId(Long productId){
-        List<ReviewDTO> reviewDTOList = new ArrayList<>();
-        List<VariantDTO> variantDTOList = productService.getVariantsByProductId(productId);
-        for(VariantDTO variantDto : variantDTOList){
-            List<OptionValueDTO> optionValueDTOList = variantDto.getOptionValueDTOList();
-            reviewDTOList = variantDto.getReviewDTOList();
-            if(reviewDTOList != null) {
-                for (ReviewDTO reviewDto : reviewDTOList) {
-                    reviewDto.setOptionValueDTOList(optionValueDTOList);
+        List<ReviewDTO> reviewDtoList = new ArrayList<>();
+        List<VariantDTO> variantDtoList = productService.getVariantsByProductId(productId);
+        for(VariantDTO variantDto : variantDtoList){
+            List<OptionValueDTO> optionValueDtoList = variantDto.getOptionValueDTOList();
+            reviewDtoList = variantDto.getReviewDTOList();
+            if(reviewDtoList != null) {
+                for (ReviewDTO reviewDto : reviewDtoList) {
+                    reviewDto.setOptionValueDTOList(optionValueDtoList);
                 }
             }
-            reviewDTOList.addAll(getReviewsByVariantId(variantDto.getId()));
+            reviewDtoList.addAll(getReviewsByVariantId(variantDto.getId()));
             //ddang sua
-            //reviewDTOList null pointer exception
+            //reviewDtoList null pointer exception
         }
 
-        return reviewDTOList;
+        return reviewDtoList;
     }
 
     @Override
@@ -72,11 +72,11 @@ public class ReviewServiceImpl implements ReviewService {
         int countThreeStar = 0;
         int countTwoStar = 0;
         int countOneStar = 0;
-        List<VariantDTO> variantDTOList = productService.getVariantsByProductId(productId);
-        for(VariantDTO variantDto : variantDTOList){
-            List<ReviewDTO> reviewDTOList = variantDto.getReviewDTOList();
-            total += reviewDTOList.size();
-            for(ReviewDTO reviewDto : reviewDTOList){
+        List<VariantDTO> variantDtoList = productService.getVariantsByProductId(productId);
+        for(VariantDTO variantDto : variantDtoList){
+            List<ReviewDTO> reviewDtoList = variantDto.getReviewDTOList();
+            total += reviewDtoList.size();
+            for(ReviewDTO reviewDto : reviewDtoList){
                 if(reviewDto.getStar() == 5){
                     countFiveStar++;
                     count += 5;

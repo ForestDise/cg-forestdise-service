@@ -9,4 +9,5 @@ public interface OptionValueConverter {
     List<OptionValueDTO> entitiesToDTOs(List<OptionValue> element);
     OptionValueDTO entityToDTO(OptionValue element);
     OptionValue dtoToEntity(OptionValueDTO element);
+    List<OptionValue> dtosToEntities(List<OptionValueDTO> element);
 }
