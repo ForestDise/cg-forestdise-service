@@ -1,5 +1,6 @@
 package com.forestdise.controller;
 
+
 import com.forestdise.dto.VariantDTO;
 import com.forestdise.payload.response.SearchResponse;
 import com.forestdise.service.VariantService;
@@ -34,6 +35,7 @@ public class SearchController {
         Page<VariantDTO> variantDtoPage = variantService.getVariantsByContaining(searchText,pageable);
         searchResponse.setVariantDtoPage(variantDtoPage);
         return new ResponseEntity<>(searchResponse, HttpStatus.OK);
+
     }
     @GetMapping("/newest-variants")
     public ResponseEntity<SearchResponse> getNewestVariantsByText(

@@ -23,4 +23,5 @@ public class ProductDTO {
     private StoreDTO storeDto;
     private List<BulletDTO> bulletDTOList;
     private Double minVariantPrice;
+
 }

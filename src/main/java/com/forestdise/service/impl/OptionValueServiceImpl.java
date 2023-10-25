@@ -21,6 +21,7 @@ public class OptionValueServiceImpl implements OptionValueService {
     private final OptionTableRepository optionTableRepository;
     private final OptionValueConverterImpl optionValueConverterImpl;
 
+
     @Autowired
     public OptionValueServiceImpl(
             VariantRepository variantRepository,
@@ -45,7 +46,6 @@ public class OptionValueServiceImpl implements OptionValueService {
         Variant variant = variantRepository.findById(variant_id).orElse(null);
         OptionTable option = optionTableRepository.findById(option_id).orElse(null);
         optionValue.setOptionTable(option);
-//  tạo optionvalue va variant (n-n) => tạo optionvalue thì set variant nào chứa nó, chiều ngược laại nó chua variant nào.
         optionValue.getVariants().add(variant);
         variant.getOptionValues().add(optionValue);
         return optionValueRepository.save(optionValue);

@@ -14,6 +14,7 @@ import javax.persistence.*;
 @Builder
 @Table(name = "video")
 public class Video {
+    /* Test */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

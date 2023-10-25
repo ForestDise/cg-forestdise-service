@@ -45,6 +45,7 @@ public class VariantServiceImpl implements VariantService {
         this.productRepository = productRepository;
     }
 
+
     public VariantDTO getVariantById(Long id) {
         //null
         return variantConverterImpl.entityToDTO(variantRepository.findById(id).orElse(null));
@@ -129,11 +130,13 @@ public class VariantServiceImpl implements VariantService {
         if (variantPage!=null){
             for (Variant variant : variantPage) {
                 long rating = Math.round(variantRepository.findAverageStarByReview(variant));
+                System.out.println("******************************************"+ rating);
                 if (rating == star) {
                 variantList.add(variantConverterImpl.entityToDTO(variant));
                 }
             }
         }
+
         return new PageImpl<>(variantList, pageable, variantPage.getTotalElements());
     }
 }

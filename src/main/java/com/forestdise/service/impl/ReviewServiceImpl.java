@@ -2,12 +2,14 @@ package com.forestdise.service.impl;
 
 import com.forestdise.converter.impl.OptionValueConverterImpl;
 import com.forestdise.converter.impl.ReviewConverterImpl;
+
 import com.forestdise.dto.*;
 import com.forestdise.entity.OptionValue;
 import com.forestdise.entity.Review;
 import com.forestdise.entity.Variant;
 import com.forestdise.repository.ReviewRepository;
 import com.forestdise.repository.VariantRepository;
+
 import com.forestdise.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,7 @@ public class ReviewServiceImpl implements ReviewService {
                              VariantRepository variantRepository,
                              OptionValueConverterImpl optionValueConverter
                              ) {
+
         this.reviewRepository = reviewRepository;
         this.reviewConverter = reviewConverter;
         this.variantRepository = variantRepository;
@@ -45,6 +48,7 @@ public class ReviewServiceImpl implements ReviewService {
     public List<ReviewDTO> getReviewsByVariantId(Long variantId) {
         List<Review> reviewList = reviewRepository.findByVariant_Id(variantId);
         return reviewConverter.entitiesToDTOs(reviewList);
+
     }
 
     @Override
@@ -64,6 +68,7 @@ public class ReviewServiceImpl implements ReviewService {
             assert reviewDTOS != null;
             reviewDTOList.addAll(reviewDTOS);
 
+
         }
 
         return reviewDTOList;
@@ -73,6 +78,7 @@ public class ReviewServiceImpl implements ReviewService {
     public SummaryDTO getSummaryDtoByProductId(Long productId) {
         SummaryDTO summaryDto = new SummaryDTO();
         int total = getReviewsByProductId(productId).size();
+
         int count = 0;
         int countFiveStar = 0;
         int countFourStar = 0;
@@ -84,6 +90,7 @@ public class ReviewServiceImpl implements ReviewService {
             List<Review> reviews = variant.getReviews();
             for (Review review: reviews) {
                 if (review.getStar()==5) {
+
                     countFiveStar++;
                     count += 5;
                 } else if (review.getStar()==4) {

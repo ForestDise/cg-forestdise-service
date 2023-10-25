@@ -1,5 +1,6 @@
 package com.forestdise.configuration;
 
+import com.forestdise.constraint.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -8,10 +9,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 
@@ -34,7 +33,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests((requests) -> requests
-                        .anyRequest().authenticated());
+                                .antMatchers("/api/users/**").hasAnyRole(Role.USER.toString())
+                                .antMatchers("/api/sellers/**").hasAnyRole(Role.SELLER.toString())
+                                .anyRequest().authenticated()
+                        );
     }
 
     @Override
@@ -43,8 +45,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 antMatchers("/api/register/**", "/api/login/**",
                         "/api/products", "/api/product-detail/**",
                         "/api/cart-lines/**", "/api/cart/**",
-                        "/api/save-for-later/**", "/api/stores/**","/api/variant/**","/api/image/**","/api/video/**","/api/option-value/**","/api/reviews/**")
+                        "/api/save-for-later/**", "/api/stores/**","/api/variant/**","/api/image/**","/api/video/**","/api/option-value/**","/api/reviews/**",
+                                "/api/save-for-later/**", "/api/stores/**")
                 .antMatchers(HttpMethod.GET, "/api/products", "/api/users/**", "/api/cart-lines/**","/api/search/**");
+
 
     }
 }

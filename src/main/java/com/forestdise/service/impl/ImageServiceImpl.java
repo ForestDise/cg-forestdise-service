@@ -18,6 +18,7 @@ public class ImageServiceImpl implements ImageService {
     private final ImageConverterImpl imageConverterImpl;
     private final VariantRepository variantRepository;
 
+
     @Autowired
     public ImageServiceImpl(
             ImageRepository imageRepository,

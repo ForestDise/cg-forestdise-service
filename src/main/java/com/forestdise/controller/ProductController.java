@@ -23,8 +23,10 @@ public class ProductController {
     }
 
 
+
     @GetMapping
     public List<ProductDTO> productDtoList(){
         return productServiceImpl.getAllProductDtos();
+
     }
 }

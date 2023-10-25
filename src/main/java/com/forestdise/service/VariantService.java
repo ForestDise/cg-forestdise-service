@@ -21,4 +21,5 @@ public interface VariantService {
      Page<VariantDTO> getVariantsByContaining(String text, Pageable pageable);
      Page<VariantDTO> getVariantsByNameContainingAndPriceBetween(String text, double minPrice, double maxPrice, Pageable pageable );
      Page<VariantDTO> getVariantsBySearchTextAndRating(String text, long star, Pageable pageable);
+
 }

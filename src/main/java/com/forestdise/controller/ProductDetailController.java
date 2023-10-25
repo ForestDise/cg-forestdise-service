@@ -26,7 +26,7 @@ public class ProductDetailController {
 
     private final OptionValueService optionValueServiceImpl;
     @Autowired
-            public ProductDetailController(ImageService imageServiceImpl,
+    public ProductDetailController(ImageService imageServiceImpl,
                                            ProductService productServiceImpl,
                                            ProductAttributeService productAttributeServiceImpl,
                                            VariantService variantServiceImpl,
@@ -39,6 +39,7 @@ public class ProductDetailController {
         this.videoServiceImpl=videoServiceImpl;
         this.optionValueServiceImpl=optionValueServiceImpl;
     }
+
     ProductDetailResponse productDetailResponse=new ProductDetailResponse();
     VariantDetailResponse variantDetailResponse =new VariantDetailResponse();
 

@@ -10,5 +10,4 @@ import lombok.*;
 public class UserDTO {
     private Long id;
     private String clientName;
-    private String logo;
 }

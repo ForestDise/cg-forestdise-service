@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface SaveForLaterService {
     List<SaveForLaterDTO> findSaveForLaterByCartId (Long cartId);
     void removeSaveForLater(Long saveForLaterId);
