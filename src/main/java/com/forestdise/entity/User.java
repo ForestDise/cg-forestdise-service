@@ -47,4 +47,7 @@ public class User {
     @JsonManagedReference(value = "user_review")
     private List<Review> reviewList;
 
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference(value = "user_paymentMethod")
+    private Set<PaymentMethod> paymentMethods;
 }

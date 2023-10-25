@@ -50,5 +50,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/api/save-for-later/**", "/api/stores/**")
 
                 .antMatchers(HttpMethod.GET, "/api/products", "/api/cart-lines/**","/api/search/**","/api/reviews/**");
+
     }
 }

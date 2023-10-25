@@ -30,24 +30,27 @@ public class ShopOrder {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne
-    @JoinColumn(name = "cart_line_id")
-    private CartLine cartLine;
+    @ManyToOne
+    @JoinColumn(name = "variant_id", nullable = false)
+    @JsonBackReference(value = "variant_shopOrder")
+    private Variant variant;
 
-    private String order_date;
+    private String orderDate;
 
     @ManyToOne
     @JoinColumn(name = "address_id")
+    @JsonBackReference(value = "address_shopOrder")
     private Address address;
 
-    private String message;
+    @OneToOne
+    @JoinColumn(name = "payment_method_id")
+    private PaymentMethod paymentMethod;
 
-    private String paymentMethod;
-
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "shipping_method_id")
-    @JsonBackReference(value = "shopOrder_shippingMethod")
     private ShippingMethod shippingMethod;
+
+    private int quantity;
 
     private Double orderTotal;
 }
