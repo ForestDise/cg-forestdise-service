@@ -5,8 +5,6 @@ import com.forestdise.dto.CommentDto;
 import com.forestdise.entity.Comment;
 import com.forestdise.repository.CommentRepository;
 import com.forestdise.service.ICommentService;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

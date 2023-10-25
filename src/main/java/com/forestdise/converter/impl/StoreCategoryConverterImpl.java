@@ -2,7 +2,6 @@ package com.forestdise.converter.impl;
 
 import com.forestdise.converter.StoreCategoryConverter;
 import com.forestdise.dto.StoreCategoryDTO;
-import com.forestdise.dto.StoreDto;
 import com.forestdise.entity.StoreCategory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;

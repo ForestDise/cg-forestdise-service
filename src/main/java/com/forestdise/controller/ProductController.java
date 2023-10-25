@@ -14,8 +14,10 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("api/products")
 public class ProductController {
+
     @Autowired
     private ProductServiceImpl productServiceImpl;
+
 
     @GetMapping
     public List<ProductDto> productDtoList(){
