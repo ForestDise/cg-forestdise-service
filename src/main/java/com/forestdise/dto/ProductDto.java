@@ -23,4 +23,5 @@ public class ProductDto {
     private Date updatedAt;
     private StoreDto storeDto;
     private List<BulletDto> bulletDtoList;
+    private Double minVariantPrice;
 }

@@ -10,6 +10,9 @@ import com.forestdise.repository.ProductRepository;
 import com.forestdise.repository.VariantRepository;
 import com.forestdise.service.IVariantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,8 +61,6 @@ public class VariantServiceImpl implements IVariantService {
             variantDto.setOptionValueDtoList(optionValueDto);
             variantDtoList.add(variantDto);
         }
-        //if (variants != null && !variants.isEmpty()) {
-    //variants = new ArrayList<>(); else{}
         return variantDtoList;
     }
 
@@ -111,5 +112,28 @@ public class VariantServiceImpl implements IVariantService {
     public void deleteVariant(Long variantId) {
         variantRepository.deleteById(variantId);
     }
+    public Page<VariantDto> getVariantsByContaining(String text, Pageable pageable){
+        Page<Variant> variantPage = variantRepository.findByNameContaining(text, pageable);
+        return variantPage.map(variantConverterImpl::entityToDTO);
+    }
 
+    @Override
+    public Page<VariantDto> getVariantsByNameContainingAndPriceBetween(String text,double minPrice, double maxPrice, Pageable pageable ) {
+        Page<Variant> variantPage = variantRepository.findVariantsByNameContainingAndPriceBetween(text,minPrice,maxPrice,pageable);
+        return variantPage.map(variantConverterImpl::entityToDTO);
+    }
+    @Override
+    public Page<VariantDto> getVariantsBySearchTextAndRating(String text, long star,Pageable pageable) {
+        List<VariantDto> variantList = new ArrayList<>();
+        Page<Variant> variantPage = variantRepository.findByNameContaining(text, pageable);
+        if (variantPage!=null){
+            for (Variant variant : variantPage) {
+                long rating = Math.round(variantRepository.findAverageStarByReview(variant));
+                if (rating == star) {
+                variantList.add(variantConverterImpl.entityToDTO(variant));
+                }
+            }
+        }
+        return new PageImpl<>(variantList, pageable, variantPage.getTotalElements());
+    }
 }

@@ -5,12 +5,18 @@ import com.forestdise.converter.impl.ProductConverterImpl;
 import com.forestdise.dto.*;
 import com.forestdise.entity.*;
 import com.forestdise.repository.ProductRepository;
+import com.forestdise.repository.VariantRepository;
 import com.forestdise.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements IProductService {
@@ -21,7 +27,7 @@ public class ProductServiceImpl implements IProductService {
     private final IOptionTableConverter iOptionTableConverter;
     private final IBulletConverter iBulletConverter;
     private final ProductRepository productRepository;
-
+    private final VariantRepository variantRepository;
     @Autowired
     public ProductServiceImpl(
             ProductConverterImpl productConverterImpl,
@@ -30,7 +36,8 @@ public class ProductServiceImpl implements IProductService {
             IOptionValueConverter iOptionValueConverter,
             IOptionTableConverter iOptionTableConverter,
             IBulletConverter iBulletConverter,
-            ProductRepository productRepository
+            ProductRepository productRepository,
+            VariantRepository variantRepository
     ) {
         this.productConverterImpl = productConverterImpl;
         this.variantConverter = variantConverter;
@@ -39,6 +46,7 @@ public class ProductServiceImpl implements IProductService {
         this.iOptionTableConverter = iOptionTableConverter;
         this.iBulletConverter = iBulletConverter;
         this.productRepository = productRepository;
+        this.variantRepository=variantRepository;
     }
     @Override
     public ProductDto getProductById(Long id) {
@@ -87,10 +95,47 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public List<ProductDto> getProductsByContaining(String text) {
-        List<Product> products = productRepository.findByTitleContaining(text);
-        return productConverterImpl.entitiesToDTOs(products);
+    public Page<ProductDto> getProductsByContaining(String text, Pageable pageable) {
 
+        Page<Product> products = productRepository.findByTitleContaining(text, pageable);
+        return products.map(productConverterImpl::entityToDTO);
+    }
+    @Override
+    public Page<ProductDto> getProductsByContainingAndSortByDecreasePricePriceVariant(String text, Pageable pageable) {
+        Page<ProductDto> products= getProductsByContaining( text, pageable);
+        products.forEach(productDto -> {
+            Variant variant= variantRepository.findTopByProductIdOrderByPriceAsc(productDto.getId());
+             if (variant != null) {
+                productDto.setMinVariantPrice(variant.getPrice());
+            }
+
+        });
+        List<ProductDto> sortedProductList = products.getContent()
+                .stream()
+                .sorted(Comparator.comparing(ProductDto::getMinVariantPrice, Comparator.nullsLast(Comparator.reverseOrder())))
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(sortedProductList, pageable, products.getTotalElements());
+
+    }
+    @Override
+    public Page<ProductDto> getProductsByContainingAndSortByIncreasePricePriceVariant(String text, Pageable pageable){
+        Page<ProductDto> products = getProductsByContaining(text, pageable);
+        products.forEach(productDto -> {
+            Variant variant = variantRepository.findTopByProductIdOrderByPriceAsc(productDto.getId());
+//            if (variant != null) {
+                productDto.setMinVariantPrice(variant.getPrice());
+//            } else {
+//                productDto.setMinVariantPrice(0);
+//            }
+        });
+
+        List<ProductDto> sortedProductList = products.getContent()
+                .stream()
+                .sorted(Comparator.comparing(ProductDto::getMinVariantPrice, Comparator.nullsLast(Comparator.naturalOrder())))
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(sortedProductList, pageable, products.getTotalElements());
     }
     @Override
     public Product createProduct(ProductDto productDto) {
