@@ -33,10 +33,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests((requests) -> requests
-                                .antMatchers("/api/users/**").hasAnyRole(Role.USER.toString())
-                                .antMatchers("/api/sellers/**").hasAnyRole(Role.SELLER.toString())
-                                .anyRequest().authenticated()
-                        );
+                        .antMatchers("/api/users/**").hasAnyRole(Role.USER.toString())
+                        .antMatchers("/api/sellers/**").hasAnyRole(Role.SELLER.toString())
+                        .anyRequest().authenticated()
+                );
     }
 
     @Override
@@ -46,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/api/products", "/api/product-detail/**",
                         "/api/cart-lines/**", "/api/cart/**",
                         "/api/save-for-later/**", "/api/stores/**","/api/variant/**","/api/image/**","/api/video/**","/api/option-value/**","/api/reviews/**",
-                                "/api/save-for-later/**", "/api/stores/**")
+                        "/api/save-for-later/**", "/api/stores/**")
                 .antMatchers(HttpMethod.GET, "/api/products", "/api/users/**", "/api/cart-lines/**","/api/search/**");
 
 
