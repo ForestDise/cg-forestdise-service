@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class StoreDto {
+public class StoreDTO {
     private Long id;
     private String name;
     private String homeImage;

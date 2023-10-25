@@ -12,10 +12,10 @@ import javax.validation.constraints.Null;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CartLineDto {
+public class CartLineDTO {
     @Null
     private Long id;
     private int quantity;
-    private CartDto cartDto;
-    private VariantDto variantDto;
+    private CartDTO cartDto;
+    private VariantDTO variantDto;
 }

@@ -6,15 +6,15 @@ import lombok.Data;
 import java.util.List;
 @Data
 public class ProductDetailResponse {
-    private ProductDto productDTO;
+    private ProductDTO productDTO;
     private int ratings;
     private double star;
-    private StoreDto storeDto;
-    private List<OptionTableDto> optionTableDto;
-    private List<VariantDto> variantDtoList;
-    private List<ProductAttributeDto> productAttributeDtoList;
-    private VariantDto variantDto;
-    private List<ReviewDto> reviewDtoList;
+    private StoreDTO storeDto;
+    private List<OptionTableDTO> optionTableDto;
+    private List<VariantDTO> variantDTOList;
+    private List<ProductAttributeDTO> productAttributeDTOList;
+    private VariantDTO variantDto;
+    private List<ReviewDTO> reviewDTOList;
 
 
 }

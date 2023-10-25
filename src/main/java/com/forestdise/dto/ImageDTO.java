@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class ImageDto {
+public class ImageDTO {
     private Long id;
 
     private String imgPath;

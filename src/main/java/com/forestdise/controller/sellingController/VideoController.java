@@ -1,6 +1,6 @@
 package com.forestdise.controller.sellingController;
 
-import com.forestdise.dto.VideoDto;
+import com.forestdise.dto.VideoDTO;
 import com.forestdise.entity.Video;
 import com.forestdise.payload.request.VideoRequest;
 import com.forestdise.payload.response.VideoCreateResponse;
@@ -23,7 +23,7 @@ public class VideoController {
     @PostMapping("/create")
     public ResponseEntity<VideoCreateResponse> createVideo(@RequestBody VideoRequest videoRequest, @PathVariable("variant_id") Long variant_id){
         VideoCreateResponse videoCreateResponse= new VideoCreateResponse();
-        VideoDto videoDto = VideoDto.builder()
+        VideoDTO videoDto = VideoDTO.builder()
                 .videoPath(videoRequest.getVideoPath())
                 .build();
 

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public interface IVideoService {
+public interface VideoService {
      List<VideoDTO> getVideosByVariantId(Long variant_id);
     Video createVideo (VideoDTO videoDto, Long variant_id);
 }

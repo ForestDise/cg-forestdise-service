@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public interface IImageService {
+public interface ImageService {
     public List<ImageDTO> getImageByVariantId(Long variant_id);
     public Image createImage(ImageDTO imageDto, Long variant_id);
 }

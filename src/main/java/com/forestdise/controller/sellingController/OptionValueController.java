@@ -1,6 +1,6 @@
 package com.forestdise.controller.sellingController;
 
-import com.forestdise.dto.OptionValueDto;
+import com.forestdise.dto.OptionValueDTO;
 import com.forestdise.entity.OptionValue;
 import com.forestdise.payload.request.OptionValueRequest;
 import com.forestdise.payload.response.OptionValueCreateResponse;
@@ -22,7 +22,7 @@ public class OptionValueController {
     @PostMapping("/create")
     public ResponseEntity<OptionValueCreateResponse> createOptionValue(@RequestBody OptionValueRequest optionValueRequest, @PathVariable("option_id") Long option_id,@PathVariable("variant_id") Long variant_id){
         OptionValueCreateResponse optionValueCreateResponse= new OptionValueCreateResponse();
-        OptionValueDto optionValueDto = OptionValueDto.builder()
+        OptionValueDTO optionValueDto = OptionValueDTO.builder()
                 .value(optionValueRequest.getValue())
                 .build();
         OptionValue optionValue =optionValueService.createOptionValue(optionValueDto,option_id, variant_id);

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class VideoDto {
+public class VideoDTO {
     private Long id;
 
     private String videoPath;

@@ -1,6 +1,6 @@
 package com.forestdise.controller.sellingController;
 
-import com.forestdise.dto.OptionTableDto;
+import com.forestdise.dto.OptionTableDTO;
 import com.forestdise.entity.OptionTable;
 import com.forestdise.payload.request.OptionRequest;
 import com.forestdise.payload.response.OptionCreateResponse;
@@ -22,7 +22,7 @@ public class OptionController {
     @PostMapping("/create")
     public ResponseEntity<OptionCreateResponse> createOption(@RequestBody OptionRequest optionRequest, @PathVariable("product_id") Long product_id){
         OptionCreateResponse optionCreateResponse= new OptionCreateResponse();
-        OptionTableDto optionDto = OptionTableDto.builder()
+        OptionTableDTO optionDto = OptionTableDTO.builder()
                 .name(optionRequest.getName())
                 .build();
         OptionTable option =optionService.createOption(optionDto,product_id);

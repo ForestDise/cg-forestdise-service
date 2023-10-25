@@ -5,7 +5,7 @@ import com.forestdise.entity.Bullet;
 
 import java.util.List;
 
-public interface IBulletConverter {
+public interface BulletConverter {
     List<BulletDTO> entitiesToDTOs(List<Bullet> element);
     BulletDTO entityToDTO(Bullet element);
     Bullet dtoToEntity(BulletDTO element);

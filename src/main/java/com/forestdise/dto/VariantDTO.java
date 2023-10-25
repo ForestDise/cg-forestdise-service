@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class VariantDto {
+public class VariantDTO {
     private Long id;
     private String name;
     private String skuCode;
@@ -21,8 +21,8 @@ public class VariantDto {
     private Double price;
     private double salePrice;
     private String img;
-    private List<OptionValueDto> optionValueDtoList;
-    private List<ImageDto> imageDtoList;
-    private List<VideoDto> videoDtoList;
-    private List<ReviewDto> reviewDtoList;
+    private List<OptionValueDTO> optionValueDTOList;
+    private List<ImageDTO> imageDTOList;
+    private List<VideoDTO> videoDTOList;
+    private List<ReviewDTO> reviewDTOList;
 }

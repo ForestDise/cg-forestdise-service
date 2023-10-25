@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public interface IReviewService {
+public interface ReviewService {
     public ReviewDTO getReviewById(Long id);
     public List<ReviewDTO> getReviewsByVariantId(Long variantId);
     public List<ReviewDTO> getReviewsByProductId(Long productId);

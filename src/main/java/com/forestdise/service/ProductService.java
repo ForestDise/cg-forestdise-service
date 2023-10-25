@@ -11,7 +11,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 
-public interface IProductService {
+public interface ProductService {
     public ProductDTO getProductById(Long id);
     public List<ProductDTO> getAllProductDtos();
      List<VariantDTO> getVariantsByProductId(Long productId);

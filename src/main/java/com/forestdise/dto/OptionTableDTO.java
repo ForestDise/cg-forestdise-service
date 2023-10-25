@@ -13,9 +13,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class OptionTableDto {
+public class OptionTableDTO {
 
     private Long id;
     private String name;
-    private List<OptionValueDto> optionValueDtoList;
+    private List<OptionValueDTO> optionValueDTOList;
 }

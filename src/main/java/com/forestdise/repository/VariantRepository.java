@@ -1,6 +1,4 @@
 package com.forestdise.repository;
-import com.forestdise.dto.VariantDto;
-import com.forestdise.entity.Product;
 import com.forestdise.entity.Variant;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

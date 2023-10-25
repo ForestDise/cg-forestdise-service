@@ -1,6 +1,6 @@
 package com.forestdise.controller;
 
-import com.forestdise.dto.StoreDto;
+import com.forestdise.dto.StoreDTO;
 import com.forestdise.repository.StoreRepository;
 import com.forestdise.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +18,8 @@ public class StoreController {
     StoreRepository storeRepository;
 
     @GetMapping("/{store_id}")
-    public ResponseEntity<StoreDto> getStore(@PathVariable("store_id") Long storeId) {
-        StoreDto storeDto = storeService.findStore(storeId);
+    public ResponseEntity<StoreDTO> getStore(@PathVariable("store_id") Long storeId) {
+        StoreDTO storeDto = storeService.findStore(storeId);
         return new ResponseEntity<>(storeDto, HttpStatus.OK);
     }
 

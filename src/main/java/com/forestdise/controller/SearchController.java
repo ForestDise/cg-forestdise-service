@@ -1,8 +1,8 @@
 package com.forestdise.controller;
 
-import com.forestdise.dto.VariantDto;
+import com.forestdise.dto.VariantDTO;
 import com.forestdise.payload.response.SearchResponse;
-import com.forestdise.service.IVariantService;
+import com.forestdise.service.VariantService;
 import com.forestdise.service.impl.VariantServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("api/search/")
 public class SearchController {
-    private final IVariantService variantService;
+    private final VariantService variantService;
 
     @Autowired
     public SearchController(VariantServiceImpl variantService){
@@ -31,7 +31,7 @@ public class SearchController {
     ){
         Pageable pageable= PageRequest.of(page,pageSize);
         SearchResponse searchResponse =new SearchResponse();
-        Page<VariantDto> variantDtoPage = variantService.getVariantsByContaining(searchText,pageable);
+        Page<VariantDTO> variantDtoPage = variantService.getVariantsByContaining(searchText,pageable);
         searchResponse.setVariantDtoPage(variantDtoPage);
         return new ResponseEntity<>(searchResponse, HttpStatus.OK);
     }
@@ -43,7 +43,7 @@ public class SearchController {
 
         Pageable pageable = PageRequest.of(page, pageSize, Sort.by(Sort.Order.desc("createdDate")));
         SearchResponse searchResponse = new SearchResponse();
-        Page<VariantDto> variantDtoPage = variantService.getVariantsByContaining(searchText, pageable);
+        Page<VariantDTO> variantDtoPage = variantService.getVariantsByContaining(searchText, pageable);
         searchResponse.setVariantDtoPage(variantDtoPage);
         return new ResponseEntity<>(searchResponse, HttpStatus.OK);
     }
@@ -54,7 +54,7 @@ public class SearchController {
             @RequestParam(name = "pageSize", defaultValue = "10") int pageSize
     ){
         Pageable pageable = PageRequest.of(page, pageSize, Sort.by(Sort.Order.desc("price")));
-        Page<VariantDto> variantDtoPage = variantService.getVariantsByContaining(searchText,pageable);
+        Page<VariantDTO> variantDtoPage = variantService.getVariantsByContaining(searchText,pageable);
         SearchResponse searchResponse = new SearchResponse();
         searchResponse.setVariantDtoPage(variantDtoPage);
         return new ResponseEntity<>(searchResponse,HttpStatus.OK);
@@ -66,7 +66,7 @@ public class SearchController {
             @RequestParam(name = "pageSize", defaultValue = "10") int pageSize
     ){
         Pageable pageable = PageRequest.of(page, pageSize, Sort.by(Sort.Order.asc("price")));
-        Page<VariantDto> variantDtoPage = variantService.getVariantsByContaining(searchText, pageable);
+        Page<VariantDTO> variantDtoPage = variantService.getVariantsByContaining(searchText, pageable);
         SearchResponse searchResponse = new SearchResponse();
         searchResponse.setVariantDtoPage(variantDtoPage);
         return new ResponseEntity<>(searchResponse, HttpStatus.OK);
@@ -81,7 +81,7 @@ public class SearchController {
     ) {
         SearchResponse searchResponse = new SearchResponse();
         Pageable pageable = PageRequest.of(page, pageSize, Sort.by(Sort.Order.asc("price")));
-        Page<VariantDto> variantDtoPage = variantService.getVariantsByNameContainingAndPriceBetween(searchText, minPrice,maxPrice,pageable);
+        Page<VariantDTO> variantDtoPage = variantService.getVariantsByNameContainingAndPriceBetween(searchText, minPrice,maxPrice,pageable);
         searchResponse.setVariantDtoPage(variantDtoPage);
         return new ResponseEntity<>(searchResponse,HttpStatus.OK);
     }

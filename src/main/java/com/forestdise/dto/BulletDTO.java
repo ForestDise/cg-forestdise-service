@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BulletDto {
+public class BulletDTO {
     private Long id;
     private String name;
 

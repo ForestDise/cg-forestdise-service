@@ -5,7 +5,7 @@ import com.forestdise.entity.OptionTable;
 
 import java.util.List;
 
-public interface IOptionTableConverter {
+public interface OptionTableConverter {
     OptionTableDTO entityToDTO(OptionTable element);
 
     List<OptionTableDTO> entitiesToDTOs(List<OptionTable> element);

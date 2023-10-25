@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 
-public interface IVariantService {
+public interface VariantService {
      VariantDTO getVariantById(Long id);
      List<VariantDTO> getVariantByProductId(Long product_id);
      Variant findById(Long id);

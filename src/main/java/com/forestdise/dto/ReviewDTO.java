@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReviewDto {
+public class ReviewDTO {
     private Long id;
     private int star;
     private String title;
@@ -26,6 +26,6 @@ public class ReviewDto {
     private boolean verified_admin;
     private Date update_at;
     private UserDTO userDto;
-    private List<OptionValueDto> optionValueDtoList;
-    private List<CommentDto> commentDtoList;
+    private List<OptionValueDTO> optionValueDTOList;
+    private List<CommentDTO> commentDTOList;
 }

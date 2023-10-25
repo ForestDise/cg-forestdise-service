@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public interface ICommentService {
+public interface CommentService {
     public List<CommentDTO> getCommentsByReviewId(Long reviewId);
 }

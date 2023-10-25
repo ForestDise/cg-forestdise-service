@@ -1,7 +1,7 @@
 package com.forestdise.service.impl;
 
-import com.forestdise.converter.IStoreConverter;
-import com.forestdise.dto.StoreDto;
+import com.forestdise.converter.StoreConverter;
+import com.forestdise.dto.StoreDTO;
 import com.forestdise.entity.Store;
 import com.forestdise.repository.StoreRepository;
 import com.forestdise.service.StoreService;
@@ -11,16 +11,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class StoreServiceImpl implements StoreService {
     private final StoreRepository storeRepository;
-    private final IStoreConverter storeConverter;
+    private final StoreConverter storeConverter;
 
     @Autowired
-    public StoreServiceImpl(StoreRepository storeRepository, IStoreConverter storeConverter) {
+    public StoreServiceImpl(StoreRepository storeRepository, StoreConverter storeConverter) {
         this.storeRepository = storeRepository;
         this.storeConverter = storeConverter;
     }
 
     @Override
-    public StoreDto findStore(Long id) {
+    public StoreDTO findStore(Long id) {
         Store store = storeRepository.findById(id).orElse(null);
         return storeConverter.entityToDTO(store) ;
     }

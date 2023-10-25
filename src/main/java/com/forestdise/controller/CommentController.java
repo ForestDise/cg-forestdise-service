@@ -1,8 +1,7 @@
 package com.forestdise.controller;
 
-import com.forestdise.dto.CommentDto;
+import com.forestdise.dto.CommentDTO;
 import com.forestdise.payload.response.CommentResponse;
-import com.forestdise.service.ICommentService;
 import com.forestdise.service.impl.CommentServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +22,8 @@ public class CommentController {
     @GetMapping("/{review_id}")
     public ResponseEntity<CommentResponse> getCommentsByReviewId(@PathVariable("review_id") Long reviewId){
         CommentResponse commentResponse = new CommentResponse();
-        List<CommentDto> commentDtoList = commentService.getCommentsByReviewId(reviewId);
-         commentResponse.setCommentDtoList(commentDtoList);
+        List<CommentDTO> commentDTOList = commentService.getCommentsByReviewId(reviewId);
+         commentResponse.setCommentDTOList(commentDTOList);
         return new ResponseEntity<>(commentResponse, HttpStatus.OK);
 
     }
