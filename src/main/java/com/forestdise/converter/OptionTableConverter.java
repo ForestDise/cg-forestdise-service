@@ -1,0 +1,14 @@
+package com.forestdise.converter;
+
+import com.forestdise.dto.OptionTableDTO;
+import com.forestdise.entity.OptionTable;
+
+import java.util.List;
+
+public interface IOptionTableConverter {
+    OptionTableDTO entityToDTO(OptionTable element);
+
+    List<OptionTableDTO> entitiesToDTOs(List<OptionTable> element);
+
+    OptionTable dtoToEntity(OptionTableDTO element);
+}
