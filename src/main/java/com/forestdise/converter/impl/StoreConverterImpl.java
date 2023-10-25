@@ -1,7 +1,7 @@
 package com.forestdise.converter.impl;
 
-import com.forestdise.converter.IStoreConverter;
-import com.forestdise.dto.StoreDto;
+import com.forestdise.converter.StoreConverter;
+import com.forestdise.dto.StoreDTO;
 import com.forestdise.entity.Store;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
@@ -10,23 +10,23 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class StoreConverterImpl implements IStoreConverter {
+public class StoreConverterImpl implements StoreConverter {
     @Override
-    public List<StoreDto> entitiesToDTOs(List<Store> element) {
+    public List<StoreDTO> entitiesToDTOs(List<Store> element) {
         return element.stream()
                 .map(this::entityToDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public StoreDto entityToDTO(Store element) {
-        StoreDto result = new StoreDto();
+    public StoreDTO entityToDTO(Store element) {
+        StoreDTO result = new StoreDTO();
         BeanUtils.copyProperties(element, result);
         return result;
     }
 
     @Override
-    public Store dtoToEntity(StoreDto element) {
+    public Store dtoToEntity(StoreDTO element) {
         Store result = new Store();
         BeanUtils.copyProperties(element, result);
         return result;

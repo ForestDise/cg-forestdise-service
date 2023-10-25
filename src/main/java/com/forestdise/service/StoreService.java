@@ -1,11 +1,11 @@
 package com.forestdise.service;
 
-import com.forestdise.dto.StoreDto;
+import com.forestdise.dto.StoreDTO;
 import com.forestdise.payload.request.AddStoreRequest;
 
 public interface StoreService {
 
-    StoreDto findStore(Long id);
+    StoreDTO findStore(Long id);
 
-    StoreDto createStore(Long sellerId, AddStoreRequest storeDto);
+    StoreDTO createStore(Long sellerId, AddStoreRequest storeDto);
 }

@@ -1,8 +1,7 @@
 package com.forestdise.controller;
 
 import com.forestdise.payload.response.ReviewResponse;
-import com.forestdise.service.IReviewService;
-import com.forestdise.service.impl.ReviewServiceImpl;
+import com.forestdise.service.ReviewService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class ReviewController {
     @Autowired
-    private IReviewService reviewService;
+    private ReviewService reviewService;
 
 
     @GetMapping("/{variant_id}")

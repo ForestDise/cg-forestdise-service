@@ -1,11 +1,10 @@
 package com.forestdise.service.impl;
 
-import com.forestdise.dto.HashtagDto;
 import com.forestdise.entity.HashTag;
 import com.forestdise.entity.Product;
 import com.forestdise.repository.HashtagRepository;
 import com.forestdise.repository.ProductRepository;
-import com.forestdise.service.IHashtagService;
+import com.forestdise.service.HashtagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +12,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 @Service
-public class HashtagServiceImpl implements IHashtagService {
+public class HashtagServiceImpl implements HashtagService {
     @Autowired
     private HashtagRepository hashtagRepository;
     @Autowired

@@ -2,7 +2,7 @@ package com.forestdise.controller.sellingController;
 
 import com.forestdise.entity.HashTag;
 import com.forestdise.payload.response.HashtagResponse;
-import com.forestdise.service.IHashtagService;
+import com.forestdise.service.HashtagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/api/hashtag/{product_id}")
 public class HashtagController {
     @Autowired
-    private IHashtagService hashtagService;
+    private HashtagService hashtagService;
     @PostMapping
     public ResponseEntity<HashtagResponse> createHashtagListOfProduct(@PathVariable Long product_id, @RequestBody List<String> hashtagList){
         HashtagResponse hashtagResponse = new HashtagResponse();

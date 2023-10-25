@@ -1,8 +1,7 @@
 package com.forestdise.controller;
 
 import com.forestdise.dto.StoreCategoryDTO;
-import com.forestdise.service.ICategoryService;
-import com.forestdise.service.IStoreCategoryService;
+import com.forestdise.service.StoreCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +12,7 @@ import java.util.List;
 @RequestMapping("/api/store-category")
 public class StoreCategoryController {
     @Autowired
-    private IStoreCategoryService iStoreCategoryService;
+    private StoreCategoryService iStoreCategoryService;
 
     @PostMapping("/{storeId}")
     public List<StoreCategoryDTO> createListStoreCategory(@RequestBody List<String> storeCateList,@PathVariable Long storeId){

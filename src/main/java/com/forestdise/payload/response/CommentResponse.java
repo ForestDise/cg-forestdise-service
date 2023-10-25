@@ -1,6 +1,6 @@
 package com.forestdise.payload.response;
 
-import com.forestdise.dto.CommentDto;
+import com.forestdise.dto.CommentDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,5 +12,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommentResponse {
-    private List<CommentDto> commentDtoList;
+    private List<CommentDTO> commentDtoList;
 }

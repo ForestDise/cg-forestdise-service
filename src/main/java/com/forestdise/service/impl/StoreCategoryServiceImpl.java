@@ -6,7 +6,7 @@ import com.forestdise.entity.Store;
 import com.forestdise.entity.StoreCategory;
 import com.forestdise.repository.StoreCategoryRepository;
 import com.forestdise.repository.StoreRepository;
-import com.forestdise.service.IStoreCategoryService;
+import com.forestdise.service.StoreCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class StoreCategoryServiceImpl implements IStoreCategoryService {
+public class StoreCategoryServiceImpl implements StoreCategoryService {
     @Autowired
     private StoreCategoryRepository storeCategoryRepository;
     @Autowired

@@ -2,15 +2,15 @@ package com.forestdise.converter.impl;
 
 import com.forestdise.converter.CartConverter;
 import com.forestdise.converter.CartLineConverter;
-import com.forestdise.converter.IVariantConverter;
-import com.forestdise.dto.CartDto;
-import com.forestdise.dto.CartLineDto;
-import com.forestdise.dto.VariantDto;
+import com.forestdise.converter.VariantConverter;
+import com.forestdise.dto.CartDTO;
+import com.forestdise.dto.CartLineDTO;
+import com.forestdise.dto.VariantDTO;
 import com.forestdise.entity.Cart;
 import com.forestdise.entity.CartLine;
 import com.forestdise.entity.Variant;
 import com.forestdise.service.CartService;
-import com.forestdise.service.IVariantService;
+import com.forestdise.service.VariantService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,12 +27,12 @@ public class CartLineConverterImpl implements CartLineConverter {
     private CartConverter cartConverter;
 
     @Autowired
-    private IVariantConverter variantConverter;
+    private VariantConverter variantConverter;
 
     @Autowired
-    private IVariantService variantService;
+    private VariantService variantService;
     @Override
-    public CartLine convertDtoToEntity(CartLineDto cartLineDto) {
+    public CartLine convertDtoToEntity(CartLineDTO cartLineDto) {
         CartLine cartLine = new CartLine();
         BeanUtils.copyProperties(cartLineDto, cartLine);
         Cart cart = cartService.findById(cartLineDto.getCartDto().getId());
@@ -43,25 +43,25 @@ public class CartLineConverterImpl implements CartLineConverter {
     }
 
     @Override
-    public CartLineDto convertEntityToDto(CartLine cartLine) {
-        CartLineDto cartLineDto = new CartLineDto();
+    public CartLineDTO convertEntityToDto(CartLine cartLine) {
+        CartLineDTO cartLineDto = new CartLineDTO();
         BeanUtils.copyProperties(cartLine, cartLineDto);
-        CartDto cartDto = cartConverter.convertEntityToDto(cartLine.getCart());
-        VariantDto variantDto = variantConverter.entityToDTO(cartLine.getVariant());
+        CartDTO cartDto = cartConverter.convertEntityToDto(cartLine.getCart());
+        VariantDTO variantDto = variantConverter.entityToDTO(cartLine.getVariant());
         cartLineDto.setCartDto(cartDto);
         cartLineDto.setVariantDto(variantDto);
         return cartLineDto;
     }
 
     @Override
-    public List<CartLineDto> convertEntitiesToDtos(List<CartLine> cartLines) {
+    public List<CartLineDTO> convertEntitiesToDtos(List<CartLine> cartLines) {
         return cartLines.stream()
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<CartLine> convertDtoToEntities(List<CartLineDto> cartLineDtos) {
+    public List<CartLine> convertDtoToEntities(List<CartLineDTO> cartLineDtos) {
         return null;
     }
 }

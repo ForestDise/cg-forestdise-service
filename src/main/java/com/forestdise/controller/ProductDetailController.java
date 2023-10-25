@@ -6,7 +6,6 @@ import com.forestdise.payload.request.ProductRequest;
 import com.forestdise.payload.response.ProductDetailResponse;
 import com.forestdise.payload.response.VariantDetailResponse;
 import com.forestdise.service.*;
-import com.forestdise.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,17 +19,17 @@ import java.util.List;
 @RequestMapping("/api/product-detail")
 public class ProductDetailController {
     @Autowired
-    private IImageService imageServiceImpl;
+    private ImageService imageServiceImpl;
     @Autowired
-    private IProductService productServiceImpl;
+    private ProductService productServiceImpl;
     @Autowired
-    private IProductAttributeService productAttributeServiceImpl;
+    private ProductAttributeService productAttributeServiceImpl;
     @Autowired
-    private IVariantService variantServiceImpl;
+    private VariantService variantServiceImpl;
     @Autowired
-    private IVideoService videoServiceImpl;
+    private VideoService videoServiceImpl;
     @Autowired
-    private IOptionValueService optionValueServiceImpl;
+    private OptionValueService optionValueServiceImpl;
     ProductDetailResponse productDetailResponse=new ProductDetailResponse();
     VariantDetailResponse variantDetailResponse =new VariantDetailResponse();
 
@@ -47,10 +46,10 @@ public class ProductDetailController {
     }
     @GetMapping("/{product_id}/{variant_id}")
     public ResponseEntity<VariantDetailResponse> getVariant(@PathVariable("variant_id") Long variantId){
-        List<ImageDto> images = imageServiceImpl.getImageByVariantId(variantId);
-        List<VideoDto> videos = videoServiceImpl.getVideosByVariantId(variantId);
-        VariantDto variantDto = variantServiceImpl.getVariantById(variantId);
-        List<OptionValueDto> optionValueDtoList= optionValueServiceImpl.getOptionValuesByVariantId(variantId);
+        List<ImageDTO> images = imageServiceImpl.getImageByVariantId(variantId);
+        List<VideoDTO> videos = videoServiceImpl.getVideosByVariantId(variantId);
+        VariantDTO variantDto = variantServiceImpl.getVariantById(variantId);
+        List<OptionValueDTO> optionValueDtoList= optionValueServiceImpl.getOptionValuesByVariantId(variantId);
         variantDetailResponse.setVariantDto(variantDto);
         variantDetailResponse.setImageDtos(images);
         variantDetailResponse.setVideoDtos(videos);
@@ -59,7 +58,7 @@ public class ProductDetailController {
     }
     @PostMapping("/create/{storeId}/{categoryId}/{storeCategoryId}")
     public ResponseEntity<Product> createProduct(@PathVariable Long storeId,@PathVariable Long categoryId,@PathVariable Long storeCategoryId,@RequestBody ProductRequest productRequest) {
-        ProductDto productDto =ProductDto.builder()
+        ProductDTO productDto = ProductDTO.builder()
                 .title(productRequest.getTitle())
                 .status("ACTIVE")
                 .createAt(Calendar.getInstance().getTime()) // lay thoi gian hien tai
@@ -77,7 +76,7 @@ public class ProductDetailController {
     }
     @PutMapping("/update/{product_id}")
     public ResponseEntity<String> updateProduct(@PathVariable("product_id") Long productId, @RequestBody ProductRequest productRequest) {
-        ProductDto productDto = productServiceImpl.getProductById(productId);
+        ProductDTO productDto = productServiceImpl.getProductById(productId);
 
         if (productDto == null) {
             return new ResponseEntity<>("Product not found", HttpStatus.NOT_FOUND);
@@ -101,7 +100,7 @@ public class ProductDetailController {
     }
     @DeleteMapping("/delete/{product_id}")
     public ResponseEntity<String> deleteProduct(@PathVariable("product_id") Long productId) {
-        ProductDto productDto = productServiceImpl.getProductById(productId);
+        ProductDTO productDto = productServiceImpl.getProductById(productId);
 
         if (productDto == null) {
             return new ResponseEntity<>("Product not found", HttpStatus.NOT_FOUND);

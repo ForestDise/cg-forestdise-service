@@ -1,14 +1,7 @@
 package com.forestdise.controller.sellingController;
 
-import com.forestdise.dto.OptionTableDto;
-import com.forestdise.dto.OptionValueDto;
-import com.forestdise.entity.OptionTable;
-import com.forestdise.entity.OptionValue;
-import com.forestdise.payload.request.OptionRequest;
-import com.forestdise.payload.request.OptionValueRequest;
-import com.forestdise.payload.response.OptionCreateResponse;
+import com.forestdise.dto.OptionValueDTO;
 import com.forestdise.payload.response.OptionValueCreateResponse;
-import com.forestdise.service.impl.OptionServiceImpl;
 import com.forestdise.service.impl.OptionValueServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,14 +23,14 @@ public class OptionValueController {
     @PostMapping("/create")
     public ResponseEntity<OptionValueCreateResponse> createOptionValue(@RequestBody List<String> valueRequest, @PathVariable("option_id") Long option_id){
         OptionValueCreateResponse optionValueCreateResponse= new OptionValueCreateResponse();
-        List<OptionValueDto> optionValueDtoList = new ArrayList<>();
+        List<OptionValueDTO> optionValueDtoList = new ArrayList<>();
         for(String ele : valueRequest){
-            OptionValueDto optionValueDto = OptionValueDto.builder()
+            OptionValueDTO optionValueDto = OptionValueDTO.builder()
                     .value(ele)
                     .build();
             optionValueDtoList.add(optionValueDto);
         }
-        List<OptionValueDto> optionValue =optionValueService.createOptionValue(optionValueDtoList,option_id);
+        List<OptionValueDTO> optionValue =optionValueService.createOptionValue(optionValueDtoList,option_id);
         if (optionValue != null) {
             optionValueCreateResponse.setMessage("OptionValue created successfully");
             optionValueCreateResponse.setOptionValueDtoList(optionValue);

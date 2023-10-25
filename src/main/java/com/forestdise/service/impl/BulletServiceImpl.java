@@ -1,11 +1,10 @@
 package com.forestdise.service.impl;
 
 import com.forestdise.entity.Bullet;
-import com.forestdise.entity.HashTag;
 import com.forestdise.entity.Product;
 import com.forestdise.repository.BulletRepository;
 import com.forestdise.repository.ProductRepository;
-import com.forestdise.service.IBulletService;
+import com.forestdise.service.BulletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class BulletServiceImpl implements IBulletService {
+public class BulletServiceImpl implements BulletService {
     @Autowired
     private ProductRepository productRepository;
     @Autowired

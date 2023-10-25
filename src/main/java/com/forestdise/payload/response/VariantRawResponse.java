@@ -1,6 +1,6 @@
 package com.forestdise.payload.response;
 
-import com.forestdise.dto.VariantDto;
+import com.forestdise.dto.VariantDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class VariantRawResponse {
-    private VariantDto variantDto;
+    private VariantDTO variantDto;
     private String message;
 }

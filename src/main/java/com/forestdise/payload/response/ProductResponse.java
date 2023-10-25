@@ -13,12 +13,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductResponse {
-    private ProductDto productDto;
-    private List<ProductAttributeDto> productAttributeDtoList;
-    private StoreDto storeDto;
-    private List<OptionTableDto> optionTableDto;
-    private List<VariantDto> variantDtoList;
-    private VariantDto variantDto;
+    private ProductDTO productDto;
+    private List<ProductAttributeDTO> productAttributeDtoList;
+    private StoreDTO storeDto;
+    private List<OptionTableDTO> optionTableDto;
+    private List<VariantDTO> variantDtoList;
+    private VariantDTO variantDto;
     // lấy ra 1 variant có price thấp rồi setcho nó variant hiện tại
 
 

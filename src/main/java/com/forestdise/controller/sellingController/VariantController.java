@@ -1,11 +1,9 @@
 package com.forestdise.controller.sellingController;
 
 
-import com.forestdise.dto.OptionValueDto;
-import com.forestdise.dto.VariantDto;
+import com.forestdise.dto.VariantDTO;
 import com.forestdise.entity.Variant;
 import com.forestdise.payload.request.VariantRequest;
-import com.forestdise.payload.response.OptionValueCreateResponse;
 import com.forestdise.payload.response.VariantCreateResponse;
 import com.forestdise.payload.response.VariantRawResponse;
 import com.forestdise.service.impl.VariantServiceImpl;
@@ -14,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -32,7 +29,7 @@ public class VariantController {
     @PostMapping("/create")
     public ResponseEntity<VariantRawResponse> createVariantWithListValue(@RequestBody List<Long> valueIdList, @PathVariable("product_id") Long product_id){
         VariantRawResponse variantRawResponse= new VariantRawResponse();
-        VariantDto variantDto = variantService.createRawVariant(valueIdList,product_id);
+        VariantDTO variantDto = variantService.createRawVariant(valueIdList,product_id);
         if (variantDto != null) {
             variantRawResponse.setMessage("OptionValue created successfully");
             variantRawResponse.setVariantDto(variantDto);
@@ -45,7 +42,7 @@ public class VariantController {
     @PostMapping("/create1")
     public ResponseEntity<VariantCreateResponse> createVariant(@RequestBody VariantRequest variantRequest,@PathVariable("product_id") Long product_id){
         VariantCreateResponse variantCreateResponse= new VariantCreateResponse();
-        VariantDto variantDto = VariantDto.builder()
+        VariantDTO variantDto = VariantDTO.builder()
                 .name(variantRequest.getName())
                 .skuCode(variantRequest.getSkuCode())
                 .stockQuantity(variantRequest.getStockQuantity())
@@ -68,11 +65,11 @@ public class VariantController {
     }
     @PutMapping("/update/{variant_id}")
     public ResponseEntity<String> updateVariant(@PathVariable("variant_id") Long variant_id,@RequestBody VariantRequest variantRequest){
-        VariantDto variantDto = variantService.getVariantById(variant_id);
+        VariantDTO variantDto = variantService.getVariantById(variant_id);
         if (variantDto == null) {
             return new ResponseEntity<>("Variant not found", HttpStatus.NOT_FOUND);
         }
-        variantDto = VariantDto.builder()
+        variantDto = VariantDTO.builder()
                 .name(variantRequest.getName())
                 .skuCode(variantRequest.getSkuCode())
                 .stockQuantity(variantRequest.getStockQuantity())
@@ -91,7 +88,7 @@ public class VariantController {
     }
     @DeleteMapping("/delete/{variant_id}")
     public ResponseEntity<String> deleteVariant(@PathVariable("variant_id") Long variant_Id) {
-        VariantDto variantDto = variantService.getVariantById(variant_Id);
+        VariantDTO variantDto = variantService.getVariantById(variant_Id);
 
         if (variantDto == null) {
             return new ResponseEntity<>("Variant not found", HttpStatus.NOT_FOUND);

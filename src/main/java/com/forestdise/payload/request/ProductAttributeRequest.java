@@ -1,7 +1,6 @@
 package com.forestdise.payload.request;
 
-import com.forestdise.dto.ProductAttributeDto;
-import com.forestdise.entity.ProductAttribute;
+import com.forestdise.dto.ProductAttributeDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,5 +13,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductAttributeRequest {
-    List<ProductAttributeDto> productAttributeDtoList;
+    List<ProductAttributeDTO> productAttributeDtoList;
 }

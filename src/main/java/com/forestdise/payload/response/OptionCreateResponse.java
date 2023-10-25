@@ -1,6 +1,6 @@
 package com.forestdise.payload.response;
 
-import com.forestdise.dto.OptionTableDto;
+import com.forestdise.dto.OptionTableDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OptionCreateResponse {
-    private List<OptionTableDto> optionTableDtoList;
+    private List<OptionTableDTO> optionTableDtoList;
     private String message;
 }

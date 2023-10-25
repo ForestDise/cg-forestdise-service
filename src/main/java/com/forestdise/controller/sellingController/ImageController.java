@@ -1,6 +1,6 @@
 package com.forestdise.controller.sellingController;
 
-import com.forestdise.dto.ImageDto;
+import com.forestdise.dto.ImageDTO;
 import com.forestdise.entity.Image;
 import com.forestdise.payload.request.ImageRequest;
 import com.forestdise.payload.response.ImageCreateResponse;
@@ -26,9 +26,9 @@ public class ImageController {
     public ResponseEntity<ImageCreateResponse> createImage(@RequestBody ImageRequest imageRequest, @PathVariable("variant_id") Long variant_id){
         ImageCreateResponse imageCreateResponse= new ImageCreateResponse();
         List<String> images = imageRequest.getImagePath();
-        List<ImageDto> imageDtoList = new ArrayList<>();
+        List<ImageDTO> imageDtoList = new ArrayList<>();
         for(String element : images){
-            ImageDto imageDto = ImageDto.builder()
+            ImageDTO imageDto = ImageDTO.builder()
                     .imgPath(element)
                     .build();
             imageDtoList.add(imageDto);

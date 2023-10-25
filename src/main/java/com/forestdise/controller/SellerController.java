@@ -1,7 +1,7 @@
 package com.forestdise.controller;
 
-import com.forestdise.converter.ISellerConverter;
-import com.forestdise.dto.SellerDto;
+import com.forestdise.converter.SellerConverter;
+import com.forestdise.dto.SellerDTO;
 import com.forestdise.entity.Seller;
 import com.forestdise.repository.SellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +17,12 @@ public class SellerController {
     @Autowired
     private SellerRepository sellerRepository;
     @Autowired
-    private ISellerConverter iSellerConverter;
+    private SellerConverter iSellerConverter;
     @GetMapping("/{sellerId}")
-    public ResponseEntity<SellerDto> getSeller(@PathVariable Long sellerId){
+    public ResponseEntity<SellerDTO> getSeller(@PathVariable Long sellerId){
         Seller seller = sellerRepository.findById(sellerId).orElseThrow(
                 () -> new UsernameNotFoundException("seller not found"));
-        SellerDto sellerDto = iSellerConverter.entityToDTO(seller);
+        SellerDTO sellerDto = iSellerConverter.entityToDTO(seller);
         return new ResponseEntity<>(sellerDto, HttpStatus.OK);
     }
 }

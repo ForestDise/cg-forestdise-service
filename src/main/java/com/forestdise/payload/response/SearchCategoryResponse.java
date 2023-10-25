@@ -1,6 +1,6 @@
 package com.forestdise.payload.response;
 
-import com.forestdise.dto.CategoryDto;
+import com.forestdise.dto.CategoryDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,5 +13,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SearchCategoryResponse {
-    List<CategoryDto> categoryDtoList;
+    List<CategoryDTO> categoryDtoList;
 }

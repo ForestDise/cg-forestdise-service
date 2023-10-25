@@ -1,7 +1,7 @@
 package com.forestdise.service.impl;
 
-import com.forestdise.converter.IStoreConverter;
-import com.forestdise.dto.StoreDto;
+import com.forestdise.converter.StoreConverter;
+import com.forestdise.dto.StoreDTO;
 import com.forestdise.entity.Seller;
 import com.forestdise.entity.Store;
 import com.forestdise.payload.request.AddStoreRequest;
@@ -18,20 +18,20 @@ public class StoreServiceImpl implements StoreService {
     StoreRepository storeRepository;
 
     @Autowired
-    IStoreConverter storeConverter;
+    StoreConverter storeConverter;
 
     @Autowired
     SellerRepository sellerRepository;
 
 
     @Override
-    public StoreDto findStore(Long id) {
+    public StoreDTO findStore(Long id) {
         Store store = storeRepository.findById(id).orElse(null);
         return storeConverter.entityToDTO(store) ;
     }
 
     @Override
-    public StoreDto createStore(Long sellerId, AddStoreRequest storeDto) {
+    public StoreDTO createStore(Long sellerId, AddStoreRequest storeDto) {
         Seller seller = sellerRepository.findById(sellerId).orElseThrow(
                 () -> new UsernameNotFoundException("seller not found"));
         Store store = new Store();
@@ -42,7 +42,7 @@ public class StoreServiceImpl implements StoreService {
         store.setLogo("https://m.media-amazon.com/images/S/abs-image-upload-na/0/AmazonStores/ATVPDKIKX0DER/405ed15fea3c3d0a0f0e6d0dbd5baca8.w1676.h1677._CR0%2C0%2C1676%2C1677_SX200_.jpg");
         store.setSeller(seller);
         storeRepository.save(store);
-        StoreDto storeDto1 = storeConverter.entityToDTO(store);
+        StoreDTO storeDto1 = storeConverter.entityToDTO(store);
         return storeDto1;
     }
 
