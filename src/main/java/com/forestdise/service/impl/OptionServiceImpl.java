@@ -10,6 +10,8 @@ import com.forestdise.service.OptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OptionServiceImpl implements OptionService {
     private final OptionTableRepository optionTableRepository;
@@ -25,10 +27,15 @@ public class OptionServiceImpl implements OptionService {
         this.optionTableConverter=optionTableConverter;
     }
     @Override
-    public OptionTable createOption(OptionTableDTO optionDto, Long product_id) {
-        Product product = productRepository.findById(product_id).orElse(null);
-        OptionTable option = optionTableConverter.dtoToEntity(optionDto);
-        option.setProduct(product);
-        return optionTableRepository.save(option);
+    public List<OptionTableDTO> createOption(List<OptionTableDTO> optionDto, Long product_id) {
+        Product product = productRepository.findById(product_id).orElse(new Product());
+        List<OptionTable> options = optionTableConverter.dtoToEntities(optionDto);
+        for(OptionTable element: options){
+            element.setProduct(product);
+            optionTableRepository.save(element);
+        }
+        List<OptionTable> optionTableList = product.getOptionTables();
+
+        return optionTableConverter.entitiesToDTOs(optionTableList) ;
     }
 }

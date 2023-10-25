@@ -41,14 +41,15 @@ public class OptionValueServiceImpl implements OptionValueService {
     }
 
     @Override
-    public OptionValue createOptionValue(OptionValueDTO optionValueDto, Long option_id, Long variant_id) {
-        OptionValue optionValue = optionValueConverterImpl.dtoToEntity(optionValueDto) ;
-        Variant variant = variantRepository.findById(variant_id).orElse(null);
-        OptionTable option = optionTableRepository.findById(option_id).orElse(null);
-        optionValue.setOptionTable(option);
-        optionValue.getVariants().add(variant);
-        variant.getOptionValues().add(optionValue);
-        return optionValueRepository.save(optionValue);
+    public List<OptionValueDTO> createOptionValue(List<OptionValueDTO> optionValueDto, Long option_id) {
+        List<OptionValue> optionValue = optionValueConverterImpl.dtosToEntities(optionValueDto) ;
+        OptionTable option = optionTableRepository.findById(option_id).orElse(new OptionTable());
+        for(OptionValue ele : optionValue){
+            ele.setOptionTable(option);
+            optionValueRepository.save(ele);
+        }
+        List<OptionValue> optionValueList = option.getOptionValues();
+        return optionValueConverterImpl.entitiesToDTOs(optionValueList);
     }
 
 

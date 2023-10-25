@@ -9,5 +9,6 @@ public interface CartLineConverter {
     CartLine convertDtoToEntity(CartLineDTO cartLineDto);
     CartLineDTO convertEntityToDto(CartLine cartLine);
     List<CartLineDTO> convertEntitiesToDtos(List<CartLine> cartLines);
+
     List<CartLine> convertDtoToEntities(List<CartLineDTO> cartLineDTOS);
 }

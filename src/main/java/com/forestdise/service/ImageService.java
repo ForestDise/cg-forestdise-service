@@ -8,6 +8,6 @@ import java.util.List;
 @Service
 public interface ImageService {
     public List<ImageDTO> getImageByVariantId(Long variant_id);
-    public Image createImage(ImageDTO imageDto, Long variant_id);
 
+    public List<Image> createImage(List<ImageDTO> imageDtos, Long variant_id);
 }

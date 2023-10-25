@@ -19,7 +19,6 @@ public class ProductResponse {
     private List<OptionTableDTO> optionTableDto;
     private List<VariantDTO> variantDTOList;
     private VariantDTO variantDto;
-    // lấy ra 1 variant có price thấp rồi setcho nó variant hiện tại
 
 
 }

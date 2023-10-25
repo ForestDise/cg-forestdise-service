@@ -35,12 +35,15 @@ public class ImageServiceImpl implements ImageService {
         List<Image> images = imageRepository.findImagesByVariant_Id(variant_id);
         return imageConverterImpl.entitiesToDTOs(images);
     }
-
     @Override
-    public Image createImage(ImageDTO imageDto, Long variant_id) {
+    public List<Image> createImage(List<ImageDTO> imageDtoList, Long variant_id) {
         Variant variant = variantRepository.findById(variant_id).orElse(null);
-        Image image= imageConverterImpl.dtoToEntity(imageDto);
-        image.setVariant(variant);
-        return imageRepository.save(image);
+        List<Image> images= imageConverterImpl.dtosToEntities(imageDtoList);
+        for(Image element : images){
+            element.setVariant(variant);
+            imageRepository.save(element);
+        }
+        assert variant != null;
+        return variant.getImages();
     }
 }

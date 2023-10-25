@@ -49,6 +49,7 @@ public class ReviewServiceImpl implements ReviewService {
         List<Review> reviewList = reviewRepository.findByVariant_Id(variantId);
         return reviewConverter.entitiesToDTOs(reviewList);
 
+
     }
 
     @Override
@@ -67,6 +68,7 @@ public class ReviewServiceImpl implements ReviewService {
             }
             assert reviewDTOS != null;
             reviewDTOList.addAll(reviewDTOS);
+
 
 
         }
@@ -90,7 +92,6 @@ public class ReviewServiceImpl implements ReviewService {
             List<Review> reviews = variant.getReviews();
             for (Review review: reviews) {
                 if (review.getStar()==5) {
-
                     countFiveStar++;
                     count += 5;
                 } else if (review.getStar()==4) {

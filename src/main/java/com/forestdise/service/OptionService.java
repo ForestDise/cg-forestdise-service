@@ -1,8 +1,7 @@
 package com.forestdise.service;
-
 import com.forestdise.dto.OptionTableDTO;
-import com.forestdise.entity.OptionTable;
+import java.util.List;
 
 public interface OptionService {
-    OptionTable createOption (OptionTableDTO optionDto, Long product_id);
+    List<OptionTableDTO> createOption (List<OptionTableDTO> optionDto, Long product_id);
 }

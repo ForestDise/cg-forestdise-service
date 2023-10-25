@@ -66,24 +66,24 @@ public class ProductDetailController {
         variantDetailResponse.setOptionValueDTOS(optionValueDTOList);
         return ResponseEntity.ok(variantDetailResponse);
     }
-    @PostMapping("/create")
-    public ResponseEntity<String> createProduct(@RequestBody ProductRequest productRequest) {
+    @PostMapping("/create/{storeId}/{categoryId}/{storeCategoryId}")
+    public ResponseEntity<Product> createProduct(@PathVariable Long storeId,@PathVariable Long categoryId,@PathVariable Long storeCategoryId,@RequestBody ProductRequest productRequest) {
+
         ProductDTO productDto = ProductDTO.builder()
                 .title(productRequest.getTitle())
-                .status("currently for sale")
-                .createAt(Calendar.getInstance().getTime())
+                .status("ACTIVE")
+                .createAt(Calendar.getInstance().getTime()) // lay thoi gian hien tai
                 .updatedAt(Calendar.getInstance().getTime())
                 .description(productRequest.getDescription())
                 .mainPicture(productRequest.getMainPicture())
                 .build();
-
-
-        Product product = productServiceImpl.createProduct(productDto);
+        Product product = productServiceImpl.createProduct(storeId,categoryId,storeCategoryId,productDto);
 
         if (product != null) {
-            return new ResponseEntity<>("Product created successfully", HttpStatus.CREATED);
+
+            return new ResponseEntity<>(product, HttpStatus.CREATED);
         } else {
-            return new ResponseEntity<>("Failed to create product", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(product, HttpStatus.BAD_REQUEST);
         }
     }
     @PutMapping("/update/{product_id}")

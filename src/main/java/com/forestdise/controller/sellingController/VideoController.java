@@ -28,7 +28,6 @@ public class VideoController {
                 .build();
 
         Video video =videoService.createVideo(videoDto,variant_id);
-
         if (video != null) {
             videoCreateResponse.setMessage("Video created successfully");
             videoCreateResponse.setVideoId(video.getId());

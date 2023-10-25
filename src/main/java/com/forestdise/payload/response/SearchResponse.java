@@ -8,4 +8,5 @@ import org.springframework.data.domain.Page;
 public class SearchResponse {
     private Page<VariantDTO> variantDtoPage;
 
+
 }

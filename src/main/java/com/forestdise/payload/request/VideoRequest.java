@@ -1,8 +1,7 @@
 package com.forestdise.payload.request;
 
-import lombok.Getter;
-
-@Getter
+import lombok.Data;
+@Data
 public class VideoRequest {
     private String videoPath;
 

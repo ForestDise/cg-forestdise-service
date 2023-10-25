@@ -1,8 +1,10 @@
 package com.forestdise.payload.request;
 
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+import java.util.List;
+@Data
 public class OptionRequest {
-    private String name;
+//    private String name;
+    List<String> optionNames;
 }

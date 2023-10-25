@@ -20,8 +20,6 @@ public class ProductDTO {
     private String status;
     private Date createAt;
     private Date updatedAt;
-    private StoreDTO storeDto;
+    private StoreDTO store;
     private List<BulletDTO> bulletDTOList;
-    private Double minVariantPrice;
-
 }

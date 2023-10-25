@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("api/search/")
+@RequestMapping("api/search")
 public class SearchController {
     private final VariantService variantService;
 
@@ -24,7 +24,7 @@ public class SearchController {
     public SearchController(VariantServiceImpl variantService){
         this.variantService=variantService;
     }
-    @GetMapping()
+    @GetMapping("")
     public ResponseEntity<SearchResponse> getVariantsByText(
             @RequestParam("searchText") String searchText,
             @RequestParam(name = "page", defaultValue = "0") int page,
@@ -36,6 +36,7 @@ public class SearchController {
         searchResponse.setVariantDtoPage(variantDtoPage);
         return new ResponseEntity<>(searchResponse, HttpStatus.OK);
 
+
     }
     @GetMapping("/newest-variants")
     public ResponseEntity<SearchResponse> getNewestVariantsByText(
@@ -45,7 +46,7 @@ public class SearchController {
 
         Pageable pageable = PageRequest.of(page, pageSize, Sort.by(Sort.Order.desc("createdDate")));
         SearchResponse searchResponse = new SearchResponse();
-        Page<VariantDTO> variantDtoPage = variantService.getVariantsByContaining(searchText, pageable);
+        Page<VariantDTO> variantDtoPage = variantService.getNewestVariantsByText(searchText, pageable);
         searchResponse.setVariantDtoPage(variantDtoPage);
         return new ResponseEntity<>(searchResponse, HttpStatus.OK);
     }

@@ -23,7 +23,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<CommentDTO> getCommentsByReviewId(Long reviewId) {
         List<Comment> commentList = commentRepository.getCommentsByReviewId(reviewId);
-        List<CommentDTO> commentDTOList = commentConverter.entitiesToDTOs(commentList);
-        return commentDTOList;
+        List<CommentDTO> commentDtoList = commentConverter.entitiesToDTOs(commentList);
+        return commentDtoList;
     }
 }
