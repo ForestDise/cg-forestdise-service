@@ -4,6 +4,7 @@ import com.forestdise.converter.IStoreConverter;
 import com.forestdise.dto.StoreDto;
 import com.forestdise.entity.Seller;
 import com.forestdise.entity.Store;
+import com.forestdise.payload.request.AddStoreRequest;
 import com.forestdise.repository.SellerRepository;
 import com.forestdise.repository.StoreRepository;
 import com.forestdise.service.StoreService;
@@ -30,7 +31,7 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public StoreDto createStore(Long sellerId, StoreDto storeDto) {
+    public StoreDto createStore(Long sellerId, AddStoreRequest storeDto) {
         Seller seller = sellerRepository.findById(sellerId).orElseThrow(
                 () -> new UsernameNotFoundException("seller not found"));
         Store store = new Store();

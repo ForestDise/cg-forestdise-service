@@ -4,6 +4,7 @@ import com.forestdise.converter.IStoreConverter;
 import com.forestdise.dto.StoreDto;
 import com.forestdise.entity.Seller;
 import com.forestdise.entity.Store;
+import com.forestdise.payload.request.AddStoreRequest;
 import com.forestdise.repository.SellerRepository;
 import com.forestdise.repository.StoreRepository;
 import com.forestdise.service.StoreService;
@@ -30,8 +31,7 @@ public class StoreController {
     }
     @PostMapping("/create/{sellerId}")
     @Transactional
-    public ResponseEntity<StoreDto> createStore(@PathVariable("sellerId") Long sellerId, @RequestBody StoreDto storeDto){
-        storeDto.setHomeImage("");
+    public ResponseEntity<StoreDto> createStore(@PathVariable("sellerId") Long sellerId, @RequestBody AddStoreRequest storeDto){
         StoreDto storeDto1 = storeService.createStore(sellerId,storeDto);
         return new ResponseEntity<>(storeDto1,HttpStatus.OK);
     }
