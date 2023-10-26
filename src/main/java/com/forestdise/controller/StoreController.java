@@ -49,4 +49,10 @@ public class StoreController {
         List<ProductDTO> productDTOList = productService.getAllProductDtosByStoreCategory(categoryName);
         return new ResponseEntity<>(productDTOList, HttpStatus.OK);
     }
+
+    @GetMapping("/{store_id}/products/sub_category")
+    public ResponseEntity<List<ProductDTO>> getProductsByStoreSubCategory(@RequestParam("name")String categoryName){
+        List<ProductDTO> productDTOList = productService.getAllProductDtosByStoreSubCategory(categoryName);
+        return new ResponseEntity<>(productDTOList, HttpStatus.OK);
+    }
 }
