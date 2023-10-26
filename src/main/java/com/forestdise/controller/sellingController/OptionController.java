@@ -23,6 +23,7 @@ public class OptionController {
     @PostMapping("/create")
     public ResponseEntity<OptionCreateResponse> createOption(@RequestBody List<String> optionRequest, @PathVariable("product_id") Long product_id){
         OptionCreateResponse optionCreateResponse= new OptionCreateResponse();
+
         List<OptionTableDTO> optionTableDtoList = new ArrayList<>();
         for(String ele : optionRequest){
             OptionTableDTO optionTableDto = OptionTableDTO.builder()

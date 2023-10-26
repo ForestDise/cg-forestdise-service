@@ -1,7 +1,5 @@
 package com.forestdise.service;
-
 import com.forestdise.dto.OptionTableDTO;
-
 import java.util.List;
 
 public interface OptionService {

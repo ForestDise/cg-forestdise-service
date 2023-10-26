@@ -15,6 +15,7 @@ import java.util.List;
 
 @Service
 public class ProductAttributeServiceImpl implements ProductAttributeService {
+
     @Autowired
     private ProductAttributeRepository productAttributeRepository;
     @Autowired

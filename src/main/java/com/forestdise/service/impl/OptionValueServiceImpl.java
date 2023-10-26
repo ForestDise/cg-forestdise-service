@@ -7,27 +7,33 @@ import com.forestdise.entity.OptionValue;
 import com.forestdise.entity.Variant;
 import com.forestdise.repository.OptionTableRepository;
 import com.forestdise.repository.OptionValueRepository;
-import com.forestdise.repository.ProductRepository;
 import com.forestdise.repository.VariantRepository;
 import com.forestdise.service.OptionValueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 
 @Service
 public class OptionValueServiceImpl implements OptionValueService {
+    private final VariantRepository variantRepository;
+    private final OptionValueRepository optionValueRepository;
+    private final OptionTableRepository optionTableRepository;
+    private final OptionValueConverterImpl optionValueConverterImpl;
+
+
     @Autowired
-    private VariantRepository variantRepository;
-    @Autowired
-    private OptionValueRepository optionValueRepository;
-    @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private OptionTableRepository optionTableRepository;
-    @Autowired
-    private OptionValueConverterImpl optionValueConverterImpl;
+    public OptionValueServiceImpl(
+            VariantRepository variantRepository,
+            OptionValueRepository optionValueRepository,
+            OptionTableRepository optionTableRepository,
+            OptionValueConverterImpl optionValueConverterImpl
+    ) {
+        this.variantRepository = variantRepository;
+        this.optionValueRepository = optionValueRepository;
+        this.optionTableRepository = optionTableRepository;
+        this.optionValueConverterImpl = optionValueConverterImpl;
+    }
     @Override
     public List<OptionValueDTO> getOptionValuesByVariantId(Long variant_id) {
         Variant variant= variantRepository.findById(variant_id).orElse(null);

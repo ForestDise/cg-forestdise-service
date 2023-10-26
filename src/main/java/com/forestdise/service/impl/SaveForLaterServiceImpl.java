@@ -17,17 +17,18 @@ import java.util.List;
 
 @Service
 public class SaveForLaterServiceImpl implements SaveForLaterService {
-    @Autowired
-    private CartRepository cartRepository;
+    private final CartRepository cartRepository;
+    private final SaveForLaterRepository saveForLaterRepository;
+    private final SaveForLaterConverter saveForLaterConverter;
+    private final VariantRepository variantRepository;
 
     @Autowired
-    private SaveForLaterRepository saveForLaterRepository;
-
-    @Autowired
-    private SaveForLaterConverter saveForLaterConverter;
-
-    @Autowired
-    private VariantRepository variantRepository;
+    public SaveForLaterServiceImpl(CartRepository cartRepository, SaveForLaterRepository saveForLaterRepository, SaveForLaterConverter saveForLaterConverter, VariantRepository variantRepository) {
+        this.cartRepository = cartRepository;
+        this.saveForLaterRepository = saveForLaterRepository;
+        this.saveForLaterConverter = saveForLaterConverter;
+        this.variantRepository = variantRepository;
+    }
 
     @Override
     public List<SaveForLaterDTO> findSaveForLaterByCartId(Long cartId) {
