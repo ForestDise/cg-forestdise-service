@@ -4,25 +4,27 @@ import com.forestdise.converter.ImageConverter;
 import com.forestdise.converter.OptionValueConverter;
 import com.forestdise.converter.VariantConverter;
 import com.forestdise.converter.VideoConverter;
-import com.forestdise.dto.ImageDTO;
-import com.forestdise.dto.OptionValueDTO;
-import com.forestdise.dto.VariantDTO;
-import com.forestdise.dto.VideoDTO;
-import com.forestdise.entity.Image;
-import com.forestdise.entity.OptionValue;
-import com.forestdise.entity.Variant;
-import com.forestdise.entity.Video;
+import com.forestdise.dto.*;
+import com.forestdise.entity.*;
+import com.forestdise.repository.OptionValueRepository;
+import com.forestdise.repository.ProductRepository;
 import com.forestdise.repository.VariantRepository;
 import com.forestdise.service.VariantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class VariantServiceImpl implements VariantService {
+
     @Autowired
     private VariantConverter variantConverterImpl;
     @Autowired
@@ -30,29 +32,31 @@ public class VariantServiceImpl implements VariantService {
     @Autowired
     private OptionValueConverter optionValueConverter;
     @Autowired
-    private ImageConverter imageConverter;
+    private ImageConverter iImageConverter;
     @Autowired
-    private VideoConverter videoConverter;
+    private VideoConverter iVideoConverter;
+    @Autowired
+    private ProductRepository productRepository;
+    @Autowired
+    private OptionValueRepository optionValueRepository;
 
     public VariantDTO getVariantById(Long id) {
-        //null
         return variantConverterImpl.entityToDTO(variantRepository.findById(id).orElse(null));
     }
 
     @Transactional
     public List<VariantDTO> getVariantByProductId(Long product_id) {
-        List<VariantDTO> variantDTOList = new ArrayList<>();
+        List<VariantDTO> variantDtoList = new ArrayList<>();
         List<Variant> variants = variantRepository.findByProduct_Id(product_id);
         for(Variant variant : variants){
             List<OptionValue> optionValueList = variant.getOptionValues();
             List<OptionValueDTO> optionValueDto = optionValueConverter.entitiesToDTOs(optionValueList);
             VariantDTO variantDto = variantConverterImpl.entityToDTO(variant);
             variantDto.setOptionValueDTOList(optionValueDto);
-            variantDTOList.add(variantDto);
+            variantDtoList.add(variantDto);
         }
-        //if (variants != null && !variants.isEmpty()) {
-    //variants = new ArrayList<>(); else{}
-        return variantDTOList;
+
+        return variantDtoList;
     }
 
     @Override
@@ -72,12 +76,12 @@ public class VariantServiceImpl implements VariantService {
         List<Image> images = minVariant.getImages();
         List<Video> videos = minVariant.getVideos();
         List<OptionValueDTO> optionValueDto = optionValueConverter.entitiesToDTOs(optionValueList);
-        List<ImageDTO> imageDTOList = imageConverter.entitiesToDTOs(images);
-        List<VideoDTO> videoDTOList = videoConverter.entitiesToDTOs(videos);
+        List<ImageDTO> imageDtoList = iImageConverter.entitiesToDTOs(images);
+        List<VideoDTO> videoDtoList = iVideoConverter.entitiesToDTOs(videos);
         VariantDTO variantDto = variantConverterImpl.entityToDTO(minVariant);
         variantDto.setOptionValueDTOList(optionValueDto);
-        variantDto.setImageDTOList(imageDTOList);
-        variantDto.setVideoDTOList(videoDTOList);
+        variantDto.setImageDTOList(imageDtoList);
+        variantDto.setVideoDTOList(videoDtoList);
         return variantDto;
     }
     @Override
@@ -86,6 +90,89 @@ public class VariantServiceImpl implements VariantService {
         return variantConverterImpl.entityToDTO(variant);
     }
 
+    @Override
+    public Variant createVariant(VariantDTO variantDto, Long product_id) {
+        Variant variant= variantConverterImpl.dtoToEntity(variantDto);
+        Product product = productRepository.findById(product_id).orElse(null);
+        variant.setProduct(product);
+        return variantRepository.save(variant);
+    }
 
+    @Override
+    public Variant updateVariant(VariantDTO variantDto) {
+        Variant variant = variantConverterImpl.dtoToEntity(variantDto);
+        return variantRepository.save(variant);
+    }
+    @Override
+    public void deleteVariant(Long variantId) {
+        variantRepository.deleteById(variantId);
+    }
+    public Page<VariantDTO> getVariantsByContaining(String text, Pageable pageable){
+        Page<Variant> variantPage = variantRepository.findByNameContaining(text, pageable);
+        return variantPage.map(variantConverterImpl::entityToDTO);
+    }
+
+    @Override
+    public Page<VariantDTO> getVariantsByNameContainingAndPriceBetween(String text, double minPrice, double maxPrice, Pageable pageable ) {
+        Page<Variant> variantPage = variantRepository.findVariantsByNameContainingAndPriceBetween(text,minPrice,maxPrice,pageable);
+        System.out.println("888888888888888888888"+variantPage.getSize());
+        return variantPage.map(variantConverterImpl::entityToDTO);
+    }
+    @Override
+    public Page<VariantDTO> getVariantsBySearchTextAndRating(String text, long star, Pageable pageable) {
+        List<VariantDTO> variantList = new ArrayList<>();
+        Page<Variant> variantPage = variantRepository.findByNameContaining(text, pageable);
+        if (variantPage!=null){
+            for (Variant variant : variantPage) {
+                if (variantRepository.findAverageStarByReview(variant)!=null) {
+                    long rating = Math.round(variantRepository.findAverageStarByReview(variant));
+                    System.out.println("******************************************"+ rating);
+                    if (rating == star) {
+                        variantList.add(variantConverterImpl.entityToDTO(variant));
+                    }
+
+                }
+            }
+        }
+
+        return new PageImpl<>(variantList, pageable, variantPage.getTotalElements());
+    }
+
+    public VariantDTO createRawVariant(List<Long> valueIdList, Long productId) {
+        List<OptionValue> optionValueList = new ArrayList<>();
+        for(Long ele : valueIdList){
+            OptionValue optionValue = optionValueRepository.findById(ele).orElse(new OptionValue());
+            optionValueList.add(optionValue);
+        }
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("product not found"));
+        Variant variant = new Variant();
+        variant.setProduct(product);
+        variant.setOptionValues(optionValueList);
+        variantRepository.save(variant);
+        List<OptionValue> optionValues = variant.getOptionValues();
+        List<OptionValueDTO> optionValueDtoList = optionValueConverter.entitiesToDTOs(optionValues);
+        VariantDTO variantDto = variantConverterImpl.entityToDTO(variant);
+        variantDto.setOptionValueDTOList(optionValueDtoList);
+        return variantDto;
+    }
+    @Override
+    public Page<VariantDTO> getNewestVariantsByText(String text, Pageable pageable){
+        Page<Variant> variantPage = variantRepository.findByNameContaining(text, pageable);
+        List<Variant> variants = variantPage.getContent();
+        List<Variant> sortedVariants = variants.stream()
+                .sorted((variant1, variant2) -> {
+                    Date createdAt1 = variantRepository.findCreatedAtByVariantId(variant1.getId());
+                    Date createdAt2 = variantRepository.findCreatedAtByVariantId(variant2.getId());
+                    return createdAt1.compareTo(createdAt2); // xep ngay theo giam dan
+                })
+                .collect(Collectors.toList());
+        Page<Variant> sortedVariantPage = new PageImpl<>(sortedVariants, pageable, variantPage.getTotalElements());
+        List<VariantDTO> sortedVariantDTOs = sortedVariants.stream()
+                .map(variant -> variantConverterImpl.entityToDTO(variant))
+                .collect(Collectors.toList());
+        return new PageImpl<>(sortedVariantDTOs, pageable, sortedVariantPage.getTotalElements());
+
+    }
 
 }

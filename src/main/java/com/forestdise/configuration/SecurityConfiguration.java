@@ -9,10 +9,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 
@@ -35,10 +33,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests((requests) -> requests
-                                .antMatchers("/api/users/**").hasAnyRole(Role.USER.toString())
-                                .antMatchers("/api/sellers/**").hasAnyRole(Role.SELLER.toString())
-                                .anyRequest().authenticated()
-                        );
+                        .antMatchers("/api/users/**").hasAnyRole(Role.USER.toString())
+                        .antMatchers("/api/sellers/**").hasAnyRole(Role.SELLER.toString())
+                        .anyRequest().authenticated()
+                );
     }
 
     @Override
@@ -47,8 +45,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 antMatchers("/api/register/**", "/api/login/**",
                         "/api/products", "/api/product-detail/**",
                         "/api/cart-lines/**", "/api/cart/**",
-                        "/api/save-for-later/**", "/api/stores/**")
-
-                .antMatchers(HttpMethod.GET, "/api/products", "/api/cart-lines/**","/api/search/**","/api/reviews/**");
+                        "/api/search/**",
+                        "/api/save-for-later/**", "/api/stores/**",
+                        "/api/sellers/**","/api/variant/**","/api/image/**",
+                        "/api/video/**","/api/option-value/**","/api/option/**",
+                        "/api/category/**","/api/store-category/**","/api/bullet/**","/api/attribute/**","/api/hashtag/**")
+                .antMatchers(HttpMethod.GET, "/api/products", "/api/users/**", "/api/cart-lines/**","/api/reviews/**","/api/sellers/**","/api/stores/**")
+                .antMatchers(HttpMethod.POST, "/api/products", "/api/users/**", "/api/cart-lines/**","/api/reviews/**","/api/sellers/**","/api/stores/**");
     }
 }

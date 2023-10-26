@@ -11,8 +11,9 @@ import java.util.List;
 
 @Service
 public class CommentServiceImpl implements CommentService {
-    private CommentRepository commentRepository;
-    private CommentConverter commentConverter;
+    private final CommentRepository commentRepository;
+    private final CommentConverter commentConverter;
+
 
     public CommentServiceImpl(CommentRepository commentRepository, CommentConverter commentConverter) {
         this.commentRepository = commentRepository;
@@ -22,7 +23,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<CommentDTO> getCommentsByReviewId(Long reviewId) {
         List<Comment> commentList = commentRepository.getCommentsByReviewId(reviewId);
-        List<CommentDTO> commentDTOList = commentConverter.entitiesToDTOs(commentList);
-        return commentDTOList;
+        List<CommentDTO> commentDtoList = commentConverter.entitiesToDTOs(commentList);
+        return commentDtoList;
     }
 }

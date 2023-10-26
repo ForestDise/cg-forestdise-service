@@ -62,6 +62,7 @@ public class SaveForLaterConverterImpl implements SaveForLaterConverter {
 //        return saveForLaters.stream()
 //                .map(this::convertEntityToDto)
 //                .collect(Collectors.toList());
+
         List<SaveForLaterDTO> saveForLaterDTOList = new ArrayList<>();
         for (SaveForLater saveForLater: saveForLaters) {
             SaveForLaterDTO saveForLaterDto = convertEntityToDto(saveForLater);

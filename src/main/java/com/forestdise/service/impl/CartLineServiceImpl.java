@@ -19,17 +19,18 @@ import java.util.List;
 @Service
 @Transactional
 public class CartLineServiceImpl implements CartLineService {
-    @Autowired
-    private CartLineRepository cartLineRepository;
+    private final CartLineRepository cartLineRepository;
+    private final CartLineConverter cartLineConverter;
+    private final CartRepository cartRepository;
+    private final VariantRepository variantRepository;
 
     @Autowired
-    private CartLineConverter cartLineConverter;
-
-    @Autowired
-    private CartRepository cartRepository;
-
-    @Autowired
-    private VariantRepository variantRepository;
+    public CartLineServiceImpl(CartLineRepository cartLineRepository, CartLineConverter cartLineConverter, CartRepository cartRepository, VariantRepository variantRepository) {
+        this.cartLineRepository = cartLineRepository;
+        this.cartLineConverter = cartLineConverter;
+        this.cartRepository = cartRepository;
+        this.variantRepository = variantRepository;
+    }
 
     @Override
     public void updateCartLine(CartLineDTO cartLineDto, Long id) throws Exception {
@@ -41,7 +42,6 @@ public class CartLineServiceImpl implements CartLineService {
     @Override
     public void removeCartLine(Long id) {
        CartLine cartLine = cartLineRepository.findById(id).orElse(null);
-        assert cartLine != null;
         cartLineRepository.deleteCartLineById(cartLine.getId());
     }
 
@@ -59,9 +59,10 @@ public class CartLineServiceImpl implements CartLineService {
         Cart cart = cartRepository.findById(cartLineRequest.getCartId()).orElse(null);
         CartLine cartLine = cartLineRepository.findCartLineByVariant(variant);
         if (cartLine != null) {
-            int newQuantity = cartLine.getQuantity() + 1;
+            int newQuantity = cartLine.getQuantity() + cartLineRequest.getQuantity();
             cartLine.setQuantity(newQuantity);
             cartLineRepository.save(cartLine);
+
             CartLineDTO cartLineDto = cartLineConverter.convertEntityToDto(cartLine);
             return cartLineDto;
         }
@@ -71,6 +72,7 @@ public class CartLineServiceImpl implements CartLineService {
         newCartLine.setVariant(variant);
         newCartLine.setQuantity(quantity);
         cartLineRepository.save(newCartLine);
+
         CartLineDTO cartLineDto = cartLineConverter.convertEntityToDto(newCartLine);
         return cartLineDto;
     }
