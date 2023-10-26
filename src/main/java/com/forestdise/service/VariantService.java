@@ -13,5 +13,9 @@ public interface VariantService {
 
     public VariantDTO getLowestPriceVariantByProductId(Long product_id);
     public VariantDTO getVariantByProductPriceMin(Long product_id);
+    public Variant createVariant(VariantDTO variantDto, Long product_id);
+    public Variant updateVariant(VariantDTO variantDto);
+    public void deleteVariant(Long variantId);
 
+    public VariantDTO createRawVariant(List<Long> valueIdList, Long productId);
 }

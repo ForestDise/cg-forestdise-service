@@ -3,4 +3,6 @@ CREATE TABLE IF NOT EXISTS OPTIONVALUE (
                              VALUE VARCHAR(255),
                              OPTION_ID INT,
                              FOREIGN KEY (OPTION_ID) REFERENCES OPTION_TABLE(ID)
+
+
 );

@@ -11,4 +11,6 @@ public interface ImageConverter {
     List<ImageDTO> entitiesToDTOs(List<Image> element);
 
     Image dtoToEntity(ImageDTO element);
+    List<Image> dtosToEntities(List<ImageDTO> element);
+
 }

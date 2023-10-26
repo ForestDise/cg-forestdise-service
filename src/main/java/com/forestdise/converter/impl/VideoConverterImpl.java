@@ -1,9 +1,7 @@
 package com.forestdise.converter.impl;
 
 import com.forestdise.converter.VideoConverter;
-import com.forestdise.dto.ImageDTO;
 import com.forestdise.dto.VideoDTO;
-import com.forestdise.entity.Image;
 import com.forestdise.entity.Video;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
@@ -27,8 +25,8 @@ public class VideoConverterImpl implements VideoConverter {
     }
 
     @Override
-    public Image dtoToEntity(ImageDTO element) {
-        Image result = new Image();
+    public Video dtoToEntity(VideoDTO element) {
+        Video result = new Video();
         BeanUtils.copyProperties(element, result);
         return result;
     }

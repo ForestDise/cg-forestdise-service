@@ -28,6 +28,7 @@ public class SearchController {
 
     @GetMapping()
     public ResponseEntity<SearchResponse> getProductsByPrice(@RequestParam("searchText")String searchText) {
+
         List<ProductDTO> productDTOList = productService.getProductsByContaining(searchText);
         searchResponse.setProductDTOS(productDTOList);
         List<VariantDTO> variantDTOList = new ArrayList<>();

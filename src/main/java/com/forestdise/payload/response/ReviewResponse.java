@@ -15,7 +15,4 @@ import java.util.List;
 public class ReviewResponse {
     private List<ReviewDTO> reviewDTOList;
     private SummaryDTO summaryDto;
-    // % cua moi sao
-    //tong so review
-    // trung binh sao
 }
