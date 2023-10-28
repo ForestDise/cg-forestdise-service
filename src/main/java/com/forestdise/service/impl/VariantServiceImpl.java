@@ -1,14 +1,12 @@
 package com.forestdise.service.impl;
 
-import com.forestdise.converter.ImageConverter;
-import com.forestdise.converter.OptionValueConverter;
-import com.forestdise.converter.VariantConverter;
-import com.forestdise.converter.VideoConverter;
+import com.forestdise.converter.*;
 import com.forestdise.dto.*;
 import com.forestdise.entity.*;
 import com.forestdise.repository.OptionValueRepository;
 import com.forestdise.repository.ProductRepository;
 import com.forestdise.repository.VariantRepository;
+import com.forestdise.service.ReviewService;
 import com.forestdise.service.VariantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +31,12 @@ public class VariantServiceImpl implements VariantService {
     private ProductRepository productRepository;
     @Autowired
     private OptionValueRepository optionValueRepository;
-
+    @Autowired
+    private ReviewConverter reviewConverter;
+    @Autowired
+    private UserConverter userConverter;
+    @Autowired
+    private ReviewService reviewService;
     public VariantDTO getVariantById(Long id) {
         //null
         return variantConverterImpl.entityToDTO(variantRepository.findById(id).orElse(null));
@@ -45,13 +48,28 @@ public class VariantServiceImpl implements VariantService {
         List<Variant> variants = variantRepository.findByProduct_Id(product_id);
         for(Variant variant : variants){
             List<OptionValue> optionValueList = variant.getOptionValues();
+            List<Image> imageList = variant.getImages();
+            List<Video> videoList = variant.getVideos();
+            List<ReviewDTO> reviewList = reviewService.getReviewsByVariantId(variant.getId());
+//            List<ReviewDTO> reviewDTOList = new ArrayList<>();
+//            for(Review review : reviewList){
+//                User user = review.getCustomer();
+//                UserDTO userDTO = userConverter.entityToDTO(user);
+//                ReviewDTO reviewDTO = reviewConverter.entityToDTO(review);
+//                reviewDTO.setUserDto(userDTO);
+//                reviewDTOList.add(reviewDTO);
+//            }
+            List<ImageDTO> imageDTOList = iImageConverter.entitiesToDTOs(imageList);
+            List<VideoDTO> videoDTOList = iVideoConverter.entitiesToDTOs(videoList);
+//            List<ReviewDTO> reviewDTOList = reviewConverter.entitiesToDTOs(reviewList);
             List<OptionValueDTO> optionValueDto = optionValueConverter.entitiesToDTOs(optionValueList);
             VariantDTO variantDto = variantConverterImpl.entityToDTO(variant);
             variantDto.setOptionValueDTOList(optionValueDto);
+            variantDto.setImageDTOList(imageDTOList);
+            variantDto.setVideoDTOList(videoDTOList);
+            variantDto.setReviewDTOList(reviewList);
             variantDtoList.add(variantDto);
         }
-        //if (variants != null && !variants.isEmpty()) {
-        //variants = new ArrayList<>(); else{}
         return variantDtoList;
     }
 

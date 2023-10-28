@@ -57,7 +57,7 @@ public class ProductDetailController {
         return ResponseEntity.ok(variantDetailResponse);
     }
     @PostMapping("/create/{storeId}/{categoryId}/{storeCategoryId}")
-    public ResponseEntity<Product> createProduct(@PathVariable Long storeId,@PathVariable Long categoryId,@PathVariable Long storeCategoryId,@RequestBody ProductRequest productRequest) {
+    public ResponseEntity<Product> createProduct(@RequestBody ProductRequest productRequest,@PathVariable Long storeId,@PathVariable Long categoryId,@PathVariable Long storeCategoryId) {
 
         ProductDTO productDto = ProductDTO.builder()
                 .title(productRequest.getTitle())
