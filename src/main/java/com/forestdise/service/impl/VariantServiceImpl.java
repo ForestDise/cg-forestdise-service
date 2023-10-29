@@ -9,14 +9,20 @@ import com.forestdise.repository.VariantRepository;
 import com.forestdise.service.ReviewService;
 import com.forestdise.service.VariantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class VariantServiceImpl implements VariantService {
+
     @Autowired
     private VariantConverter variantConverterImpl;
     @Autowired
@@ -38,7 +44,6 @@ public class VariantServiceImpl implements VariantService {
     @Autowired
     private ReviewService reviewService;
     public VariantDTO getVariantById(Long id) {
-        //null
         return variantConverterImpl.entityToDTO(variantRepository.findById(id).orElse(null));
     }
 
@@ -113,8 +118,37 @@ public class VariantServiceImpl implements VariantService {
     public void deleteVariant(Long variantId) {
         variantRepository.deleteById(variantId);
     }
+    public Page<VariantDTO> getVariantsByContaining(String text, Pageable pageable){
+        Page<Variant> variantPage = variantRepository.findByNameContaining(text, pageable);
+        return variantPage.map(variantConverterImpl::entityToDTO);
+    }
 
     @Override
+    public Page<VariantDTO> getVariantsByNameContainingAndPriceBetween(String text, double minPrice, double maxPrice, Pageable pageable ) {
+        Page<Variant> variantPage = variantRepository.findVariantsByNameContainingAndPriceBetween(text,minPrice,maxPrice,pageable);
+        System.out.println("888888888888888888888"+variantPage.getSize());
+        return variantPage.map(variantConverterImpl::entityToDTO);
+    }
+    @Override
+    public Page<VariantDTO> getVariantsBySearchTextAndRating(String text, long star, Pageable pageable) {
+        List<VariantDTO> variantList = new ArrayList<>();
+        Page<Variant> variantPage = variantRepository.findByNameContaining(text, pageable);
+        if (variantPage!=null){
+            for (Variant variant : variantPage) {
+                if (variantRepository.findAverageStarByReview(variant)!=null) {
+                    long rating = Math.round(variantRepository.findAverageStarByReview(variant));
+                    System.out.println("******************************************"+ rating);
+                    if (rating == star) {
+                        variantList.add(variantConverterImpl.entityToDTO(variant));
+                    }
+
+                }
+            }
+        }
+
+        return new PageImpl<>(variantList, pageable, variantPage.getTotalElements());
+    }
+
     public VariantDTO createRawVariant(List<Long> valueIdList, Long productId) {
         List<OptionValue> optionValueList = new ArrayList<>();
         for(Long ele : valueIdList){
@@ -154,4 +188,23 @@ public class VariantServiceImpl implements VariantService {
         }
 
     }
+    @Override
+    public Page<VariantDTO> getNewestVariantsByText(String text, Pageable pageable){
+        Page<Variant> variantPage = variantRepository.findByNameContaining(text, pageable);
+        List<Variant> variants = variantPage.getContent();
+        List<Variant> sortedVariants = variants.stream()
+                .sorted((variant1, variant2) -> {
+                    Date createdAt1 = variantRepository.findCreatedAtByVariantId(variant1.getId());
+                    Date createdAt2 = variantRepository.findCreatedAtByVariantId(variant2.getId());
+                    return createdAt1.compareTo(createdAt2); // xep ngay theo giam dan
+                })
+                .collect(Collectors.toList());
+        Page<Variant> sortedVariantPage = new PageImpl<>(sortedVariants, pageable, variantPage.getTotalElements());
+        List<VariantDTO> sortedVariantDTOs = sortedVariants.stream()
+                .map(variant -> variantConverterImpl.entityToDTO(variant))
+                .collect(Collectors.toList());
+        return new PageImpl<>(sortedVariantDTOs, pageable, sortedVariantPage.getTotalElements());
+
+    }
+
 }

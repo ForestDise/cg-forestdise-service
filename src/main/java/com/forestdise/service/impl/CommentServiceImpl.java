@@ -11,8 +11,9 @@ import java.util.List;
 
 @Service
 public class CommentServiceImpl implements CommentService {
-    private CommentRepository commentRepository;
-    private CommentConverter commentConverter;
+    private final CommentRepository commentRepository;
+    private final CommentConverter commentConverter;
+
 
     public CommentServiceImpl(CommentRepository commentRepository, CommentConverter commentConverter) {
         this.commentRepository = commentRepository;

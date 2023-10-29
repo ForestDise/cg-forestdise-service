@@ -1,7 +1,7 @@
 package com.forestdise.controller;
 
 import com.forestdise.dto.ProductDTO;
-import com.forestdise.service.ProductService;
+import com.forestdise.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,12 +15,18 @@ import java.util.List;
 @RequestMapping("api/products")
 public class ProductController {
 
+    private final ProductServiceImpl productServiceImpl;
+
     @Autowired
-    private ProductService productService;
+    public ProductController(ProductServiceImpl productServiceImpl) {
+        this.productServiceImpl = productServiceImpl;
+    }
+
 
 
     @GetMapping
     public List<ProductDTO> productDtoList(){
-        return productService.getAllProductDtos();
+        return productServiceImpl.getAllProductDtos();
+
     }
 }

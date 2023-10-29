@@ -20,11 +20,15 @@ import java.util.List;
 
 @Service
 public class StoreServiceImpl implements StoreService {
-    @Autowired
-    StoreRepository storeRepository;
+    private final StoreRepository storeRepository;
+    private final StoreConverter storeConverter;
 
     @Autowired
-    StoreConverter storeConverter;
+    public StoreServiceImpl(StoreRepository storeRepository, StoreConverter storeConverter) {
+        this.storeRepository = storeRepository;
+        this.storeConverter = storeConverter;
+    }
+
 
     @Autowired
     SellerRepository sellerRepository;

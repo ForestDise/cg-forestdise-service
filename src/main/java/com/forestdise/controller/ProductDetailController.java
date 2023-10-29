@@ -18,18 +18,28 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/product-detail")
 public class ProductDetailController {
+    private final ImageService imageServiceImpl;
+    private final ProductService productServiceImpl;
+    private final ProductAttributeService productAttributeServiceImpl;
+    private final VariantService variantServiceImpl;
+    private final VideoService videoServiceImpl;
+
+    private final OptionValueService optionValueServiceImpl;
     @Autowired
-    private ImageService imageServiceImpl;
-    @Autowired
-    private ProductService productServiceImpl;
-    @Autowired
-    private ProductAttributeService productAttributeServiceImpl;
-    @Autowired
-    private VariantService variantServiceImpl;
-    @Autowired
-    private VideoService videoServiceImpl;
-    @Autowired
-    private OptionValueService optionValueServiceImpl;
+    public ProductDetailController(ImageService imageServiceImpl,
+                                           ProductService productServiceImpl,
+                                           ProductAttributeService productAttributeServiceImpl,
+                                           VariantService variantServiceImpl,
+                                           VideoService videoServiceImpl,
+                                           OptionValueService optionValueServiceImpl) {
+        this.imageServiceImpl =imageServiceImpl;
+        this.productServiceImpl= productServiceImpl;
+        this.productAttributeServiceImpl=productAttributeServiceImpl;
+        this.variantServiceImpl=variantServiceImpl;
+        this.videoServiceImpl=videoServiceImpl;
+        this.optionValueServiceImpl=optionValueServiceImpl;
+    }
+
     ProductDetailResponse productDetailResponse=new ProductDetailResponse();
     VariantDetailResponse variantDetailResponse =new VariantDetailResponse();
 
@@ -40,8 +50,6 @@ public class ProductDetailController {
         productDetailResponse.setOptionTableDto(productServiceImpl.getOptionsByProductId(productId));
         productDetailResponse.setVariantDTOList(variantServiceImpl.getVariantByProductId(productId));
         productDetailResponse.setProductAttributeDTOList(productAttributeServiceImpl.getProductAttributeByProductId(productId));
-//        productDetailResponse.setVariantDto(variantServiceImpl.getLowestPriceVariantByProductId(productId));
-        // lay variant lowest price by productId
         return ResponseEntity.ok(productDetailResponse);
     }
     @GetMapping("/{product_id}/{variant_id}")
@@ -70,6 +78,7 @@ public class ProductDetailController {
         Product product = productServiceImpl.createProduct(storeId,categoryId,storeCategoryId,productDto);
 
         if (product != null) {
+
             return new ResponseEntity<>(product, HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>(product, HttpStatus.BAD_REQUEST);
@@ -83,7 +92,6 @@ public class ProductDetailController {
             return new ResponseEntity<>("Product not found", HttpStatus.NOT_FOUND);
         }
 
-        // Cập nhật thông tin sản phẩm từ productRequest
         productDto.setTitle(productRequest.getTitle());
         productDto.setDescription(productRequest.getDescription());
         productDto.setMainPicture(productRequest.getMainPicture());

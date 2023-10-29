@@ -1,7 +1,7 @@
 package com.forestdise.service;
 import com.forestdise.dto.OptionValueDTO;
+import com.forestdise.entity.OptionValue;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service

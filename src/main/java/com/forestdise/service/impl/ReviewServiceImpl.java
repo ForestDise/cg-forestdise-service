@@ -26,13 +26,13 @@ public class ReviewServiceImpl implements ReviewService {
     private final VariantRepository variantRepository;
     private final OptionValueConverterImpl optionValueConverter;
     private final UserConverter userConverter;
+
     @Autowired
     public ReviewServiceImpl(ReviewRepository reviewRepository,
                              ReviewConverterImpl reviewConverter,
                              VariantRepository variantRepository,
                              OptionValueConverterImpl optionValueConverter,
-                             UserConverter userConverter
-    ) {
+                             UserConverter userConverter) {
 
         this.reviewRepository = reviewRepository;
         this.reviewConverter = reviewConverter;
@@ -61,7 +61,6 @@ public class ReviewServiceImpl implements ReviewService {
             reviewDTOList.add(reviewDTO);
         }
         return reviewDTOList;
-
 
     }
 
@@ -122,7 +121,6 @@ public class ReviewServiceImpl implements ReviewService {
                 }
             }
         }
-
         if(total > 0){
             RatingBreakdownDTO ratingBreakdownDTO = new RatingBreakdownDTO();
             ratingBreakdownDTO.setFiveStar(new RatingDTO(((double)countFiveStar/total*100),countFiveStar));

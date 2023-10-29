@@ -1,9 +1,7 @@
 package com.forestdise.converter;
 
 import com.forestdise.dto.VideoDTO;
-import com.forestdise.entity.Image;
 import com.forestdise.entity.Video;
-
 import java.util.List;
 
 public interface VideoConverter {
