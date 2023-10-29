@@ -51,17 +51,8 @@ public class VariantServiceImpl implements VariantService {
             List<Image> imageList = variant.getImages();
             List<Video> videoList = variant.getVideos();
             List<ReviewDTO> reviewList = reviewService.getReviewsByVariantId(variant.getId());
-//            List<ReviewDTO> reviewDTOList = new ArrayList<>();
-//            for(Review review : reviewList){
-//                User user = review.getCustomer();
-//                UserDTO userDTO = userConverter.entityToDTO(user);
-//                ReviewDTO reviewDTO = reviewConverter.entityToDTO(review);
-//                reviewDTO.setUserDto(userDTO);
-//                reviewDTOList.add(reviewDTO);
-//            }
             List<ImageDTO> imageDTOList = iImageConverter.entitiesToDTOs(imageList);
             List<VideoDTO> videoDTOList = iVideoConverter.entitiesToDTOs(videoList);
-//            List<ReviewDTO> reviewDTOList = reviewConverter.entitiesToDTOs(reviewList);
             List<OptionValueDTO> optionValueDto = optionValueConverter.entitiesToDTOs(optionValueList);
             VariantDTO variantDto = variantConverterImpl.entityToDTO(variant);
             variantDto.setOptionValueDTOList(optionValueDto);
