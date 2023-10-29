@@ -18,4 +18,5 @@ public interface VariantService {
     public void deleteVariant(Long variantId);
 
     public VariantDTO createRawVariant(List<Long> valueIdList, Long productId);
+    public VariantDTO getVariantInfoById(Long id);
 }

@@ -40,7 +40,7 @@ public class ProductDetailController {
         productDetailResponse.setOptionTableDto(productServiceImpl.getOptionsByProductId(productId));
         productDetailResponse.setVariantDTOList(variantServiceImpl.getVariantByProductId(productId));
         productDetailResponse.setProductAttributeDTOList(productAttributeServiceImpl.getProductAttributeByProductId(productId));
-        productDetailResponse.setVariantDto(variantServiceImpl.getLowestPriceVariantByProductId(productId));
+//        productDetailResponse.setVariantDto(variantServiceImpl.getLowestPriceVariantByProductId(productId));
         // lay variant lowest price by productId
         return ResponseEntity.ok(productDetailResponse);
     }

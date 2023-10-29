@@ -73,6 +73,7 @@ public class VariantServiceImpl implements VariantService {
         return variantDtoList;
     }
 
+
     @Override
     public Variant findById(Long id) {
         Variant variant = variantRepository.findById(id).orElse(null);
@@ -140,5 +141,26 @@ public class VariantServiceImpl implements VariantService {
         VariantDTO variantDto = variantConverterImpl.entityToDTO(variant);
         variantDto.setOptionValueDTOList(optionValueDtoList);
         return variantDto;
+    }
+
+    @Override
+    public VariantDTO getVariantInfoById(Long id) {
+        Variant variant = variantRepository.findById(id).orElse(null);
+        if(variant == null){
+            return null;
+        } else {
+            List<OptionValue> optionValueList = variant.getOptionValues();
+            List<Image> images = variant.getImages();
+            List<Video> videos = variant.getVideos();
+            List<OptionValueDTO> optionValueDto = optionValueConverter.entitiesToDTOs(optionValueList);
+            List<ImageDTO> imageDtoList = iImageConverter.entitiesToDTOs(images);
+            List<VideoDTO> videoDtoList = iVideoConverter.entitiesToDTOs(videos);
+            VariantDTO variantDto = variantConverterImpl.entityToDTO(variant);
+            variantDto.setOptionValueDTOList(optionValueDto);
+            variantDto.setImageDTOList(imageDtoList);
+            variantDto.setVideoDTOList(videoDtoList);
+            return variantDto;
+        }
+
     }
 }
