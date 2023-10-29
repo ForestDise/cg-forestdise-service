@@ -1,14 +1,12 @@
 package com.forestdise.service.impl;
 
-import com.forestdise.converter.ImageConverter;
-import com.forestdise.converter.OptionValueConverter;
-import com.forestdise.converter.VariantConverter;
-import com.forestdise.converter.VideoConverter;
+import com.forestdise.converter.*;
 import com.forestdise.dto.*;
 import com.forestdise.entity.*;
 import com.forestdise.repository.OptionValueRepository;
 import com.forestdise.repository.ProductRepository;
 import com.forestdise.repository.VariantRepository;
+import com.forestdise.service.ReviewService;
 import com.forestdise.service.VariantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,7 +37,12 @@ public class VariantServiceImpl implements VariantService {
     private ProductRepository productRepository;
     @Autowired
     private OptionValueRepository optionValueRepository;
-
+    @Autowired
+    private ReviewConverter reviewConverter;
+    @Autowired
+    private UserConverter userConverter;
+    @Autowired
+    private ReviewService reviewService;
     public VariantDTO getVariantById(Long id) {
         return variantConverterImpl.entityToDTO(variantRepository.findById(id).orElse(null));
     }
@@ -50,14 +53,22 @@ public class VariantServiceImpl implements VariantService {
         List<Variant> variants = variantRepository.findByProduct_Id(product_id);
         for(Variant variant : variants){
             List<OptionValue> optionValueList = variant.getOptionValues();
+            List<Image> imageList = variant.getImages();
+            List<Video> videoList = variant.getVideos();
+            List<ReviewDTO> reviewList = reviewService.getReviewsByVariantId(variant.getId());
+            List<ImageDTO> imageDTOList = iImageConverter.entitiesToDTOs(imageList);
+            List<VideoDTO> videoDTOList = iVideoConverter.entitiesToDTOs(videoList);
             List<OptionValueDTO> optionValueDto = optionValueConverter.entitiesToDTOs(optionValueList);
             VariantDTO variantDto = variantConverterImpl.entityToDTO(variant);
             variantDto.setOptionValueDTOList(optionValueDto);
+            variantDto.setImageDTOList(imageDTOList);
+            variantDto.setVideoDTOList(videoDTOList);
+            variantDto.setReviewDTOList(reviewList);
             variantDtoList.add(variantDto);
         }
-
         return variantDtoList;
     }
+
 
     @Override
     public Variant findById(Long id) {
@@ -155,6 +166,27 @@ public class VariantServiceImpl implements VariantService {
         VariantDTO variantDto = variantConverterImpl.entityToDTO(variant);
         variantDto.setOptionValueDTOList(optionValueDtoList);
         return variantDto;
+    }
+
+    @Override
+    public VariantDTO getVariantInfoById(Long id) {
+        Variant variant = variantRepository.findById(id).orElse(null);
+        if(variant == null){
+            return null;
+        } else {
+            List<OptionValue> optionValueList = variant.getOptionValues();
+            List<Image> images = variant.getImages();
+            List<Video> videos = variant.getVideos();
+            List<OptionValueDTO> optionValueDto = optionValueConverter.entitiesToDTOs(optionValueList);
+            List<ImageDTO> imageDtoList = iImageConverter.entitiesToDTOs(images);
+            List<VideoDTO> videoDtoList = iVideoConverter.entitiesToDTOs(videos);
+            VariantDTO variantDto = variantConverterImpl.entityToDTO(variant);
+            variantDto.setOptionValueDTOList(optionValueDto);
+            variantDto.setImageDTOList(imageDtoList);
+            variantDto.setVideoDTOList(videoDtoList);
+            return variantDto;
+        }
+
     }
     @Override
     public Page<VariantDTO> getNewestVariantsByText(String text, Pageable pageable){

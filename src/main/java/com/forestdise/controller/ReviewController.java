@@ -21,6 +21,7 @@ public class ReviewController {
         return new ResponseEntity<>(reviewResponse, HttpStatus.OK);
 
     }
+
     @GetMapping("/product/{product_id}")
     public ResponseEntity<ReviewResponse> getReviewsByProductId(@PathVariable("product_id") Long productId){
         ReviewResponse reviewResponse = new ReviewResponse();
@@ -29,5 +30,7 @@ public class ReviewController {
         return new ResponseEntity<>(reviewResponse, HttpStatus.OK);
 
     }
+
+
 
 }
