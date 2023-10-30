@@ -38,11 +38,8 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
-    private StoreRepository storeRepository;
-    @Autowired
     private CategoryRepository categoryRepository;
-    @Autowired
-    private StoreCategoryRepository storeCategoryRepository;
+
     @Override
     public ProductDTO getProductById(Long id) {
         Product product = productRepository.findById(id).orElse(new Product()) ;
