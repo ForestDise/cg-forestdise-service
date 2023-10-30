@@ -33,11 +33,37 @@ public class StoreController {
         StoreDTO storeDto = storeService.findStore(storeId);
         return new ResponseEntity<>(storeDto, HttpStatus.OK);
     }
+
+    @GetMapping("/{store_id}/product")
+    public ResponseEntity<List<ProductDTO>> getProductsByName(@RequestParam("name")String searchText, @PathVariable("store_id") Long storeId){
+        List<ProductDTO> productDTOList = productService.getProductsOfStoreByContaining(storeId, searchText);
+        return new ResponseEntity<>(productDTOList, HttpStatus.OK);
+    }
+
+    @GetMapping("/{store_id}/products")
+    public ResponseEntity<List<ProductDTO>> getProductsByStore(@PathVariable("store_id") Long storeId){
+        List<ProductDTO> productDTOList = productService.getAllProductDtosByStore(storeId);
+        return new ResponseEntity<>(productDTOList, HttpStatus.OK);
+    }
+
+    @GetMapping("/{store_id}/products/category")
+    public ResponseEntity<List<ProductDTO>> getProductsByStoreCategory(@RequestParam("name")String categoryName){
+        List<ProductDTO> productDTOList = productService.getAllProductDtosByStoreCategory(categoryName);
+        return new ResponseEntity<>(productDTOList, HttpStatus.OK);
+    }
+
+    @GetMapping("/{store_id}/products/sub_category")
+    public ResponseEntity<List<ProductDTO>> getProductsByStoreSubCategory(@RequestParam("name")String categoryName){
+        List<ProductDTO> productDTOList = productService.getAllProductDtosByStoreSubCategory(categoryName);
+        return new ResponseEntity<>(productDTOList, HttpStatus.OK);
+    }
+
     @PostMapping("/create/{sellerId}")
     @Transactional
     public ResponseEntity<StoreDTO> createStore(@PathVariable("sellerId") Long sellerId, @RequestBody AddStoreRequest storeDto){
         StoreDTO storeDto1 = storeService.createStore(sellerId,storeDto);
         return new ResponseEntity<>(storeDto1,HttpStatus.OK);
     }
+
 
 }

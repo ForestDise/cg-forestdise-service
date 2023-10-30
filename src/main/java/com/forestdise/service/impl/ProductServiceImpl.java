@@ -32,13 +32,14 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private BulletConverter bulletConverter;
     @Autowired
-    private ProductRepository productRepository;
-    @Autowired
     private StoreRepository storeRepository;
     @Autowired
-    private CategoryRepository categoryRepository;
-    @Autowired
     private StoreCategoryRepository storeCategoryRepository;
+    @Autowired
+    private ProductRepository productRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Override
     public ProductDTO getProductById(Long id) {
         Product product = productRepository.findById(id).orElse(new Product()) ;
@@ -54,13 +55,55 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDTO> getAllProductDtos() {
         List<Product> products = productRepository.findAll();
         List<ProductDTO> productDTOS = productConverterImpl.entitiesToDTOs(products);
+        List<StoreDTO> storeDTOS = new ArrayList<>();
         for(Product product: products){
             Store store = product.getStore();
             StoreDTO storeDto = storeConverter.entityToDTO(store);
-            for(ProductDTO productDto: productDTOS){
-                productDto.setStore(storeDto);
+            storeDTOS.add(storeDto);
+        }
+        for(int i = 0; i < products.toArray().length; i++){
+            productDTOS.get(i).setStore(storeDTOS.get(i));
+        }
+        return productDTOS;
+    }
+
+    @Override
+    public List<ProductDTO> getAllProductDtosByStore(Long id) {
+        Store store = storeRepository.findById(id).orElse(null);
+        List<Product> products = productRepository.findAllByStore(store);
+        List<ProductDTO> productDTOS = productConverterImpl.entitiesToDTOs(products);
+        List<StoreDTO> storeDTOS = new ArrayList<>();
+        for(Product product: products){
+            Store productStore = product.getStore();
+            StoreDTO storeDto = storeConverter.entityToDTO(store);
+            storeDTOS.add(storeDto);
+        }
+        for(int i = 0; i < products.toArray().length; i++){
+            productDTOS.get(i).setStore(storeDTOS.get(i));
+        }
+        return productDTOS;
+    }
+
+    @Override
+    public List<ProductDTO> getAllProductDtosByStoreCategory(String categoryName) {
+        StoreCategory storeCategory = storeCategoryRepository.findByName(categoryName);
+        List<StoreCategory> subCategories = storeCategoryRepository.findAllByParentStoreCategory(storeCategory);
+        List<Product> products = new ArrayList<>();
+        for(StoreCategory category:subCategories){
+            List<Product> categoryProducts = productRepository.findAllByStoreCategory(category);
+            for(Product product:categoryProducts){
+                products.add(product);
             }
         }
+        List<ProductDTO> productDTOS = productConverterImpl.entitiesToDTOs(products);
+        return productDTOS;
+    }
+
+    @Override
+    public List<ProductDTO> getAllProductDtosByStoreSubCategory(String categoryName) {
+        StoreCategory storeCategory = storeCategoryRepository.findByName(categoryName);
+        List<Product> products = productRepository.findAllByStoreCategory(storeCategory);
+        List<ProductDTO> productDTOS = productConverterImpl.entitiesToDTOs(products);
         return productDTOS;
     }
 

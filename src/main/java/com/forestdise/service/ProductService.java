@@ -10,6 +10,9 @@ import java.util.List;
 
 public interface ProductService {
 
+    public List<ProductDTO> getAllProductDtosByStore(Long id);
+    List<ProductDTO> getAllProductDtosByStoreCategory(String categoryName);
+    List<ProductDTO> getAllProductDtosByStoreSubCategory(String categoryName);
      ProductDTO getProductById(Long id);
      List<ProductDTO> getAllProductDtos();
      List<VariantDTO> getVariantsByProductId(Long productId);
