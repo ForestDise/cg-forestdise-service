@@ -22,6 +22,8 @@ public interface VariantService {
      Page<VariantDTO> getVariantsByNameContainingAndPriceBetween(String text, double minPrice, double maxPrice, Pageable pageable );
      Page<VariantDTO> getVariantsBySearchTextAndRating(String text, long star, Pageable pageable);
 
-    public VariantDTO createRawVariant(List<Long> valueIdList, Long productId);
-     Page<VariantDTO> getNewestVariantsByText(String text, Pageable pageable);
+     VariantDTO createRawVariant(List<Long> valueIdList, Long productId);
+     VariantDTO getVariantInfoById(Long id);
+    Page<VariantDTO> getNewestVariantsByText(String text, Pageable pageable);
+
 }

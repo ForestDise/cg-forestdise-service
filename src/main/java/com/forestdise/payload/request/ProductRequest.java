@@ -1,8 +1,12 @@
 package com.forestdise.payload.request;
 
-import lombok.Getter;
+import lombok.*;
 
-@Getter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+
 public class ProductRequest {
     private String title;
     private String description;

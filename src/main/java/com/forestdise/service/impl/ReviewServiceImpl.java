@@ -1,11 +1,13 @@
 package com.forestdise.service.impl;
 
+import com.forestdise.converter.UserConverter;
 import com.forestdise.converter.impl.OptionValueConverterImpl;
 import com.forestdise.converter.impl.ReviewConverterImpl;
 
 import com.forestdise.dto.*;
 import com.forestdise.entity.OptionValue;
 import com.forestdise.entity.Review;
+import com.forestdise.entity.User;
 import com.forestdise.entity.Variant;
 import com.forestdise.repository.ReviewRepository;
 import com.forestdise.repository.VariantRepository;
@@ -23,17 +25,20 @@ public class ReviewServiceImpl implements ReviewService {
     private final ReviewConverterImpl reviewConverter;
     private final VariantRepository variantRepository;
     private final OptionValueConverterImpl optionValueConverter;
+    private final UserConverter userConverter;
+
     @Autowired
     public ReviewServiceImpl(ReviewRepository reviewRepository,
                              ReviewConverterImpl reviewConverter,
                              VariantRepository variantRepository,
-                             OptionValueConverterImpl optionValueConverter
-                             ) {
+                             OptionValueConverterImpl optionValueConverter,
+                             UserConverter userConverter) {
 
         this.reviewRepository = reviewRepository;
         this.reviewConverter = reviewConverter;
         this.variantRepository = variantRepository;
         this.optionValueConverter = optionValueConverter;
+        this.userConverter = userConverter;
     }
 
     @Override
@@ -47,8 +52,15 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public List<ReviewDTO> getReviewsByVariantId(Long variantId) {
         List<Review> reviewList = reviewRepository.findByVariant_Id(variantId);
-        return reviewConverter.entitiesToDTOs(reviewList);
-
+        List<ReviewDTO> reviewDTOList = new ArrayList<>();
+        for( Review element : reviewList){
+            User user = element.getCustomer();
+            UserDTO userDTO = userConverter.entityToDTO(user);
+            ReviewDTO reviewDTO = reviewConverter.entityToDTO(element);
+            reviewDTO.setUserDto(userDTO);
+            reviewDTOList.add(reviewDTO);
+        }
+        return reviewDTOList;
 
     }
 
@@ -109,16 +121,17 @@ public class ReviewServiceImpl implements ReviewService {
                 }
             }
         }
-
-        RatingBreakdownDTO ratingBreakdownDTO = new RatingBreakdownDTO();
-        ratingBreakdownDTO.setFiveStar(new RatingDTO(countFiveStar,  ((double)(countFiveStar/total)*100)));
-        ratingBreakdownDTO.setFourStar(new RatingDTO(countFourStar, ( (double)countFourStar/total*100)));
-        ratingBreakdownDTO.setThreeStar(new RatingDTO(countThreeStar,  ((double)countThreeStar/total*100)));
-        ratingBreakdownDTO.setTwoStar(new RatingDTO(countTwoStar,  ((double)countTwoStar/total*100)));
-        ratingBreakdownDTO.setOneStar(new RatingDTO(countOneStar,  ((double)countOneStar/total*100)));
-        summaryDto.setRating((double) count /total);
-        summaryDto.setReviewsTotal(total);
-        summaryDto.setRatingBreakdown(ratingBreakdownDTO);
+        if(total > 0){
+            RatingBreakdownDTO ratingBreakdownDTO = new RatingBreakdownDTO();
+            ratingBreakdownDTO.setFiveStar(new RatingDTO(((double)countFiveStar/total*100),countFiveStar));
+            ratingBreakdownDTO.setFourStar(new RatingDTO(((double)countFourStar/total*100),countFourStar));
+            ratingBreakdownDTO.setThreeStar(new RatingDTO(((double)countThreeStar/total*100),countThreeStar));
+            ratingBreakdownDTO.setTwoStar(new RatingDTO(((double)countTwoStar/total*100),countTwoStar));
+            ratingBreakdownDTO.setOneStar(new RatingDTO(((double)countOneStar/total*100),countOneStar));
+            summaryDto.setRating((double) count /total);
+            summaryDto.setReviewsTotal(total);
+            summaryDto.setRatingBreakdown(ratingBreakdownDTO);
+        }
 
         return summaryDto;
 

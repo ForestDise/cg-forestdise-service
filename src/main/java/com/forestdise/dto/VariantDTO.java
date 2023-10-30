@@ -18,7 +18,7 @@ public class VariantDTO {
     private String skuCode;
     private int stockQuantity;
     private double weight;
-    private Double price;
+    private double price;
     private double salePrice;
     private String img;
     private List<OptionValueDTO> optionValueDTOList;

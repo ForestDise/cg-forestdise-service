@@ -10,19 +10,19 @@ import java.util.List;
 
 public interface ProductService {
 
-    public ProductDTO getProductById(Long id);
-    public List<ProductDTO> getAllProductDtos();
     public List<ProductDTO> getAllProductDtosByStore(Long id);
     List<ProductDTO> getAllProductDtosByStoreCategory(String categoryName);
     List<ProductDTO> getAllProductDtosByStoreSubCategory(String categoryName);
-    public List<VariantDTO> getVariantsByProductId(Long productId);
-    public StoreDTO getStoreByProductId(Long productId);
-    public List<OptionTableDTO> getOptionsByProductId(Long productId);
-    public List<ProductDTO> getProductsByContaining(String text);
-    public Product createProduct(Long storeId, Long categoryId, Long storeCategoryId, ProductDTO productDto);
+     ProductDTO getProductById(Long id);
+     List<ProductDTO> getAllProductDtos();
+     List<VariantDTO> getVariantsByProductId(Long productId);
+     StoreDTO getStoreByProductId(Long productId);
+     List<OptionTableDTO> getOptionsByProductId(Long productId);
+     List<ProductDTO> getProductsByContaining(String text);
+     Product createProduct(Long storeId, Long categoryId, Long storeCategoryId, ProductDTO productDto);
 
     List<ProductDTO> getProductsOfStoreByContaining(Long id, String text);
-    public Product updateProduct(ProductDTO productDto);
-    public void    deleteProduct(Long productId);
+     Product updateProduct(ProductDTO productDto);
+     void    deleteProduct(Long productId);
 
 }
