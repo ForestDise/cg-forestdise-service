@@ -1,11 +1,12 @@
 package com.forestdise.payload.response;
 
-import com.forestdise.dto.ProductDto;
+import com.forestdise.dto.VariantDTO;
+
 import lombok.Data;
-
-import java.util.List;
-
+import org.springframework.data.domain.Page;
 @Data
 public class SearchResponse {
-    private List<ProductDto> productDtos;
+    private Page<VariantDTO> variantDtoPage;
+
+
 }

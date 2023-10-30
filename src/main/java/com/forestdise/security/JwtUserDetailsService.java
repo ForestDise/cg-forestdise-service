@@ -1,9 +1,10 @@
 package com.forestdise.security;
 
-import com.forestdise.entity.Role;
+import com.forestdise.constraint.Role;
+import com.forestdise.entity.Seller;
 import com.forestdise.entity.User;
+import com.forestdise.repository.SellerRepository;
 import com.forestdise.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,56 +21,29 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private SellerRepository sellerRepository;
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);
-        UserDetails userDetails = new UserDetails() {
-            @Override
-            public Collection<? extends GrantedAuthority> getAuthorities() {
-                return null;
-            }
 
-            @Override
-            public String getPassword() {
-                return null;
-            }
-
-            @Override
-            public String getUsername() {
-                return null;
-            }
-
-            @Override
-            public boolean isAccountNonExpired() {
-                return false;
-            }
-
-            @Override
-            public boolean isAccountNonLocked() {
-                return false;
-            }
-
-            @Override
-            public boolean isCredentialsNonExpired() {
-                return false;
-            }
-
-            @Override
-            public boolean isEnabled() {
-                return false;
-            }
-        };
         if (user != null) {
             throw new UsernameNotFoundException("Email has already been registered");
         }else{
-            return userDetails;
+                return null;
         }
     }
 
-    public Collection< ? extends GrantedAuthority> mapRolesToAuthorities(Collection <Role> roles) {
-        Collection < ? extends GrantedAuthority> mapRoles = roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
-                .collect(Collectors.toList());
-        return mapRoles;
+    public UserDetails loadSellerByEmail(String email) throws UsernameNotFoundException {
+        Seller seller = sellerRepository.findByEmail(email);
+
+        if (seller != null) {
+            throw new UsernameNotFoundException("Email has already been registered");
+        }else{
+            return null;
+        }
     }
+
+
 }

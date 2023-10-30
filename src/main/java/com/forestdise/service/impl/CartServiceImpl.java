@@ -11,11 +11,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CartServiceImpl implements CartService {
-    @Autowired
-    CartRepository cartRepository;
+    private final CartRepository cartRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    UserRepository userRepository;
+    public CartServiceImpl(CartRepository cartRepository, UserRepository userRepository) {
+        this.cartRepository = cartRepository;
+        this.userRepository = userRepository;
+    }
 
     @Override
     public Cart createCart(UserRegisterDTO userDTO) {
@@ -28,13 +31,12 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Cart findCartByUserId(User user) {
-        Cart cart = cartRepository.findCartByUser(user);
-        return cart;
+        return cartRepository.findCartByUser(user);
+
     }
 
     @Override
     public Cart findById(Long id) {
-        Cart cart = cartRepository.findById(id).orElse(null);
-        return cart;
+        return cartRepository.findById(id).orElse(null);
     }
 }

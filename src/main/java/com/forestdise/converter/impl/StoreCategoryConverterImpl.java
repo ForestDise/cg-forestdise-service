@@ -2,7 +2,6 @@ package com.forestdise.converter.impl;
 
 import com.forestdise.converter.StoreCategoryConverter;
 import com.forestdise.dto.StoreCategoryDTO;
-import com.forestdise.dto.StoreDto;
 import com.forestdise.entity.StoreCategory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
@@ -22,6 +21,13 @@ public class StoreCategoryConverterImpl implements StoreCategoryConverter {
     @Override
     public StoreCategoryDTO convertEntityToDTO(StoreCategory element) {
         StoreCategoryDTO result = new StoreCategoryDTO();
+        BeanUtils.copyProperties(element, result);
+        return result;
+    }
+
+    @Override
+    public StoreCategory dtoToEntity(StoreCategoryDTO element) {
+        StoreCategory result = new StoreCategory();
         BeanUtils.copyProperties(element, result);
         return result;
     }

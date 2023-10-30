@@ -24,12 +24,13 @@ public class Store {
     private String logo;
     private String homeImage;
     private String dealsImage;
+    private String dealsSquareImage;
     private String interactiveImage;
 
     @ManyToOne
     @JoinColumn(name="seller_id")
     @JsonBackReference(value = "store_seller")
-    private User seller;
+    private Seller seller;
 
     @OneToMany(mappedBy = "store")
     @JsonManagedReference(value = "store_category")
