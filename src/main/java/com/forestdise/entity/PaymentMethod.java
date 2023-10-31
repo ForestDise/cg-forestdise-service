@@ -1,20 +1,6 @@
 package com.forestdise.entity;
 
-<<<<<<< HEAD
-import lombok.*;
-
-import javax.persistence.*;
-
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@Entity
-@Table(name = "PAYMENT_METHOD")
-=======
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,28 +21,11 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @Table(name = "payment_method")
->>>>>>> d896aab58be7ada5f2da5a280775d98b27ad67e1
 public class PaymentMethod {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-<<<<<<< HEAD
-    @Column(name = "card_number")
-    private String cardNumber;
-
-    @Column(name = "nameOnCard")
-    private String nameOnCard;
-
-    @Column(name = "expiration_date")
-    private String expirationDate;
-
-    @Column(name = "default_payment")
-    private boolean defaultPaynemt;
-
-    @OneToOne(mappedBy = "paymentMethod")
-    private ShopOrder shopOrder;
-=======
     private String cartNumber;
 
     private String nameOnCard;
@@ -72,5 +41,4 @@ public class PaymentMethod {
     @JoinColumn(name = "user_id", nullable=false)
     @JsonBackReference(value = "user_paymentMethod")
     private User user;
->>>>>>> d896aab58be7ada5f2da5a280775d98b27ad67e1
 }

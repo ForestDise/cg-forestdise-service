@@ -30,12 +30,8 @@ public class CartLineConverterImpl implements CartLineConverter {
     private VariantConverter variantConverter;
 
     @Autowired
-<<<<<<< HEAD
-    private IVariantService variantService;
-
-=======
     private VariantService variantService;
->>>>>>> d896aab58be7ada5f2da5a280775d98b27ad67e1
+
     @Override
     public CartLine convertDtoToEntity(CartLineDTO cartLineDto) {
         CartLine cartLine = new CartLine();

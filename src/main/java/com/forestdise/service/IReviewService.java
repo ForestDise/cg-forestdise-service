@@ -1,14 +1,14 @@
 package com.forestdise.service;
 
-import com.forestdise.dto.ReviewDto;
-import com.forestdise.dto.SummaryDto;
-import org.springframework.stereotype.Service;
+
+import com.forestdise.dto.ReviewDTO;
+import com.forestdise.dto.SummaryDTO;
 
 import java.util.List;
 
 public interface IReviewService {
-    public ReviewDto getReviewById(Long id);
-    public List<ReviewDto> getReviewsByVariantId(Long variantId);
-    public List<ReviewDto> getReviewsByProductId(Long productId);
-    public SummaryDto getSummaryDtoByProductId(Long productId);
+    public ReviewDTO getReviewById(Long id);
+    public List<ReviewDTO> getReviewsByVariantId(Long variantId);
+    public List<ReviewDTO> getReviewsByProductId(Long productId);
+    public SummaryDTO getSummaryDtoByProductId(Long productId);
 }

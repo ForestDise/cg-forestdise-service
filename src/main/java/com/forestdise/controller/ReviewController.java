@@ -1,14 +1,8 @@
 package com.forestdise.controller;
 
 import com.forestdise.payload.response.ReviewResponse;
-<<<<<<< HEAD
-import com.forestdise.service.IReviewService;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
-=======
 import com.forestdise.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
->>>>>>> d896aab58be7ada5f2da5a280775d98b27ad67e1
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

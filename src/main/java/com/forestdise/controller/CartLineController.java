@@ -20,22 +20,10 @@ import java.util.List;
 @RequestMapping("/api/cart-lines")
 @AllArgsConstructor
 public class CartLineController {
-<<<<<<< HEAD
     private CartLineService cartLineService;
     private CartService cartService;
     private UserService userService;
-=======
 
-
-    @Autowired
-    CartLineService cartLineService;
-
-    @Autowired
-    CartService cartService;
-
-    @Autowired
-    UserService userService;
->>>>>>> d896aab58be7ada5f2da5a280775d98b27ad67e1
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteCartLine(@PathVariable("id")Long cartLineId){

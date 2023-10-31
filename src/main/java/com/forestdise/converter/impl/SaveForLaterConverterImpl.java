@@ -32,9 +32,6 @@ public class SaveForLaterConverterImpl implements SaveForLaterConverter {
     @Autowired
     private VariantConverter variantConverter;
 
-<<<<<<< HEAD
-
-=======
     @Override
     public SaveForLater convertDtoToEntity(SaveForLaterDTO saveForLaterDto) {
         SaveForLater saveForLater = new SaveForLater();
@@ -45,7 +42,6 @@ public class SaveForLaterConverterImpl implements SaveForLaterConverter {
         saveForLater.setVariant(variant);
         return saveForLater;
     }
->>>>>>> d896aab58be7ada5f2da5a280775d98b27ad67e1
 
     @Override
     public SaveForLaterDTO convertEntityToDto(SaveForLater saveForLater) {
@@ -77,11 +73,6 @@ public class SaveForLaterConverterImpl implements SaveForLaterConverter {
 
     @Override
     public List<SaveForLater> convertDtoToEntities(List<SaveForLaterDTO> cartLineDtos) {
-        return null;
-    }
-
-    @Override
-    public SaveForLater convertDtoToEntity(SaveForLaterDto saveForLaterDto) {
         return null;
     }
 }
