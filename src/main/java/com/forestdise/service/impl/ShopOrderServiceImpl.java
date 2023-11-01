@@ -8,7 +8,6 @@ import com.forestdise.entity.ShopOrder;
 import com.forestdise.entity.User;
 import com.forestdise.entity.Variant;
 import com.forestdise.payload.request.ShopOrderRequest;
-import com.forestdise.payload.response.PaymentMethodResponse;
 import com.forestdise.payload.response.ShopOrderResponse;
 import com.forestdise.repository.AddressRepository;
 import com.forestdise.repository.PaymentMethodRepository;
@@ -24,7 +23,7 @@ import javax.transaction.Transactional;
 
 @Service
 @Transactional
-public class PaymentServiceImpl implements ShopOrderService {
+public class ShopOrderServiceImpl implements ShopOrderService {
 
     @Autowired
     private ShopOrderRepository shopOrderRepository;

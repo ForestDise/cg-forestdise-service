@@ -40,11 +40,4 @@ public class StoreController {
         return new ResponseEntity<>(storeDto1,HttpStatus.OK);
     }
 
-    @GetMapping("/{store_id}/search")
-    public ResponseEntity<List<ProductDTO>> getProductsByName(@RequestParam("name")String searchText, @PathVariable("store_id") Long storeId){
-        List<ProductDTO> productDTOList = productService.getProductsOfStoreByContaining(storeId, searchText);
-        return new ResponseEntity<>(productDTOList, HttpStatus.OK);
-    }
-
-
 }

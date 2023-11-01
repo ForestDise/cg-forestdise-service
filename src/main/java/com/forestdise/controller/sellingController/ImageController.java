@@ -33,7 +33,6 @@ public class ImageController {
                     .build();
             imageDtoList.add(imageDto);
         }
-
         List<Image> image =imageService.createImage(imageDtoList,variant_id);
         if (image != null) {
             imageCreateResponse.setMessage("Image created successfully");

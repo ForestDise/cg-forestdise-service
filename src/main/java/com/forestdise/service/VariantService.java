@@ -2,20 +2,26 @@ package com.forestdise.service;
 
 import com.forestdise.dto.VariantDTO;
 import com.forestdise.entity.Variant;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 
 public interface VariantService {
-    public VariantDTO getVariantById(Long id);
-    public List<VariantDTO> getVariantByProductId(Long product_id);
-    public Variant findById(Long id);
+     VariantDTO getVariantById(Long id);
+     List<VariantDTO> getVariantByProductId(Long product_id);
+     Variant findById(Long id);
 
-    public VariantDTO getLowestPriceVariantByProductId(Long product_id);
-    public VariantDTO getVariantByProductPriceMin(Long product_id);
-    public Variant createVariant(VariantDTO variantDto, Long product_id);
-    public Variant updateVariant(VariantDTO variantDto);
-    public void deleteVariant(Long variantId);
+     VariantDTO getLowestPriceVariantByProductId(Long product_id);
+     VariantDTO getVariantByProductPriceMin(Long product_id);
+     Variant createVariant(VariantDTO variantDto, Long product_id);
+     Variant updateVariant(VariantDTO variantDto);
+     void deleteVariant(Long variantId);
+     Page<VariantDTO> getVariantsByContaining(String text, Pageable pageable);
+     Page<VariantDTO> getVariantsByNameContainingAndPriceBetween(String text, double minPrice, double maxPrice, Pageable pageable );
+     Page<VariantDTO> getVariantsBySearchTextAndRating(String text, long star, Pageable pageable);
 
     public VariantDTO createRawVariant(List<Long> valueIdList, Long productId);
+     Page<VariantDTO> getNewestVariantsByText(String text, Pageable pageable);
 }
