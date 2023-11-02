@@ -27,6 +27,9 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "enabled")
+    private boolean enabled;
+
     @OneToMany(mappedBy = "user")
     @JsonManagedReference(value = "address_user")
     private Set<Address> address;
