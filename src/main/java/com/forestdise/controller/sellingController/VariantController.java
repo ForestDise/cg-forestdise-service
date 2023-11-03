@@ -64,12 +64,12 @@ public class VariantController {
         }
     }
     @PutMapping("/update/{variant_id}")
-    public ResponseEntity<String> updateVariant(@PathVariable("variant_id") Long variant_id,@RequestBody VariantRequest variantRequest){
-        VariantDTO variantDto = variantService.getVariantById(variant_id);
-        if (variantDto == null) {
-            return new ResponseEntity<>("Variant not found", HttpStatus.NOT_FOUND);
-        }
-        variantDto = VariantDTO.builder()
+    public ResponseEntity<VariantDTO> updateVariant(@PathVariable("variant_id") Long variant_id,@RequestBody VariantRequest variantRequest){
+//        VariantDTO variantDto = variantService.getVariantById(variant_id);
+//        if (variantDto == null) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+        VariantDTO variantDto = VariantDTO.builder()
                 .name(variantRequest.getName())
                 .skuCode(variantRequest.getSkuCode())
                 .stockQuantity(variantRequest.getStockQuantity())
@@ -79,26 +79,24 @@ public class VariantController {
                 .img(variantRequest.getImg())
                 .build();
 
-        Variant variant =variantService.updateVariant(variantDto);
-        if (variant != null) {
-            return new ResponseEntity<>("Variant updated successfully", HttpStatus.CREATED);
+        VariantDTO variantDTO = variantService.updateVariant(variant_id,variantDto);
+        if (variantDTO != null) {
+            return new ResponseEntity<>(variantDTO, HttpStatus.CREATED);
         } else {
-            return new ResponseEntity<>("Failed to update Variant",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
     @DeleteMapping("/delete/{variant_id}")
-    public ResponseEntity<String> deleteVariant(@PathVariable("variant_id") Long variant_Id) {
+    public ResponseEntity<Long> deleteVariant(@PathVariable("variant_id") Long variant_Id) {
         VariantDTO variantDto = variantService.getVariantById(variant_Id);
-
         if (variantDto == null) {
-            return new ResponseEntity<>("Variant not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
         try {
             variantService.deleteVariant(variant_Id);
-            return new ResponseEntity<>("Variant deleted successfully", HttpStatus.OK);
+            return new ResponseEntity<>(variant_Id, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("Failed to delete Variant", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
