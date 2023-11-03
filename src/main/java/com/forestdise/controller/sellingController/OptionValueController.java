@@ -13,14 +13,14 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/api/option-value/{option_id}")
+@RequestMapping("/api/option-value")
 public class OptionValueController {
     private final OptionValueServiceImpl optionValueService;
     @Autowired
     public OptionValueController(OptionValueServiceImpl optionValueService ) {
         this.optionValueService = optionValueService;
     }
-    @PostMapping("/create")
+    @PostMapping("/{option_id}/create")
     public ResponseEntity<OptionValueCreateResponse> createOptionValue(@RequestBody List<String> valueRequest, @PathVariable("option_id") Long option_id){
         OptionValueCreateResponse optionValueCreateResponse= new OptionValueCreateResponse();
         List<OptionValueDTO> optionValueDtoList = new ArrayList<>();
@@ -40,4 +40,6 @@ public class OptionValueController {
             return new ResponseEntity<>(optionValueCreateResponse,HttpStatus.BAD_REQUEST);
         }
     }
+//    @GetMapping("/{variantId}")
+//    public ResponseEntity<> getOptionValueListByVariantI()
 }

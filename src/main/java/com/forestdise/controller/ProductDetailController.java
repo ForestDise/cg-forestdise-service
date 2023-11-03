@@ -50,8 +50,6 @@ public class ProductDetailController {
         productDetailResponse.setOptionTableDto(productServiceImpl.getOptionsByProductId(productId));
         productDetailResponse.setVariantDTOList(variantServiceImpl.getVariantByProductId(productId));
         productDetailResponse.setProductAttributeDTOList(productAttributeServiceImpl.getProductAttributeByProductId(productId));
-        productDetailResponse.setVariantDto(variantServiceImpl.getLowestPriceVariantByProductId(productId));
-        // lay variant lowest price by productId
         return ResponseEntity.ok(productDetailResponse);
     }
     @GetMapping("/{product_id}/{variant_id}")
@@ -67,7 +65,7 @@ public class ProductDetailController {
         return ResponseEntity.ok(variantDetailResponse);
     }
     @PostMapping("/create/{storeId}/{categoryId}/{storeCategoryId}")
-    public ResponseEntity<Product> createProduct(@PathVariable Long storeId,@PathVariable Long categoryId,@PathVariable Long storeCategoryId,@RequestBody ProductRequest productRequest) {
+    public ResponseEntity<Product> createProduct(@RequestBody ProductRequest productRequest,@PathVariable Long storeId,@PathVariable Long categoryId,@PathVariable Long storeCategoryId) {
 
         ProductDTO productDto = ProductDTO.builder()
                 .title(productRequest.getTitle())

@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/api/variant/{product_id}")
+@RequestMapping("/api/variant")
 public class VariantController {
     private final VariantServiceImpl variantService;
 
@@ -26,7 +26,7 @@ public class VariantController {
     }
 
     //createVariantByProductId, and ListValue
-    @PostMapping("/create")
+    @PostMapping("/{product_id}/create")
     public ResponseEntity<VariantRawResponse> createVariantWithListValue(@RequestBody List<Long> valueIdList, @PathVariable("product_id") Long product_id){
         VariantRawResponse variantRawResponse= new VariantRawResponse();
         VariantDTO variantDto = variantService.createRawVariant(valueIdList,product_id);
@@ -39,7 +39,7 @@ public class VariantController {
             return new ResponseEntity<>(variantRawResponse,HttpStatus.BAD_REQUEST);
         }
     }
-    @PostMapping("/create1")
+    @PostMapping("/{product_id}/create1")
     public ResponseEntity<VariantCreateResponse> createVariant(@RequestBody VariantRequest variantRequest,@PathVariable("product_id") Long product_id){
         VariantCreateResponse variantCreateResponse= new VariantCreateResponse();
         VariantDTO variantDto = VariantDTO.builder()
@@ -100,5 +100,11 @@ public class VariantController {
         } catch (Exception e) {
             return new ResponseEntity<>("Failed to delete Variant", HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("/{productId}")
+    public ResponseEntity<VariantDTO> getVariantById(@PathVariable("productId")Long productId){
+        VariantDTO variantDTO = variantService.getLowestPriceVariantByProductId(productId);
+        return new ResponseEntity<>(variantDTO, HttpStatus.OK);
     }
 }
