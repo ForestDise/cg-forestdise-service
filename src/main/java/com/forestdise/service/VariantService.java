@@ -16,7 +16,7 @@ public interface VariantService {
      VariantDTO getLowestPriceVariantByProductId(Long product_id);
      VariantDTO getVariantByProductPriceMin(Long product_id);
      Variant createVariant(VariantDTO variantDto, Long product_id);
-     Variant updateVariant(VariantDTO variantDto);
+     VariantDTO updateVariant(Long variantId,VariantDTO variantDto);
      void deleteVariant(Long variantId);
      Page<VariantDTO> getVariantsByContaining(String text, Pageable pageable);
      Page<VariantDTO> getVariantsByNameContainingAndPriceBetween(String text, double minPrice, double maxPrice, Pageable pageable );

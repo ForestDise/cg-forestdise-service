@@ -9,14 +9,19 @@ import com.forestdise.entity.OptionValue;
 import com.forestdise.entity.Review;
 import com.forestdise.entity.User;
 import com.forestdise.entity.Variant;
+import com.forestdise.payload.request.ReviewRequest;
+import com.forestdise.payload.response.ReviewCreateResponse;
 import com.forestdise.repository.ReviewRepository;
+import com.forestdise.repository.UserRepository;
 import com.forestdise.repository.VariantRepository;
 
 import com.forestdise.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -26,19 +31,23 @@ public class ReviewServiceImpl implements ReviewService {
     private final VariantRepository variantRepository;
     private final OptionValueConverterImpl optionValueConverter;
     private final UserConverter userConverter;
+    private final UserRepository userRepository;
 
     @Autowired
     public ReviewServiceImpl(ReviewRepository reviewRepository,
                              ReviewConverterImpl reviewConverter,
                              VariantRepository variantRepository,
                              OptionValueConverterImpl optionValueConverter,
-                             UserConverter userConverter) {
+                             UserConverter userConverter,
+                             UserRepository userRepository) {
 
         this.reviewRepository = reviewRepository;
         this.reviewConverter = reviewConverter;
         this.variantRepository = variantRepository;
         this.optionValueConverter = optionValueConverter;
         this.userConverter = userConverter;
+        this.userRepository = userRepository;
+
     }
 
     @Override
@@ -135,6 +144,28 @@ public class ReviewServiceImpl implements ReviewService {
 
         return summaryDto;
 
+    }
+
+    @Override
+    public ReviewDTO save(ReviewRequest reviewRequest, Long variantId, Long userId) {
+        Review review = Review.builder()
+                .variant(variantRepository.findById(variantId)
+                        .orElseThrow(() -> new EntityNotFoundException("variant not found")))
+                .customer(userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("user not found")))
+                .star(reviewRequest.getStar())
+                .title(reviewRequest.getTitle())
+                .content(reviewRequest.getContent())
+                .create_at(new Date())
+                .update_at(new Date())
+                .verified_shop(true)
+                .verified_admin(true)
+                .build();
+        Review review1 = reviewRepository.save(review);
+        User user = review1.getCustomer();
+        UserDTO userDTO = userConverter.entityToDTO(user);
+        ReviewDTO reviewDTO = reviewConverter.entityToDTO(review1);
+        reviewDTO.setUserDto(userDTO);
+        return reviewDTO;
     }
 
 }

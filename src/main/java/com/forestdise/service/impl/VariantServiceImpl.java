@@ -3,9 +3,7 @@ package com.forestdise.service.impl;
 import com.forestdise.converter.*;
 import com.forestdise.dto.*;
 import com.forestdise.entity.*;
-import com.forestdise.repository.OptionValueRepository;
-import com.forestdise.repository.ProductRepository;
-import com.forestdise.repository.VariantRepository;
+import com.forestdise.repository.*;
 import com.forestdise.service.ReviewService;
 import com.forestdise.service.VariantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,6 +42,10 @@ public class VariantServiceImpl implements VariantService {
     private UserConverter userConverter;
     @Autowired
     private ReviewService reviewService;
+    @Autowired
+    private ImageRepository imageRepository;
+    @Autowired
+    private VideoRepository videoRepository;
     public VariantDTO getVariantById(Long id) {
         return variantConverterImpl.entityToDTO(variantRepository.findById(id).orElse(null));
     }
@@ -110,12 +113,29 @@ public class VariantServiceImpl implements VariantService {
     }
 
     @Override
-    public Variant updateVariant(VariantDTO variantDto) {
-        Variant variant = variantConverterImpl.dtoToEntity(variantDto);
-        return variantRepository.save(variant);
+    public VariantDTO updateVariant(Long variantId,VariantDTO variantDto) {
+        Variant variant = variantRepository.findById(variantId).orElseThrow(() -> new EntityNotFoundException("variant not found"));
+        variant.setName(variantDto.getName());
+        variant.setSkuCode(variantDto.getSkuCode());
+        variant.setStockQuantity(variantDto.getStockQuantity());
+        variant.setWeight(variantDto.getWeight());
+        variant.setPrice(variantDto.getPrice());
+        variant.setSalePrice(variantDto.getSalePrice());
+        Variant variant1 = variantRepository.save(variant);
+        VariantDTO variantDTO = variantConverterImpl.entityToDTO(variant1);
+        return variantDTO;
     }
     @Override
     public void deleteVariant(Long variantId) {
+        Variant variant = variantRepository.findById(variantId).orElseThrow(() -> new EntityNotFoundException("variant not found"));
+        List<Image> images = variant.getImages();
+        List<Video> videos = variant.getVideos();
+        for(Image ele : images){
+            imageRepository.deleteById(ele.getId());
+        }
+        for(Image ele1 : images){
+            videoRepository.deleteById(ele1.getId());
+        }
         variantRepository.deleteById(variantId);
     }
     public Page<VariantDTO> getVariantsByContaining(String text, Pageable pageable){
