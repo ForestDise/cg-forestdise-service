@@ -27,7 +27,7 @@ public class PaymentMethod {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String cartNumber;
+    private int cartNumber;
 
     private String nameOnCard;
 

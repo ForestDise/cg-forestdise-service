@@ -15,11 +15,14 @@ import com.forestdise.repository.ShippingMethodRepository;
 import com.forestdise.repository.ShopOrderRepository;
 import com.forestdise.repository.UserRepository;
 import com.forestdise.repository.VariantRepository;
+import com.forestdise.service.EmailService;
 import com.forestdise.service.ShopOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -46,6 +49,9 @@ public class ShopOrderServiceImpl implements ShopOrderService {
     @Autowired
     private ShippingMethodRepository shippingMethodRepository;
 
+    @Autowired
+    private EmailService emailService;
+
     @Override
     public ShopOrderResponse findShopOrder(Long userId) {
         ShopOrder shopOrder = shopOrderRepository.findByUserId(userId);
@@ -53,19 +59,27 @@ public class ShopOrderServiceImpl implements ShopOrderService {
     }
 
     @Override
-    public ShopOrderResponse createShopOrder(ShopOrderRequest shopOrderRequest) {
-        ShopOrder shopOrder = shopOrderConverter.convertToEntity(shopOrderRequest);
-        User user = userRepository.findById(shopOrderRequest.getUserId()).get();
-        Variant variant = variantRepository.findById(shopOrderRequest.getVariantId()).get();
-        Address address = addressRepository.findById(shopOrderRequest.getAddressId()).get();
-        PaymentMethod paymentMethod = paymentMethodRepository.findById(shopOrderRequest.getPaymentMethodId()).get();
-        ShippingMethod shippingMethod = shippingMethodRepository.findById(shopOrderRequest.getShippingMethodId()).get();
-        shopOrder.setUser(user);
-        shopOrder.setVariant(variant);
-        shopOrder.setAddress(address);
-        shopOrder.setPaymentMethod(paymentMethod);
-        shopOrder.setShippingMethod(shippingMethod);
-        ShopOrder shopOrderNew = shopOrderRepository.save(shopOrder);
-        return shopOrderConverter.convertToDto(shopOrderNew);
+    public List<ShopOrderResponse> createShopOrder(List<ShopOrderRequest> shopOrderRequest) {
+        List<ShopOrderResponse> shopOrderResponseList = new ArrayList<>();
+        User user = new User();
+        for(ShopOrderRequest shopOrder: shopOrderRequest){
+            ShopOrder shopOrderOld = shopOrderConverter.convertToEntity(shopOrder);
+            User takeUser = userRepository.findById(shopOrder.getUserId()).get();
+            user = takeUser;
+            Variant variant = variantRepository.findById(shopOrder.getVariantId()).get();
+            Address address = addressRepository.findById(shopOrder.getAddressId()).get();
+            PaymentMethod paymentMethod = paymentMethodRepository.findById(shopOrder.getPaymentMethodId()).get();
+            ShippingMethod shippingMethod = shippingMethodRepository.findById(shopOrder.getShippingMethodId()).get();
+            shopOrderOld.setUser(takeUser);
+            shopOrderOld.setVariant(variant);
+            shopOrderOld.setAddress(address);
+            shopOrderOld.setPaymentMethod(paymentMethod);
+            shopOrderOld.setShippingMethod(shippingMethod);
+            ShopOrder shopOrderNew = shopOrderRepository.save(shopOrderOld);
+            ShopOrderResponse shopOrderResponse = shopOrderConverter.convertToDto(shopOrderNew);
+            shopOrderResponseList.add(shopOrderResponse);
+        }
+        emailService.sendPaymentEmail(user);
+        return shopOrderResponseList;
     }
 }

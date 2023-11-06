@@ -1,5 +1,8 @@
 package com.forestdise.controller;
 
+import com.forestdise.dto.ReviewDTO;
+import com.forestdise.payload.request.ReviewRequest;
+import com.forestdise.payload.response.ReviewCreateResponse;
 import com.forestdise.payload.response.ReviewResponse;
 import com.forestdise.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,11 @@ public class ReviewController {
         reviewResponse.setSummaryDto(reviewService.getSummaryDtoByProductId(productId));
         return new ResponseEntity<>(reviewResponse, HttpStatus.OK);
 
+    }
+    @PostMapping("/{userId}/{variantId}")
+    public ResponseEntity<ReviewDTO> createReview(@RequestBody ReviewRequest reviewRequest, @PathVariable("variantId") Long variantId, @PathVariable("userId") Long userId){
+        ReviewDTO response = reviewService.save(reviewRequest,variantId,userId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 

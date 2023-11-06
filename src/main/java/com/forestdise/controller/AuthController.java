@@ -6,11 +6,20 @@ import com.forestdise.dto.UserLoginDTO;
 import com.forestdise.dto.UserRegisterDTO;
 import com.forestdise.entity.Seller;
 import com.forestdise.entity.User;
+import com.forestdise.entity.VerificationToken;
+import com.forestdise.repository.UserRepository;
+import com.forestdise.repository.VerificationTokenRepository;
+import com.forestdise.service.EmailService;
 import com.forestdise.service.SellerService;
 import com.forestdise.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.net.URI;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -20,6 +29,12 @@ public class AuthController {
     private UserService userService;
     @Autowired
     private SellerService sellerService;
+    @Autowired
+    private EmailService emailService;
+    @Autowired
+    private VerificationTokenRepository verificationTokenRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserLoginDTO userLoginDto) {
@@ -30,7 +45,18 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserRegisterDTO userRegisterDto){
         User user = userService.register(userRegisterDto);
+        userService.createVerificationToken(user);
+        VerificationToken verificationToken = verificationTokenRepository.findByUser(user);
+        String token = verificationToken.getToken();
+        emailService.sendConfirmEmail(user, token);
         return ResponseEntity.ok(user);
+    }
+
+    @GetMapping("/register/confirmation")
+    public void verifyUser(@RequestParam(name = "token")String token, HttpServletResponse response) throws Exception{
+            VerificationToken verificationToken = verificationTokenRepository.findByToken(token);
+            userService.verifyToken(verificationToken, response);
+            response.sendRedirect("http://localhost:3000/confirm?status=success");
     }
 
     @PostMapping("/login/seller")

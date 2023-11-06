@@ -1,17 +1,16 @@
 package com.forestdise.payload.request;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaymentMethodRequest {
-    Long id;
-    Long userId;
-    int cartNumber;
-    String nameOnCard;
-    String expirationDate;
-    Boolean defaultPayment;
+@Builder
+public class ReviewRequest {
+    private int star;
+    private String title;
+    private String content;
 }
