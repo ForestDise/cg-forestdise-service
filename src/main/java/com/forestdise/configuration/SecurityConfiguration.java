@@ -45,7 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 antMatchers("/api/register/**", "/api/login/**",
                         "/api/products", "/api/product-detail/**",
                         "/api/cart-lines/**", "/api/cart/**",
-                        "/api/search/**",
+                        "/api/search/**", "/api/payments/**",
                         "/api/save-for-later/**", "/api/stores/**",
                         "/api/sellers/**","/api/variant/**","/api/image/**",
                         "/api/video/**","/api/option-value/**","/api/option/**",
