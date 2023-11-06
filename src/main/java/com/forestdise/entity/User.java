@@ -43,8 +43,8 @@ public class User {
     @OneToOne(mappedBy = "user")
     private Cart cart;
 
-    @OneToOne(mappedBy = "user")
-    private ShopOrder shopOrder;
+    @OneToMany(mappedBy = "user")
+    private Set<ShopOrder> shopOrders;
 
     @OneToMany(mappedBy = "customer")
     @JsonManagedReference(value = "user_review")

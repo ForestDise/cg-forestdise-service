@@ -9,10 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SellerDTO {
+public class PaymentMethodDto {
     private Long id;
-    private String sellerName;
-    private String email;
-    private String password;
-    private Double balance;
+    private String name;
+    private ShopOrderDto shopOrderDto;
 }

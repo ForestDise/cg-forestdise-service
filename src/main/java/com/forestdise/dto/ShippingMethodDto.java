@@ -6,13 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SellerDTO {
+@Builder
+public class ShippingMethodDto {
     private Long id;
-    private String sellerName;
-    private String email;
-    private String password;
-    private Double balance;
+    private String name;
+    private Double price;
+    private ShopOrderDto shopOrderDto;
 }

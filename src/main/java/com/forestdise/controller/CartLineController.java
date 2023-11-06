@@ -7,6 +7,7 @@ import com.forestdise.payload.request.CartLineRequest;
 import com.forestdise.service.CartLineService;
 import com.forestdise.service.CartService;
 import com.forestdise.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,17 +18,12 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/cart-lines")
+@AllArgsConstructor
 public class CartLineController {
+    private CartLineService cartLineService;
+    private CartService cartService;
+    private UserService userService;
 
-
-    @Autowired
-    CartLineService cartLineService;
-
-    @Autowired
-    CartService cartService;
-
-    @Autowired
-    UserService userService;
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteCartLine(@PathVariable("id")Long cartLineId){

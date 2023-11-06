@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +26,7 @@ public class ShopOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -44,11 +43,11 @@ public class ShopOrder {
     @JsonBackReference(value = "address_shopOrder")
     private Address address;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "payment_method_id")
     private PaymentMethod paymentMethod;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "shipping_method_id")
     private ShippingMethod shippingMethod;
 
