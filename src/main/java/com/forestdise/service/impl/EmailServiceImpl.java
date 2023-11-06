@@ -2,6 +2,7 @@ package com.forestdise.service.impl;
 
 import com.forestdise.entity.User;
 import com.forestdise.entity.VerificationToken;
+import com.forestdise.repository.UserRepository;
 import com.forestdise.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;

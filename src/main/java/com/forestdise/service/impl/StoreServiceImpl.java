@@ -62,7 +62,7 @@ public class StoreServiceImpl implements StoreService {
                 () -> new UsernameNotFoundException("seller not found"));
         Store store = new Store();
         store.setName(storeDto.getName());
-        store.setDealsImage("https://assets-metrostyle.abs-cbn.com/prod/metro.style/media/assets/most-handsome-korean-actors-banner.jpg?ext=.jpg");
+        store.setDealsImage("https://m.media-amazon.com/images/S/al-na-9d5791cf-3faf/1f6cbd86-1e6a-42d5-bd7c-e137bfef3fc6._CR0%2C0%2C3000%2C600_SX1920_.jpg");
         store.setHomeImage("https://congluan-cdn.congluan.vn/files/dieulinh/2020/07/16/st2-0904.jpg");
         store.setDealsSquareImage("https://i.ytimg.com/vi/YczCAwQ3wgs/maxresdefault.jpg");
         store.setInteractiveImage("https://png.pngtree.com/background/20210715/original/pngtree-black-friday-neon-lights-pink-background-banner-picture-image_1266832.jpg");
