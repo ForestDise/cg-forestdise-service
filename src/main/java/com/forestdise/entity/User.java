@@ -31,7 +31,7 @@ public class User {
     private boolean enabled;
 
     @OneToMany(mappedBy = "user")
-    @JsonManagedReference(value = "address_user")
+    @JsonManagedReference(value = "user_address")
     private Set<Address> address;
 
     @Column(name = "email")

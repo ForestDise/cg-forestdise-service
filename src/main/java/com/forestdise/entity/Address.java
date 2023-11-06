@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.Set;
 
@@ -39,12 +38,12 @@ public class Address {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonBackReference(value = "address_user")
+    @JsonBackReference(value = "user_address")
     private User user;
 
     @ManyToOne
     @JoinColumn(name="seller_id")
-    @JsonBackReference(value = "address_seller")
+    @JsonBackReference(value = "seller_address")
     private Seller seller;
 
     @OneToMany(mappedBy = "address")

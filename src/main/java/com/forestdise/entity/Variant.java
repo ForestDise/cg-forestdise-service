@@ -60,6 +60,7 @@ public class Variant {
     private List<Review> reviews;
 
     @OneToMany(mappedBy = "variant")
+    @JsonManagedReference(value = "variant_shopOrder")
     private Set<ShopOrder> shopOrders;
 }
 

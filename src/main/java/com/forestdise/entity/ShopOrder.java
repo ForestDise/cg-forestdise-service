@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,6 +36,7 @@ public class ShopOrder {
     @JsonBackReference(value = "variant_shopOrder")
     private Variant variant;
 
+    @Column(name = "order_date")
     private String orderDate;
 
     @ManyToOne
@@ -52,5 +54,6 @@ public class ShopOrder {
 
     private int quantity;
 
+    @Column(name = "order_total")
     private Double orderTotal;
 }
