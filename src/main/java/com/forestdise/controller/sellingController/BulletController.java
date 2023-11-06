@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://forestdise.vercel.app")
 @RequestMapping("/api/bullet/{product_id}")
 public class BulletController {
 

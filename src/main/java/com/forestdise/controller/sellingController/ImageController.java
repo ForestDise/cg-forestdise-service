@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://forestdise.vercel.app")
 @RequestMapping("/api/image/{variant_id}")
 public class ImageController {
     public final ImageServiceImpl imageService;

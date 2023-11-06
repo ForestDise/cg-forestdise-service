@@ -10,8 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("api/users")
+@CrossOrigin(origins = "https://forestdise.vercel.app")
+@RequestMapping("/api/users")
 public class UserController {
     @Autowired
     private UserRepository userRepository;

@@ -15,7 +15,7 @@ import java.util.Calendar;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://forestdise.vercel.app")
 @RequestMapping("/api/product-detail")
 public class ProductDetailController {
     private final ImageService imageServiceImpl;

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://forestdise.vercel.app")
 @RequestMapping("/api/option-value")
 public class OptionValueController {
     private final OptionValueServiceImpl optionValueService;

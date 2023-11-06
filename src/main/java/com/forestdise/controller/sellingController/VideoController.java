@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://forestdise.vercel.app")
 @RequestMapping("/api/video/{variant_id}")
 public class VideoController {
     private final VideoServiceImpl videoService;

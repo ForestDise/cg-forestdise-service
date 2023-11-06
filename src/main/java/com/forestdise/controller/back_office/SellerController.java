@@ -10,8 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("api/sellers")
+@CrossOrigin(origins = "https://forestdise.vercel.app")
+@RequestMapping("/api/sellers")
 public class SellerController {
     @Autowired
     private SellerRepository sellerRepository;

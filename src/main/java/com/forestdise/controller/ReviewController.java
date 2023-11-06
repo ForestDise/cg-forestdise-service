@@ -11,8 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("api/reviews")
+@CrossOrigin(origins = "https://forestdise.vercel.app")
+@RequestMapping("/api/reviews")
 public class ReviewController {
     @Autowired
     private ReviewService reviewService;

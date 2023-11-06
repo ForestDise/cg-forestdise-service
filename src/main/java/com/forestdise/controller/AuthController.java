@@ -22,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("api")
+@CrossOrigin(origins = "https://forestdise.vercel.app")
+@RequestMapping("/api")
 public class AuthController {
     @Autowired
     private UserService userService;

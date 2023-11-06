@@ -9,8 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("api/cart")
+@CrossOrigin(origins = "https://forestdise.vercel.app")
+@RequestMapping("/api/cart")
 @AllArgsConstructor
 public class CartController {
     private CartService cartService;
