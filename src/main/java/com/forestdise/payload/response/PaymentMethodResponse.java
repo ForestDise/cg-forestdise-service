@@ -13,7 +13,7 @@ public class PaymentMethodResponse {
 
     private Long id;
 
-    private String cartNumber;
+    private int cartNumber;
 
     private String nameOnCard;
 

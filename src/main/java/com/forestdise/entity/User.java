@@ -31,7 +31,7 @@ public class User {
     private boolean enabled;
 
     @OneToMany(mappedBy = "user")
-    @JsonManagedReference(value = "address_user")
+    @JsonManagedReference(value = "user_address")
     private Set<Address> address;
 
     @Column(name = "email")
@@ -43,8 +43,8 @@ public class User {
     @OneToOne(mappedBy = "user")
     private Cart cart;
 
-    @OneToOne(mappedBy = "user")
-    private ShopOrder shopOrder;
+    @OneToMany(mappedBy = "user")
+    private Set<ShopOrder> shopOrders;
 
     @OneToMany(mappedBy = "customer")
     @JsonManagedReference(value = "user_review")

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class PaymentMethodRequest {
     Long id;
     Long userId;
-    String cartNumber;
+    int cartNumber;
     String nameOnCard;
     String expirationDate;
     Boolean defaultPayment;
