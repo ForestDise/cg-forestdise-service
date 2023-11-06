@@ -3,5 +3,5 @@ CREATE TABLE IF NOT EXISTS PRODUCTATTRIBUTE (
                                   NAME VARCHAR(255),
                                   VALUE VARCHAR(255),
                                   PRODUCT_ID INT,
-                                  FOREIGN KEY (product_id) REFERENCES product(id)
+                                  FOREIGN KEY (PRODUCT_ID) REFERENCES PRODUCT(ID)
 );
