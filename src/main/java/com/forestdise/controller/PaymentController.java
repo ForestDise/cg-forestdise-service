@@ -49,8 +49,8 @@ public class PaymentController {
     }
 
     @PostMapping
-    private ResponseEntity<ShopOrderResponse> createShopOrder(@RequestBody ShopOrderRequest shopOrderRequest){
-        ShopOrderResponse shopOrderResponse = shopOrderService.createShopOrder(shopOrderRequest);
+    private ResponseEntity<List<ShopOrderResponse>> createShopOrder(@RequestBody List<ShopOrderRequest> shopOrderRequest){
+        List<ShopOrderResponse> shopOrderResponse = shopOrderService.createShopOrder(shopOrderRequest);
         return new ResponseEntity<>(shopOrderResponse, HttpStatus.CREATED);
     }
 
@@ -79,7 +79,7 @@ public class PaymentController {
     }
 
     @PostMapping("/payment-method")
-    private ResponseEntity<PaymentMethodResponse> createAddress(@RequestBody PaymentMethodRequest paymentMethodRequest){
+    private ResponseEntity<PaymentMethodResponse> createPaymentMethod(@RequestBody PaymentMethodRequest paymentMethodRequest){
         PaymentMethodResponse paymentMethodResponse = paymentMethodService.createPaymentMethod(paymentMethodRequest);
         return new ResponseEntity<>(paymentMethodResponse, HttpStatus.CREATED);
     }

@@ -49,8 +49,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/api/save-for-later/**", "/api/stores/**",
                         "/api/sellers/**","/api/variant/**","/api/image/**",
                         "/api/video/**","/api/option-value/**","/api/option/**",
-                        "/api/category/**","/api/store-category/**","/api/bullet/**","/api/attribute/**","/api/hashtag/**")
-                .antMatchers(HttpMethod.GET, "/api/products", "/api/users/**", "/api/cart-lines/**","/api/reviews/**","/api/sellers/**","/api/stores/**")
-                .antMatchers(HttpMethod.POST, "/api/products", "/api/users/**", "/api/cart-lines/**","/api/reviews/**","/api/sellers/**","/api/stores/**");
+                        "/api/category/**","/api/store-category/**","/api/bullet/**",
+                        "/api/attribute/**","/api/hashtag/**","/api/payments/**")
+                .antMatchers(HttpMethod.GET, "/api/products", "/api/users/**", "/api/cart-lines/**","/api/search/**","/api/reviews/**","/api/sellers/**","/api/stores/**","/api/payments/**")
+                .antMatchers(HttpMethod.POST, "/api/products", "/api/users/**", "/api/cart-lines/**","/api/search/**","/api/reviews/**","/api/sellers/**","/api/stores/**","/api/payments/**");
     }
 }

@@ -16,7 +16,6 @@ import javax.transaction.Transactional;
 
 @Component
 @Transactional
-@RequiredArgsConstructor
 public class ShopOrderConverterImpl implements ShopOrderConverter {
     @Autowired
     private AddressConverter addressConverter;
